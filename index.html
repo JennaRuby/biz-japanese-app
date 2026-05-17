@@ -124,7 +124,7 @@
         .zoom-feed .avatar { font-size: 44px; margin-bottom: 4px; }
         .zoom-feed .name-tag { position: absolute; bottom: 8px; left: 8px; background: rgba(0,0,0,0.6); padding: 2px 8px; border-radius: 6px; font-size: 13px; font-family: sans-serif; }
         
-        .zoom-chat-log { background: rgba(255,255,255,0.05); border-radius: 12px; height: 180px; overflow-y: auto; padding: 10px; display: flex; flex-direction: column; gap: 8px; font-size: 15px; font-family: sans-serif; }
+        .zoom-chat-log { background: rgba(255,255,255,0.05); border-radius: 12px; height: 220px; overflow-y: auto; padding: 10px; display: flex; flex-direction: column; gap: 8px; font-size: 15px; font-family: sans-serif; }
         .zoom-msg { margin-bottom: 4px; line-height: 1.4; }
         .zoom-msg.manager { color: #8ecae6; }
         .zoom-msg.user { color: #e9c46a; }
@@ -360,10 +360,10 @@
 
         for(let d=2; d<=totalDays; d++) {
             masterExpressions[d] = [
-                { js: ["スケジュールが", "変更に", "나리마시타"], js_pure: ["スケジュール가", "変更に", "なりました"], kr: "일정이 변경되었습니다", pron: "스케쥬-루가 헨코-니 나리마시타", comment: "프로젝트 스프린트 스케줄 변동 시 기한을 재동기화하는 문장입니다." },
-                { js: ["ご確認を", "お願いします"], kr: "확인 부탁드립니다", pron: "고카쿠닌오 오네가이시마스", comment: "보고제출물 가공 완료 후 검토 루프를 여는 정중한 피드백 요청어입니다." }
+                { js: ["スケジュールが", "変更に", "なりました"], kr: "일정이 변경되었습니다", pron: "스케쥬-루가 헨코-니 나리마시타", comment: "프로젝트 스프린트 스케줄 변동 시 기한을 재동기화하는 문장입니다." },
+                { js: ["ご確認을", "お願いします"], js_pure: ["ご確認を", "お願いします"], kr: "확인 부탁드립니다", pron: "고카쿠닌오 오네가이시마스", comment: "보고제출물 가공 완료 후 검토 루프를 여는 정중한 피드백 요청어입니다." }
             ];
-            masterExpressions[d][0].js = ["スケジュールが", "変更に", "나りました"];
+            masterExpressions[d][1].js = ["ご確認を", "お願いします"];
         }
 
         window.onload = function() {
@@ -377,9 +377,9 @@
         };
 
         function saveApiKey() {
-            const val = document.getElementById('apiKeyField').value;
+            const val = document.getElementById('apiKeyField').value.trim();
             localStorage.setItem('gemini_api_key_v3', val);
-            alert("API Key 가 안전하게 클라이언트 스토리지에 동기화되었습니다! 🔑");
+            alert("API Key가 저장되었습니다! 🔑");
         }
 
         function initSelectors() {
@@ -472,7 +472,6 @@
             if(activeLearningMode === 'card') { renderFlipCards(); }
         }
 
-        /* 📡 [통신 규격 교정 완료] v1 정식 배포 경로 및 모델 식별자 맵 */
         async function startZoomMeeting() {
             const apiKey = localStorage.getItem('gemini_api_key_v3');
             if(!apiKey) { alert("상단에서 Gemini API 인증 키를 먼저 세팅해 주세요!"); return; }
@@ -493,19 +492,26 @@
             callGeminiLive();
         }
 
+        /* 📡 서버 에러 메시지를 가로채서 화면에 직접 투사하는 추적 엔진 */
         async function callGeminiLive() {
-            const apiKey = localStorage.getItem('gemini_api_key_v3');
+            const apiKey = localStorage.getItem('gemini_api_key_v3').trim();
             const logZone = document.getElementById('zoomChatLog');
             document.getElementById('feedManager').classList.add('active-speaker');
 
             try {
-                // 모델명을 gemini-1.5-flash-latest로 확장하고 경로를 /v1/ 정식 규격으로 교정 완료
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`, {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ contents: zoomConversationHistory })
                 });
                 
+                // 🛑 구글 서버 응답이 실패(404, 400 등)인 경우 디버깅 텍스트 추출
+                if (!response.ok) {
+                    const errorResponseData = await response.json().catch(() => ({}));
+                    const exactServerMessage = errorResponseData.error?.message || "정의되지 않은 서버 에러";
+                    throw new Error(`구글 서버 반환코드 (${response.status}): ${exactServerMessage}`);
+                }
+
                 const data = await response.json();
                 const reply = data.candidates[0].content.parts[0].text;
                 
@@ -527,7 +533,9 @@
 
                 executeNativeTTS(jpLine);
             } catch(e) {
-                logZone.innerHTML += '<div class="zoom-msg user">❌ API 통신 결함 발생. 키와 네트워크 도메인을 다시 체킹해 주세요.</div>';
+                // 🚨 가공된 구체적 서버 에러 메시지를 타임라인에 즉각 인쇄
+                console.error("실제 내부 상세 트래킹:", e);
+                logZone.innerHTML += `<div class="zoom-msg user" style="color:#ff8b8b; font-weight:700;">❌ 구동 오류 안내:<br>${e.message}</div>`;
             } finally {
                 document.getElementById('feedManager').classList.remove('active-speaker');
             }
@@ -620,7 +628,3 @@
     </script>
 </body>
 </html>
-} catch(e) {
-    console.error("구글 서버의 실제 리포트:", e); // 이 줄을 추가해 진짜 에러를 추적합니다.
-    logZone.innerHTML += '<div class="zoom-msg user">❌ API 통신 결함 발생. 키를 다시 체킹해 주세요.</div>';
-}

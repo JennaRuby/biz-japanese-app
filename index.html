@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>비즈니스 일본어 30일 마스터 앱</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Poppins:wght@600;700&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1e40af;
+            --primary-light: #eff6ff;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --border: #e2e8f0;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --success: #16a34a;
+            --success-bg: #f0fdf4;
+            --error: #dc2626;
+            --error-bg: #fef2f2;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background-color: var(--bg); color: var(--text-main); font-family: 'Noto Sans KR', sans-serif; display: flex; justify-content: center; padding: 40px 20px; }
+
+        .app-container {
+            width: 100%;
+            max-width: 1200px;
+            background-color: var(--surface);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            display: flex;
+            flex-direction: column;
+            min-height: 800px;
+            border: 1px solid var(--border);
+        }
+
+        .app-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .app-header h1 { font-family: 'Poppins', sans-serif; font-size: 24px; font-weight: 700; letter-spacing: -0.5px; }
+        .nav-tabs { display: flex; gap: 10px; }
+        .nav-btn { background: none; border: none; color: rgba(255,255,255,0.7); padding: 10px 20px; font-size: 16px; font-weight: 500; cursor: pointer; border-radius: 8px; transition: all 0.2s; }
+        .nav-btn:hover { color: white; background-color: rgba(255,255,255,0.1); }
+        .nav-btn.active { color: white; background-color: rgba(0,0,0,0.2); font-weight: 700; }
+
+        .app-content { flex-grow: 1; padding: 40px; display: none; }
+        .app-content.active { display: block; }
+
+        .progress-banner { background-color: var(--primary-light); border: 1px solid #dbeafe; border-radius: 16px; padding: 20px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center; }
+        .progress-text { font-size: 18px; font-weight: 700; color: var(--primary); }
+
+        .roadmap-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; }
+        @media (max-width: 992px) { .roadmap-grid { grid-template-columns: repeat(3, 1fr); } }
+        @media (max-width: 576px) { .roadmap-grid { grid-template-columns: repeat(1, 1fr); } }
+        
+        .day-card { background-color: #ffffff; border: 1px solid var(--border); border-radius: 16px; padding: 20px; cursor: pointer; transition: all 0.2s; position: relative; }
+        .day-card:hover { transform: translateY(-3px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05); border-color: var(--primary); }
+        .day-card.completed { background-color: var(--success-bg); border-color: var(--success); }
+        .day-card.completed .day-num { color: var(--success); }
+        .day-card.current { border-color: var(--primary); background-color: #fff; box-shadow: 0 0 0 2px var(--primary); }
+        .day-card.current .day-num { color: var(--primary); }
+        
+        .day-num { font-family: 'Poppins', sans-serif; font-size: 28px; font-weight: 700; color: #cbd5e1; }
+        .day-title { font-size: 15px; font-weight: 700; margin-top: 5px; color: var(--text-main); }
+        .day-status { font-size: 12px; margin-top: 10px; font-weight: 500; color: var(--text-muted); display: flex; align-items: center; gap: 5px; }
+        .day-card.completed .day-status { color: var(--success); }
+
+        .quiz-box { background-color: #ffffff; border-radius: 20px; padding: 40px; border: 1px solid var(--border); margin-top: 20px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); }
+        .quiz-header { font-size: 18px; font-weight: 700; color: var(--text-main); margin-bottom: 25px; display: flex; align-items: center; gap: 10px; }
+        
+        .answer-zone { background-color: var(--bg); border: 2px dashed #cbd5e1; min-height: 80px; border-radius: 12px; display: flex; gap: 10px; align-items: center; justify-content: center; padding: 15px; margin-bottom: 30px; transition: all 0.2s; }
+        .answer-zone.correct { border-color: var(--success); background-color: var(--success-bg); }
+        .answer-zone.wrong { border-color: var(--error); background-color: var(--error-bg); }
+        
+        .word-pool { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 30px; }
+        .word-chip { background-color: white; border: 1px solid var(--border); color: var(--text-main); padding: 12px 24px; border-radius: 12px; font-size: 18px; font-weight: 500; cursor: pointer; user-select: none; transition: all 0.15s; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        .word-chip:hover { transform: translateY(-2px); border-color: var(--primary); color: var(--primary); background-color: var(--primary-light); }
+        .word-chip.selected { opacity: 0.3; cursor: not-allowed; pointer-events: none; }
+        
+        .placed-chip { background-color: var(--primary); color: white; padding: 10px 20px; border-radius: 8px; font-size: 18px; font-weight: 700; animation: pop 0.2s ease-out; }
+        
+        .quiz-controls { display: flex; gap: 15px; justify-content: center; }
+        .btn { padding: 14px 32px; border-radius: 12px; font-size: 16px; font-weight: 700; cursor: pointer; border: none; transition: all 0.2s; }
+        .btn-primary { background-color: var(--primary); color: white; }
+        .btn-primary:hover { background-color: #1d4ed8; }
+        .btn-secondary { background-color: #e2e8f0; color: #475569; }
+        .btn-secondary:hover { background-color: #cbd5e1; }
+
+        .feedback-msg { text-align: center; font-size: 18px; font-weight: 700; margin-top: 20px; display: none; }
+        .feedback-msg.active { display: block; }
+
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(15, 23, 42, 0.6); z-index: 100; justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(4px); }
+        .modal.active { display: flex; }
+        .modal-content { background-color: white; width: 100%; max-width: 600px; border-radius: 24px; padding: 40px; position: relative; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); border: 1px solid var(--border); }
+        .close-modal { position: absolute; top: 25px; right: 25px; background: none; border: none; font-size: 24px; cursor: pointer; color: var(--text-muted); }
+
+        .vocab-list-item { background: #ffffff; border: 1px solid var(--border); padding: 20px; border-radius: 12px; margin-bottom: 15px; border-left: 5px solid var(--primary); }
+        .vocab-list-item code { font-family: 'Roboto Mono', monospace; font-size: 20px; color: var(--text-main); display: block; margin-bottom: 5px; }
+
+        @keyframes pop { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <div class="app-header">
+            <h1><i class="fa-solid fa-briefcase"></i> BIZ JAPANESE 30일 완성</h1>
+            <div class="nav-tabs">
+                <button class="nav-btn active" onclick="switchTab('dashboard')">대시보드</button>
+                <button class="nav-btn" onclick="switchTab('quiz')">실전 퀴즈</button>
+                <button class="nav-btn" onclick="switchTab('vocab')">표현장</button>
+            </div>
+        </div>
+
+        <div id="dashboard" class="app-content active">
+            <div class="progress-banner">
+                <div class="progress-text" id="progressText">현재 진척도: 0% (0 / 30 Days 완료)</div>
+            </div>
+            <div class="roadmap-grid" id="roadmapGrid"></div>
+        </div>
+
+        <div id="quiz" class="app-content">
+            <h2 style="font-size: 24px; margin-bottom: 10px;"><i class="fa-solid fa-puzzle-piece"></i> 1일 차 검증: 단어 조각 조합</h2>
+            <p style="color: var(--text-muted); margin-bottom: 30px;">단어 조각들을 순서대로 완벽하게(100%) 조합해야 대시보드에 반영됩니다.</p>
+            
+            <div class="quiz-box">
+                <div class="quiz-header">
+                    <i class="fa-solid fa-circle-question" style="color: var(--primary);"></i>
+                    <span>Q. 팀장님의 지시를 받은 후 "알겠습니다. 언제까지 하면 되나요?"라고 답변하는 문장을 조립하세요.</span>
+                </div>
+                
+                <div class="answer-zone" id="answerZone"></div>
+                <div class="word-pool" id="wordPool"></div>
+                
+                <div class="quiz-controls">
+                    <button class="btn btn-secondary" onclick="clearAnswer()"><i class="fa-solid fa-rotate-left"></i> 초기화</button>
+                    <button class="btn btn-primary" onclick="checkAnswer()"><i class="fa-solid fa-check"></i> 정답 확인</button>
+                </div>
+                
+                <div class="feedback-msg" id="feedbackMsg"></div>
+            </div>
+        </div>
+
+        <div id="vocab" class="app-content">
+            <h2 style="font-size: 24px; margin-bottom: 20px;"><i class="fa-solid fa-vault"></i> 오늘 마스터한 표현 뱅크</h2>
+            <div class="vocab-list-item">
+                <code>いつまでにすればいいですか？</code>
+                <p><b>뜻:</b> 언제까지 하면 되나요? | <b>용도:</b> 데드라인(기한) 역제안 확인 프로토콜</p>
+            </div>
+            <div class="vocab-list-item">
+                <code>お疲れ様です</code>
+                <p><b>뜻:</b> 수고하십니다 | <b>용도:</b> 업무 중 복도 마주침 및 Slack 메시지 오프닝</p>
+            </div>
+            <div class="vocab-list-item">
+                <code>分かりました</code>
+                <p><b>뜻:</b> 알겠습니다 | <b>용도:</b> 지시 수락 시 반사적인 응답 신호</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="dayModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+            <h2 id="modalDayNum" style="font-family: 'Poppins'; color: var(--primary); font-size: 32px;">DAY 01</h2>
+            <h3 id="modalDayTitle" style="margin-top: 5px; margin-bottom: 20px; font-size: 22px;">출근 및 기한 확인</h3>
+            <div id="modalDayBody" style="font-size: 16px; color: #475569; line-height: 1.7;"></div>
+        </div>
+    </div>
+
+    <script>
+        // 30일 마스터 계획 데이터셋 정의
+        const totalDays = 30;
+        const curriculumTitles = {
+            1: "출근 및 기한 확인", 2: "트러블 발생 보고", 3: "리뷰 및 컨펌 요청",
+            4: "자리 비움 상태 공유", 5: "타 부서 협업 요청", 6: "주간 보고 및 Wrap-up",
+            7: "Week 1 종합 검증", 8: "Slack 비즈니스 DM", 9: "긴급 장애 상황 전파",
+            10: "온라인 미팅 접속", 11: "미팅 의견 동의/반대", 12: "발언권 및 의견 제안",
+            13: "회의록 작성 및 공유", 14: "Week 2 종합 검증", 15: "외부 이메일 기본 포맷",
+            16: "첨부파일 확인/일정 조율", 17: "전화 수신 및 담당자 연결", 18: "부재중 메모 요청",
+            19: "방문객 응대 및 안내", 20: "명함 교환 프로토콜", 21: "Week 3 종합 검증",
+            22: "일정 지연 사전 사과", 23: "시스템 오류 대응 요청", 24: "클라이언트 컴플레인 사과",
+            25: "마감 기한 연장 네고", 26: "미팅 일정 변경 양해", 27: "최종 컨펌 확정 표현",
+            28: "사내 종합 롤플레잉", 29: "외부 바이어 최종 네고", 30: "종합 졸업 테스트"
+        };
+
+        const quizData = {
+            correctOrder: ["分かりました", "いつまでに", "すれば", "いいですか"],
+            pool: ["すれば", "分かりました", "お疲れ様", "いいですか", "いつまでに"]
+        };
+
+        let currentAnswer = [];
+
+        window.onload = function() {
+            if(!localStorage.getItem('completedDays')) {
+                localStorage.setItem('completedDays', JSON.stringify([]));
+            }
+            renderRoadmap();
+            renderQuizPool();
+        };
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.app-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function renderRoadmap() {
+            const grid = document.getElementById('roadmapGrid');
+            const completedList = JSON.parse(localStorage.getItem('completedDays')) || [];
+            grid.innerHTML = '';
+
+            for(let i = 1; i <= totalDays; i++) {
+                const card = document.createElement('div');
+                let status = 'ready';
+                let icon = '<i class="fa-regular fa-circle"></i>';
+
+                if(completedList.includes(i)) {
+                    status = 'completed';
+                    icon = '<i class="fa-solid fa-circle-check"></i>';
+                } else if(i === completedList.length + 1) {
+                    status = 'current';
+                    icon = '<i class="fa-solid fa-spinner fa-spin"></i>';
+                }
+
+                card.className = `day-card ${status}`;
+                card.onclick = () => openModal(i);
+                card.innerHTML = `
+                    <div class="day-num">${String(i).padStart(2, '0')}</div>
+                    <div class="day-title">${curriculumTitles[i]}</div>
+                    <div class="day-status">${icon} ${status.toUpperCase()}</div>
+                `;
+                grid.appendChild(card);
+            }
+            
+            const progressPercent = Math.round((completedList.length / totalDays) * 100);
+            document.getElementById('progressText').innerText = `현재 진척도: ${progressPercent}% (${completedList.length} / ${totalDays} Days 완료)`;
+        }
+
+        function openModal(day) {
+            document.getElementById('modalDayNum').innerText = `DAY ${String(day).padStart(2, '0')}`;
+            document.getElementById('modalDayTitle').innerText = curriculumTitles[day];
+            
+            let bodyText = `Day ${day}의 상세 비즈니스 커리큘럼 구역입니다.<br><br>`;
+            if(day === 1) {
+                bodyText += `<b>핵심 구문:</b> 分かりました。いつまでにすればいいですか？<br>상사의 지시가 내려오는 순간 반사적으로 기한 데이터를 동기화하여 업무 누수를 방지하는 훈련입니다.`;
+            } else if(day === 2) {
+                bodyText += `<b>내일 배울 키워드 프리뷰:</b> 今ちょっとお時間よろしいですか？<br>에러나 예기치 못한 이슈가 발생했을 때 상사의 일정을 정중하게 방해하며 보고 창구를 확보하는 기법입니다.`;
+            } else {
+                bodyText += `성공적인 한 달 마스터를 위한 일일 집중 스나이핑 트레이닝과 상호작용 롤플레잉 데이터가 로드됩니다.`;
+            }
+            
+            document.getElementById('modalDayBody').innerHTML = bodyText;
+            document.getElementById('dayModal').classList.add('active');
+        }
+
+        function closeModal() { document.getElementById('dayModal').classList.remove('active'); }
+
+        function renderQuizPool() {
+            const poolZone = document.getElementById('wordPool');
+            poolZone.innerHTML = '';
+            quizData.pool.forEach((word, index) => {
+                const chip = document.createElement('div');
+                chip.className = 'word-chip';
+                chip.innerText = word;
+                chip.id = `chip-${index}`;
+                chip.onclick = () => {
+                    currentAnswer.push({word, id: `chip-${index}`});
+                    chip.classList.add('selected');
+                    updateAnswerZone();
+                };
+                poolZone.appendChild(chip);
+            });
+            updateAnswerZone();
+        }
+
+        function updateAnswerZone() {
+            const zone = document.getElementById('answerZone');
+            if(currentAnswer.length === 0) {
+                zone.innerHTML = '<span style="color: #cbd5e1; font-style: italic;">조각을 순서대로 클릭하여 문장을 채우세요.</span>';
+                return;
+            }
+            zone.innerHTML = '';
+            currentAnswer.forEach(item => {
+                const node = document.createElement('div');
+                node.className = 'placed-chip';
+                node.innerText = item.word;
+                zone.appendChild(node);
+            });
+        }
+
+        function clearAnswer() {
+            currentAnswer.forEach(item => document.getElementById(item.id).classList.remove('selected'));
+            currentAnswer = [];
+            updateAnswerZone();
+            document.getElementById('feedbackMsg').className = 'feedback-msg';
+            document.getElementById('answerZone').className = 'answer-zone';
+        }
+
+        function checkAnswer() {
+            const feedback = document.getElementById('feedbackMsg');
+            const zone = document.getElementById('answerZone');
+            const userOrder = currentAnswer.map(item => item.word);
+            
+            if(userOrder.length !== quizData.correctOrder.length) {
+                feedback.innerText = "⚠️ 모든 단어 조각을 연결해 주세요!";
+                feedback.style.color = "orange";
+                feedback.className = 'feedback-msg active';
+                return;
+            }
+
+            let isCorrect = true;
+            for(let i=0; i<quizData.correctOrder.length; i++) {
+                if(userOrder[i] !== quizData.correctOrder[i]) { isCorrect = false; break; }
+            }
+
+            if(isCorrect) {
+                feedback.innerText = "🎉 100% 퍼펙트! 1일 차 통과 도장이 대시보드에 찍혔습니다.";
+                feedback.style.color = var(--success);
+                zone.className = 'answer-zone correct';
+                
+                let completedList = JSON.parse(localStorage.getItem('completedDays')) || [];
+                if(!completedList.includes(1)) {
+                    completedList.push(1);
+                    localStorage.setItem('completedDays', JSON.stringify(completedList));
+                    renderRoadmap();
+                }
+            } else {
+                feedback.innerText = "❌ 순서가 맞지 않습니다. 완벽한 100% 정답을 위해 다시 조립해 보세요!";
+                feedback.style.color = "var(--error)";
+                zone.className = 'answer-zone wrong';
+            }
+            feedback.className = 'feedback-msg active';
+        }
+    </script>
+</body>
+</html>

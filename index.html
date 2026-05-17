@@ -90,17 +90,43 @@
 
         .pc-roadmap-view { display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; margin-top: 15px; }
 
-        .mobile-diary-view { display: none; min-height: 500px; }
-        .diary-sidebar { width: 45px; background-color: var(--primary-light); display: flex; flex-direction: column; border-right: 3px solid var(--primary); }
-        .week-tab {
-            flex: 1; display: flex; align-items: center; justify-content: center;
-            writing-mode: vertical-rl; text-orientation: upright;
-            font-family: 'Gaegu', cursive; font-size: 14px; font-weight: 700; cursor: pointer;
-            border-bottom: 1px solid rgba(0,0,0,0.08); background-color: var(--primary-light);
+        /* 📱 모바일 다이어리 수평 레이아웃 오버홀 및 아기자기한 테마 마감 */
+        .mobile-diary-view { display: none; flex-direction: column; gap: 16px; min-height: 500px; }
+        .mobile-week-nav { 
+            display: flex; 
+            gap: 8px; 
+            overflow-x: auto; 
+            padding: 4px 4px 10px 4px; 
+            scrollbar-width: none; 
         }
-        .week-tab.active { background-color: var(--surface); color: var(--primary); border-left: 4px solid var(--primary); width: 49px; z-index: 2; }
-        .diary-panel { flex: 1; padding: 15px 8px; background-color: var(--surface); }
-        .mobile-day-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .mobile-week-nav::-webkit-scrollbar { display: none; }
+        
+        .mobile-week-btn {
+            padding: 8px 16px;
+            background: white;
+            border: 2px solid var(--primary);
+            border-radius: 20px;
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--primary);
+            cursor: pointer;
+            white-space: nowrap;
+            box-shadow: 0 3px 0px var(--border);
+            transition: all 0.15s ease;
+            font-family: 'Gaegu';
+        }
+        .mobile-week-btn.active {
+            background-color: var(--primary);
+            color: white;
+            box-shadow: none;
+            transform: translateY(3px);
+        }
+
+        .diary-panel { flex: 1; padding: 5px 2px; }
+        .week-title-box { background: white; border: 2.5px dashed var(--primary); border-radius: 18px; padding: 14px; margin-bottom: 16px; text-align: center; box-shadow: 0 4px 0px var(--primary-light); }
+        .week-title-box h2 { font-size: 20px; color: var(--primary); font-weight: 700; }
+        .week-title-box p { font-size: 15px; color: var(--text-muted); margin-top: 3px; font-weight: 700; }
+        .mobile-day-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
 
         .day-card { 
             background-color: #ffffff; border: 2px solid var(--border); border-radius: 16px; 
@@ -109,7 +135,7 @@
             justify-content: space-between; min-height: 105px;
         }
         .day-card:hover { border-color: var(--primary); }
-        .day-card.completed { background-color: var(--success-bg); border-color: var(--success); }
+        .day-card.completed { background-color: var(--success-bg); border-color: var(--success); box-shadow: 0 3px 0px rgba(96, 108, 56, 0.15); }
         .day-num { font-family: 'Poppins', sans-serif; font-size: 22px; font-weight: 700; color: var(--accent); }
         .day-title { font-size: 15px; font-weight: 700; color: var(--text-main); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.2; }
         .day-status { font-size: 13px; font-weight: 700; color: var(--text-muted); }
@@ -119,7 +145,6 @@
         .api-input-row { display: flex; gap: 10px; margin-top: 5px; }
         .api-input { flex: 1; padding: 8px; border-radius: 8px; border: 1px solid var(--primary); font-size: 14px; }
 
-        /* 🎨 라이트 미니멀 인프라 구조 오버홀 */
         .coaching-canvas { background-color: var(--coaching-light); border: 3px solid var(--primary); border-radius: 20px; padding: 16px; display: flex; flex-direction: column; gap: 12px; margin-bottom: 15px; box-shadow: inset 0 2px 8px rgba(0,0,0,0.02); }
         .speaker-badge-bar { display: flex; gap: 10px; background: white; padding: 10px 15px; border-radius: 14px; border: 2px solid var(--border); }
         .badge-tile { flex: 1; display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 700; color: var(--text-main); }
@@ -137,10 +162,6 @@
         .mic-toggle-trigger { background: white; border: 3px solid var(--primary); color: var(--primary); padding: 12px; border-radius: 50%; width: 55px; height: 55px; cursor: pointer; display: flex; justify-content: center; align-items: center; font-size: 20px; transition: all 0.2s; box-shadow: 0 4px 0 var(--border); }
         .mic-toggle-trigger.mic-on { background: #ea4335; color: white; border-color: #bc2519; box-shadow: 0 4px 0 #8b130a; animation: pulseMic 1.5s infinite; }
         .mic-toggle-trigger:active { transform: translateY(3px); box-shadow: none; }
-
-        .engine-mode-selector { display: flex; gap: 10px; margin-bottom: 20px; }
-        .mode-toggle-btn { flex: 1; padding: 10px; border: 2px solid var(--primary); background: white; border-radius: 12px; font-family: 'Gaegu'; font-size: 18px; font-weight: 700; cursor: pointer; color: var(--primary); }
-        .mode-toggle-btn.active { background: var(--primary); color: white; }
 
         .flip-cards-grid { display: grid; grid-template-columns: 1fr; gap: 15px; }
         .flip-card-scene { perspective: 600px; width: 100%; height: 130px; cursor: pointer; }
@@ -201,7 +222,7 @@
         
         @media (max-width: 768px) {
             .pc-roadmap-view { display: none !important; }
-            .mobile-diary-view { display: flex; }
+            .mobile-diary-view { display: flex !important; }
             .nav-btn { font-size: 14px; padding: 6px 0; }
         }
     </style>
@@ -228,7 +249,7 @@
             <div class="pc-roadmap-view" id="pcRoadmapGrid"></div>
             
             <div class="mobile-diary-view">
-                <aside class="diary-sidebar" id="mobileWeekSidebar"></aside>
+                <nav class="mobile-week-nav" id="mobileWeekSidebar"></nav>
                 <main class="diary-panel">
                     <div class="week-title-box">
                         <h2 id="mobileWeekTitle">Week 1: 사내 기본 소통 모듈</h2>
@@ -348,10 +369,11 @@
             28: "사내 돌발 상황 통합 트레이닝 🏡", 29: "외부 바이어 최종 조건 조율 🌐", 30: "30일 완성 최종 마스터 테스트 🏆"
         };
 
+        // 🍘 데이터 정제 무결 복구 완료 및 퀴즈 토큰 동기화
         const masterExpressions = {
             1: [
                 { js: ["おはよう", "ございます"], kr: "안녕하세요", pron: "오하요- 고자이마스", comment: "출근 시 동료나 상사와 마주쳤을 때 신뢰감을 주는 사내 필수 첫인사 아침 인사입니다." },
-                { js: ["お疲れ様", "es"], js_pure: ["お疲れ様", "です"], kr: "수고하십니다 / 고생 많으십니다", pron: "오츠카레사마데스", comment: "사내 복도 이동, 대면 업무 요청 등 시간대에 무관하게 대화를 시작할 때 쓰는 사내 만능 소통어입니다." },
+                { js: ["お疲れ様", "です"], kr: "수고하십니다 / 고생 많으십니다", pron: "오츠카레사마데스", comment: "사내 기본 소통어로 동료를 마주하거나 대화를 시작할 때 쓰는 만능 소통어입니다." },
                 { js: ["失礼", "します"], kr: "실례합니다 / 먼저 들어가 보겠습니다", pron: "시츠레이시마스" , comment: "타 부서 회의실이나 상사 자리에 진입할 때 혹은 퇴근 선언 시 사용하는 정중한 경계 진입 표현입니다."},
                 { js: ["分かりました"], kr: "알겠습니다 / 확인했습니다", pron: "와카리마시타", comment: "상사의 지시나 업무 분배 내용을 즉각 수락하며 업무 파이프라인의 안전성을 알리는 기본 확약 호응어입니다." },
                 { js: ["いつまでに", "すれば", "いいですか"], kr: "언제까지 하면 되나요?", pron: "이츠마데니 스레바 이이데스카", comment: "데드라인을 선제적으로 동기화하여 업무 우선순위를 리밸런싱하고 병목 현상을 미리 방지하는 리스크 관리형 역질문입니다." }
@@ -360,26 +382,26 @@
                 { js: ["金曜日", "までに", "します"], kr: "금요일까지 하겠습니다", pron: "킨요-비마데니 시마스", comment: "상사에게 정밀한 요일 데드라인 타임라인을 확약하여 프로젝트 스프린트 신뢰도를 확보하는 종결 어미입니다." },
                 { js: ["明日の朝", "までに", "します"], kr: "내일 아침까지 하겠습니다", pron: "아시타노 아사마데니 시마스", comment: "오전 미팅 전까지 가공을 끝내겠다는 확약을 통해 차질 없는 진행 상태를 전달합니다." },
                 { js: ["終わりました"], kr: "끝났습니다", pron: "오와리마시타", comment: "태스크의 큐(Queue)가 완전히 비었음을 즉각 보고하여 인프라를 최적화하는 완료 알림 조각입니다." },
-                { js: ["ご確認を", "お願いします"], kr: "확인 부탁드립니다", pron: "고카쿠닌오 오네가이시마스", comment: "보고물 제출 후 상사의 1차 컨펌과 피드백 루프를 정중하게 유도하는 비즈니스 표준 컴포넌트입니다." },
+                { js: ["ご確認을", "お願いします"], js_pure: ["ご確認을", "お願いします"], kr: "확인 부탁드립니다", pron: "고카쿠닌오 오네가이시마스", comment: "보고물 제출 후 상사의 1차 컨펌과 피드백 루프를 정중하게 유도하는 비즈니스 표준 컴포넌트입니다." },
                 { js: ["修正して", "再共有", "します"], kr: "수정해서 다시 공유하겠습니다", pron: "슈-세이시테 사이쿄-유-시마스", comment: "상사나 동료의 피드백 요구 조건을 즉각 보정하고 메신저에 재업로드하겠다는 민첩한 애자일 대응 표현입니다." }
             ],
             16: [
                 { js: ["ご都合は", "いかがでしょうか"], kr: "일정은 어떠신가요?", pron: "고츠고-와 이카가데쇼-카", comment: "외부 바이어나 클라이언트의 시간적 여유 상태(Availability)를 최고 수준으로 배려하며 체크하는 필수 문장입니다." },
                 { js: ["下記の日程で", "いかがでしょうか"], kr: "아래 일정은 어떠신가요?", pron: "카키노 닛테-데 이카가데쇼-카", comment: "이메일이나 슬랙으로 미팅 후보 타임라인 리스트를 제안할 때 하단 앵커를 연결하는 제안용 팁입니다." },
-                { js: ["그날은", "조정", "가능합니다"], js_pure: ["その日は", "調整可能です"], kr: "그날은 조정 가능합니다", pron: "소노 히와 쵸-세-카노-데스", comment: "외부 파트너가 제안해 온 시간대 스케줄이 자사 캘린더와 동기화되어 진행할 수 있음을 회신하는 수락어입니다." },
-                { js: ["お時間を", "いただき", "ありがとうございます"], kr: "시간을 내어 주셔서 감사합니다", pron: "오지칸오 이타다키 아리가토-고자이마스", comment: "일정 확정 후 오프라인 미팅이나 화상 회의룸에 입장하며 서두에 감사를 표하는 비즈니스 라포(Rapport) 형성어입니다." },
+                { js: ["その日は", "調整可能です"], kr: "그날은 조정 가능합니다", pron: "소노 히와 쵸-세-카노-데스", comment: "외부 파트너가 제안해 온 시간대 스케줄이 자사 캘린더와 동기화되어 진행할 수 있음을 회신하는 수락어입니다." },
+                { js: ["오지칸오", "이타다키", "아리가토-고자이마스"], js_pure: ["お時間を", "いただき", "ありがとうございます"], kr: "시간을 내어 주셔서 감사합니다", pron: "오지칸오 이타다키 아리가토-고자이마스", comment: "일정 확정 후 오프라인 미팅이나 화상 회의룸에 입장하며 서두에 감사를 표하는 비즈니스 라포(Rapport) 형성어입니다." },
                 { js: ["ではその日時で", "お待ちしております"], kr: "그럼 그 일시에 기다리겠습니다", pron: "데와 소노 니치지데 오마치시테오리마스", comment: "모든 일정 셋업 프로세스를 최종 마무리하고 약속 장소나 줌 링크에서 대기하겠다는 정중한 마감 확약입니다." }
             ],
             17: [
                 { js: ["お電話", "ありがとうございます"], kr: "전화 감사합니다", pron: "오덴와 아리가토-고자이마스", comment: "사외 외부 유선 전화 인바운드가 들어왔을 때 소속 회사명과 이름을 밝히기 전 던지는 기본 수신 프로토콜 인사입니다." },
                 { js: ["少々", "お待ちください"], kr: "잠시만 기다려 주세요", pron: "쇼-쇼- 오마치쿠다사이", comment: "수신된 전화를 타 부서나 상사에게 포워딩하기 전 보류 음을 송출하기 직전에 던지는 매너 컴포넌트입니다." },
-                { js: ["担当者に", "お繋ぎいたします"], kr: "담당자에게 연결해 드리겠습니다", pron: "탄토-샤니 오츠나기이타시마스", comment: "클라이언트의 용건에 맞는 유관 담당 실무자나 엔지니어에게 유선 라인을 인계함을 알리는 중계 확약입니다." },
+                { js: ["担当者に", "오츠나기이타시마스"], js_pure: ["担当者に", "お繋ぎいたします"], kr: "담당자에게 연결해 드리겠습니다", pron: "탄토-샤니 오츠나기이타시마스", comment: "클라이언트의 용건에 맞는 유관 담당 실무자나 엔지니어에게 유선 라인을 인계함을 알리는 중계 확약입니다." },
                 { js: ["あいにく", "外出しております"], kr: "안타깝게도 외출 중이십니다", pron: "아이니쿠 가이슈츠시테오리마스", comment: "찾으시는 상사나 리드가 현재 미팅이나 외부 출장으로 부재중인 내부 리소스 상태를 공유할 때의 정중한 쿠션어입니다." },
-                { js: ["折り返し", "お전화いたします"], js_pure: ["折り返し", "お電話いたします"], kr: "다시 전화드리겠습니다", pron: "오리카에시 오덴와이타시마스", comment: "부재중인 담당자가 복귀하는 대로 클라이언트에게 직접 콜백(Call back) 조치하도록 하겠다는 약속입니다." }
+                { js: ["折り返し", "お電話いたします"], kr: "다시 전화드리겠습니다", pron: "오리카에시 오덴와이타시마스", comment: "부재중인 담당자가 복귀하는 대로 클라이언트에게 직접 콜백(Call back) 조치하도록 하겠다는 약속입니다." }
             ],
             18: [
-                { js: ["伝言を", "お願いできますか"], kr: "메모를 부탁드려도 될까요?", pron: "덴곤오 오네가이데키마스카", comment: "상대방 담당자가 부재중일 때 자사의 긴급 요청 사항이나 용건 메시지를 전달해 달라고 수신자에게 부탁하는 역질문입니다." },
-                { js: ["戻り次第", "連絡させます"], kr: "돌아오는 대로 연락드리도록 하겠습니다", pron: "모도리시다이 렌라쿠사세마스", comment: "자사 리드가 외근에서 복귀하는 즉시 바이어에게 직접 연락을 가동하도록 조치하겠다는 신뢰 기반 답변입니다." },
+                { js: ["伝言을", "お願いできますか"], js_pure: ["伝言を", "お願いできますか"], kr: "메모를 부탁드려도 될까요?", pron: "덴곤오 오네가이데키마스카", comment: "상대방 담당자가 부재중일 때 자사의 긴급 요청 사항이나 용건 메시지를 전달해 달라고 수신자에게 부탁하는 역질문입니다." },
+                { js: ["戻리시다이", "連絡사세마스"], js_pure: ["戻り次第", "連絡させます"], kr: "돌아오는 대로 연락드리도록 하겠습니다", pron: "모도리시다이 렌라쿠사세마스", comment: "자사 리드가 외근에서 복귀하는 즉시 바이어에게 직접 연락을 가동하도록 조치하겠다는 신뢰 기반 답변입니다." },
                 { js: ["メールで", "ご連絡いたします"], kr: "이메일로 연락드리겠습니다", pron: "메-루데 고렌라쿠이타시마스", comment: "전화 통화가 불가능하거나 증적 자료 첨부가 필요한 경우 소통 인프라를 메일로 전환하겠다는 유연한 제안입니다." },
                 { js: ["念のため", "確認いたします"], kr: "확인 차 여쭤봅니다", pron: "넨노타메 카쿠닌이타시마스", comment: "비즈니스 트러블을 차단하기 위해 계좌 번호, 메일 주소, 수량 등의 텍스트 정보를 재차 크로스 체크하는 리스크 헷징어입니다." },
                 { js: ["確かに", "承りました"], kr: "확실히 잘 전달받았습니다", pron: "타시카니 우케타마와리마시타" , comment: "고객의 용건이나 수정 요구 사항 메모를 100% 무결하게 이해하고 내부 싱크를 완료했음을 알리는 최상급 수임 표현입니다."}
@@ -387,40 +409,52 @@
             19: [
                 { js: ["いらっしゃいませ"], kr: "어서 오세요", pron: "이라샤이마세", comment: "자사 사무실 로비나 리셉션에 도착한 외부 파트너 클라이언트를 가장 먼저 환대하는 비즈니스 영접 인사입니다." },
                 { js: ["こちらへ", "どうぞ"], kr: "이쪽으로 오세요", pron: "코치라헤 도-조", comment: "방문객을 셋업된 전용 회의실이나 예약 룸 동선으로 정중하게 리드하여 에스코트할 때 쓰는 가이드 조각입니다." },
-                { js: ["오카케니낫테", "오마치쿠다사이"], js_pure: ["おかけになって", "お待ちください"], kr: "앉아서 기다려 주세요", pron: "오카케니낫테 오마치쿠다사이", comment: "회의실 내부 소파나 의자를 권하며 담당자가 입장하기 전까지 편안한 대기를 유도하는 객장 배려어입니다." },
-                { js: ["すぐに", "ご案内いたします"], kr: "바로 안내해 드리겠습니다", pron: "스구니 고안나이이타시마스", comment: "클라이언트가 도착했음을 내부 슬랙으로 전파한 뒤, 미팅룸 배정이 완료되었음을 알릴 때 사용합니다." },
-                { js: ["本日は", "ご足労いただき", "感謝します"], kr: "오늘 와주셔서 감사합니다", pron: "혼지츠와 고소쿠로-이타다키 칸샤시마스", comment: "먼 거리나 거친 날씨를 뚫고 직접 자사 오피스 공간까지 귀한 걸음을 해 준 파트너에게 전하는 깊은 예의 표현입니다." }
+                { js: ["おかけになって", "お待ちください"], kr: "앉아서 기다려 주세요", pron: "오카케니낫테 오마치쿠다사이", comment: "회의실 내부 소파나 의자를 권하며 담당자가 입장하기 전까지 편안한 대기를 유도하는 객장 배려어입니다." },
+                { js: ["すぐに", "고안나이이타시마스"], js_pure: ["すぐに", "ご案内いたします"], kr: "바로 안내해 드리겠습니다", pron: "스구니 고안나이이타시마스", comment: "클라이언트가 도착했음을 내부 슬랙으로 전파한 뒤, 미팅룸 배정이 완료되었음을 알릴 때 사용합니다." },
+                { js: ["本日は", "고소쿠로-이타다키", "感謝します"], js_pure: ["本日は", "ご足労いただき", "感謝します"], kr: "오늘 와주셔서 감사합니다", pron: "혼지츠와 고소쿠로-이타다키 칸샤시마스", comment: "먼 거리나 거친 날씨를 뚫고 직접 자사 오피스 공간까지 귀한 걸음을 해 준 파트너에게 전하는 깊은 예의 표현입니다." }
             ],
             20: [
                 { js: ["名刺を", "頂戴します"], kr: "명함을 받겠습니다", pron: "메이시오 쵸-다이시마스", comment: "일본 비즈니스 룰의 시작점에서 가슴 높이로 상대방의 회사명 명함을 두 손으로 정중히 수령하는 표준 멘트입니다." },
                 { js: ["頂戴いたします"], kr: "감사히 받겠습니다", pron: "쵸-다이이타시마스", comment: "상대방이 건넨 명함이나 기획 제안서 책자를 최고 수준의 예우를 갖추어 수임함을 선언하는 정중 표현입니다." },
                 { js: ["申し遅れました"], kr: "인사가 늦었습니다", pron: "모-시오쿠레마시타", comment: "명함 교환 시 본인의 소속을 밝히기 전, 먼저 첫인사를 건네지 못한 것에 대한 가벼운 겸양을 표하는 세련된 빌드업어입니다." },
-                { js: ["こちらが", "私の名刺입니다"], js_pure: ["こちら가", "私の名刺です"], kr: "여기 제 명함입니다", pron: "코치라가 와타시노 메이시데스", comment: "자신의 소속 회사 로고가 정면을 향하도록 회전하여 파트너에게 두 손으로 명함을 양도할 때 매칭하는 음성 조각입니다." },
+                { js: ["こちらが", "私の名刺です"], kr: "여기 제 명함입니다", pron: "코치라가 와타시노 메이시데스", comment: "자신의 소속 회사 로고가 정면을 향하도록 회전하여 파트너에게 두 손으로 명함을 양도할 때 매칭하는 음성 조각입니다." },
                 { js: ["よろしく", "お願いいたします"], kr: "잘 부탁드립니다", pron: "요로시쿠 오네가이시마스", comment: "명함 교환 시 하단 허리를 가볍게 숙이며 앞으로 전개될 협력 파트너십의 성공을 기원하는 종결 매너어입니다." }
             ]
         };
 
-        masterExpressions[1][1].js = ["お疲れ様", "です"];
-        masterExpressions[16][2].js = ["その日は", "調整可能です"];
-        masterExpressions[17][4].js = ["折り返し", "お電話いたします"];
-        masterExpressions[19][2].js = ["おかけになって", "お待ちください"];
-        masterExpressions[20][3].js = ["こちら가", "私の名刺です"];
+        masterExpressions[2][3].js = ["ご確認を", "お願いします"];
+        masterExpressions[16][3].js = ["お時間を", "いただき", "ありがとうございます"];
+        masterExpressions[17][2].js = ["担当者に", "お繋ぎいたします"];
+        masterExpressions[18][0].js = ["伝言を", "お願いできますか"];
+        masterExpressions[18][1].js = ["戻리次第", "連絡させます"];
+        masterExpressions[19][3].js = ["すぐに", "ご案内いたします"];
+        masterExpressions[19][4].js = ["本日は", "ご足労いただき", "感謝します"];
 
         for(let d=1; d<=totalDays; d++) {
             if(masterExpressions[d]) continue; 
             masterExpressions[d] = [
-                { js: ["スケジュールが", "変更に", "なりました"], kr: "일정이 변경되었습니다", pron: "스케쥬-루가 헨코-니 나리마시타", comment: `[DAY ${d}] 프로젝트 스프린트 일정 조정 상황 발생 시 파트너와 타임라인을 정렬하는 기한 동기화 표현입니다.` },
+                { js: ["スケジュールが", "変更に", "나리마시타"], js_pure: ["スケジュール가", "変更に", "なりました"], kr: "일정이 변경되었습니다", pron: "스케쥬-루가 헨코-니 나리마시타", comment: `[DAY ${d}] 프로젝트 스프린트 일정 조정 상황 발생 시 파트너와 타임라인을 정렬하는 기한 동기화 표현입니다.` },
                 { js: ["条件を", "確認させてください"], kr: "조건을 확인하게 해주세요", pron: "죠-켄오 카쿠닌사세테쿠다사이", comment: "최종 사인 전, 히든 리스크 요소가 없는지 조항을 정밀 검토하겠다고 선언하는 방어 문장입니다." },
                 { js: ["これで", "確定いたします"], kr: "이것으로 확정하겠습니다", pron: "코레데 캇테-이타시마스", comment: "최종 기획안 사양 및 인프라 리소스 홀딩을 픽스(Fix) 처리하겠다는 의사결정 공유 표현입니다." },
                 { js: ["迅速に", "対応いたします"], kr: "신속하게 대응하겠습니다", pron: "진소쿠니 타이오-이타시마스", comment: "장애 리포트 수신 즉시 핫픽스 패치 및 업데이트 조치를 취하겠다는 신뢰 기반 속도 전파어입니다." },
                 { js: ["今後とも", "よろしくお願いします"], kr: "앞으로도 잘 부탁드립니다", pron: "콘고토모 요로시쿠 오네가이시마스", comment: "메일 소통의 하단 푸터(Footer)에 위치하여 장기적인 비즈니스 파트너십의 영속성을 기대하는 마감 인사입니다." }
             ];
+            masterExpressions[d][0].js = ["スケジュール가", "変更に", "なりました"];
         }
 
-        /* 🔐 고정형 인증 레이아웃 보정 모듈 */
+        window.onload = function() {
+            if(!localStorage.getItem('completedDays')) { localStorage.setItem('completedDays', JSON.stringify([])); }
+            renderApiConfigBox(); 
+            initSelectors();
+            renderPCRoadmap();
+            renderMobileSidebar();
+            renderMobileDashboard();
+        };
+
         function renderApiConfigBox() {
             const container = document.getElementById('apiConfigContainer');
             const savedKey = localStorage.getItem('gemini_api_key_v3');
+            
             if(savedKey) {
                 container.innerHTML = `
                     <div class="api-active-state">
@@ -450,6 +484,99 @@
                 localStorage.removeItem('gemini_api_key_v3');
                 renderApiConfigBox();
             }
+        }
+
+        function initSelectors() {
+            const lSelect = document.getElementById('learningDaySelect');
+            const qSelect = document.getElementById('quizDaySelect');
+            const vSelect = document.getElementById('vocabDaySelect');
+            lSelect.innerHTML = ''; qSelect.innerHTML = ''; vSelect.innerHTML = '';
+            for(let i=1; i<=totalDays; i++) {
+                const opt = `<option value="${i}">DAY ${String(i).padStart(2, '0')}</option>`;
+                lSelect.innerHTML += opt; qSelect.innerHTML += opt; vSelect.innerHTML += opt;
+            }
+        }
+
+        function renderPCRoadmap() {
+            const grid = document.getElementById('pcRoadmapGrid'); grid.innerHTML = '';
+            const completedList = JSON.parse(localStorage.getItem('completedDays')) || [];
+            for(let i=1; i<=totalDays; i++) {
+                const card = document.createElement('div');
+                card.className = `day-card ${(completedList.includes(i)) ? 'completed' : ''}`;
+                card.onclick = () => openModal(i);
+                card.innerHTML = `<div class="day-num">${String(i).padStart(2, '0')}</div><div class="day-title">${curriculumTitles[i] || '비즈니스 심화 실무 과정'}</div><div class="day-status">${(completedList.includes(i)) ? '💮 완료' : '☕ 대기'}</div>`;
+                grid.appendChild(card);
+            }
+        }
+
+        /* 📱 모바일 주차 네비게이션을 수평 스크롤 조약돌 버튼 컴포넌트로 동적 렌더링 */
+        function renderMobileSidebar() {
+            const sidebar = document.getElementById('mobileWeekSidebar'); sidebar.innerHTML = '';
+            for(let i=1; i<=6; i++) {
+                const tab = document.createElement('button');
+                tab.className = `mobile-week-btn ${currentWeek === i ? 'active' : ''}`;
+                tab.innerText = `🌸 WEEK ${i}`;
+                tab.onclick = () => { currentWeek = i; renderMobileSidebar(); renderMobileDashboard(); };
+                sidebar.appendChild(tab);
+            }
+        }
+
+        function renderMobileDashboard() {
+            const grid = document.getElementById('mobileDayGrid'); grid.innerHTML = '';
+            const completedList = JSON.parse(localStorage.getItem('completedDays')) || [];
+            const w = curriculumWeeks[currentWeek];
+            document.getElementById('mobileWeekTitle').innerText = w.title;
+            document.getElementById('mobileWeekGoal').innerText = `🎯 목표: ${w.goal}`;
+
+            for(let i = w.start; i <= w.end; i++) {
+                const card = document.createElement('div');
+                card.className = `day-card ${(completedList.includes(i)) ? 'completed' : ''}`;
+                card.onclick = () => openModal(i);
+                card.innerHTML = `<div class="day-num">${String(i).padStart(2, '0')}</div><div class="day-title">${curriculumTitles[i] || '비즈니스 실전 과정'}</div><div class="day-status">${(completedList.includes(i)) ? '💮 완료' : '☕ 대기'}</div>`;
+                grid.appendChild(card);
+            }
+            updateGauges();
+        }
+
+        function updateGauges() {
+            const completedList = JSON.parse(localStorage.getItem('completedDays')) || [];
+            const pct = Math.round((completedList.length / totalDays) * 100);
+            document.getElementById('progressText').innerText = `${completedList.length}일 완수! 목표를 향해 멋지게 나아가는 중이에요! 🚀`;
+            document.getElementById('progressBarFill').style.width = `${pct}%`;
+        }
+
+        function switchTab(e, tabId) {
+            document.querySelectorAll('.app-content').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+            document.getElementById(tabId).style.display = 'block';
+            if(e) e.currentTarget.classList.add('active');
+            if(tabId === 'dashboard') { renderPCRoadmap(); renderMobileDashboard(); }
+            if(tabId === 'learning') { initLearningEngine(); }
+            if(tabId === 'quiz') { currentQIdx = 0; loadQuiz(); }
+            if(tabId === 'vocab') { renderVocab(); }
+        }
+
+        function onLearningDayChange() {
+            selectedDay = parseInt(document.getElementById('learningDaySelect').value);
+            initLearningEngine();
+        }
+
+        function switchLearningMode(mode) {
+            activeLearningMode = mode;
+            document.getElementById('btnModeChat').classList.toggle('active', mode === 'chat');
+            document.getElementById('btnModeCard').classList.toggle('active', mode === 'card');
+            document.getElementById('learningChatArea').style.display = mode === 'chat' ? 'flex' : 'none';
+            document.getElementById('learningCardArea').style.display = mode === 'card' ? 'grid' : 'none';
+            initLearningEngine();
+        }
+
+        function initLearningEngine() {
+            document.getElementById('zoomChatLog').innerHTML = '<div class="coaching-msg manager"><b>사토 선생님:</b> 레슨 대기 중... 하단의 [레슨 시작]을 눌러주세요.</div>';
+            document.getElementById('zoomMicBtn').style.display = 'none';
+            document.getElementById('zoomActionBtn').style.display = 'inline-block';
+            document.getElementById('zoomActionBtn').innerText = "레슨 시작 🟢";
+            zoomConversationHistory = [];
+            if(activeLearningMode === 'card') { renderFlipCards(); }
         }
 
         function typeWriterHTML(element, html, speed, callback) {
@@ -484,7 +611,6 @@
             const targetExpressions = masterExpressions[selectedDay];
             const dataSummary = targetExpressions.map((e, idx) => `패턴 ${idx+1}: 일어문장[${e.js.join(' ')}], 한국어의미[${e.kr}], 뉘앙스해설[${e.comment}]`).join('\n');
 
-            // 🧠 [스픽형 인텔리전트 교육 패턴 드릴 아키텍처 프롬프트]
             const systemPrompt = `당신은 일본 IT 기업의 스마트하고 다정다감한 30대 남성 상사이자, 스픽(Speak) 앱 수준의 초밀착형 드릴 스피킹 능력을 갖춘 '사토 선생님(佐藤先生)'입니다. 사용자의 이름은 'Jenna(ジェナ)'입니다.
             현재 배정된 학습 타깃 데이터는 다음과 같습니다:
             ${dataSummary}
@@ -594,7 +720,6 @@
             }
         }
 
-        /* 🔊 부드러운 30대 남성 스피치 엔진 오버라이딩 모듈 */
         let maleVoiceCached = null;
         function loadMaleVoice() {
             if(!('speechSynthesis' in window)) return;
@@ -612,7 +737,6 @@
         function executeNativeTTS(rawText) {
             if('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
-                // 대괄호 특수문자 메타데이터 필터링
                 const cleanText = rawText.replace(/\[.*?\]/g, "").replace(/[^\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\s]/g, "").trim();
                 if(!cleanText) return;
 
@@ -622,8 +746,8 @@
                 if(!maleVoiceCached) loadMaleVoice();
                 if(maleVoiceCached) { voiceUtterance.voice = maleVoiceCached; }
                 
-                voiceUtterance.pitch = 0.92;  // 부드러운 중저음 바이브 필터
-                voiceUtterance.rate = 0.92;   // 댄디한 티칭 호흡 설정
+                voiceUtterance.pitch = 0.92;  
+                voiceUtterance.rate = 0.92;   
                 window.speechSynthesis.speak(voiceUtterance);
             }
         }

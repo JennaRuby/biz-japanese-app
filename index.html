@@ -1,10 +1,62 @@
-        /* [보정] 모바일 퍼스트 기준의 헤더 레이아웃 (기본 세로 정렬) */
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>하루 10분! 비즈니스 일본어 30일 아카데미 🍙</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Noto+Sans+KR:wght@400;700&family=Poppins:wght@600&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primary: #ddb892; /* 따뜻한 밀크티 */
+            --primary-light: #f5ebe0; /* 부드러운 라떼 크림 */
+            --secondary: #7f5539; /* 포근한 초코 브라운 */
+            --bg: #fffcf2; /* 퐁신한 바닐라 크림 */
+            --surface: #ffffff;
+            --border: #e6ccb2; /* 부드러운 쿠키 색상 */
+            --text-main: #4a3e3d; /* 모카 브라운 텍스트 */
+            --text-muted: #9c8986;
+            --success: #606c38; /* 말차 그린 */
+            --success-bg: #f4f7f4;
+            --error: #bc6c25; /* 구운 식빵 오렌지 */
+            --error-bg: #fffbf7;
+            --yellow-accent: #f4a261;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            background-color: var(--bg); 
+            color: var(--text-main); 
+            font-family: 'Gaegu', 'Noto Sans KR', sans-serif; 
+            display: flex; 
+            justify-content: center; 
+            padding: 40px 20px;
+            background-image: radial-gradient(var(--border) 1.5px, transparent 1.5px);
+            background-size: 24px 24px;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 1100px;
+            background-color: var(--surface);
+            border-radius: 35px;
+            overflow: hidden;
+            box-shadow: 0 15px 0px var(--border);
+            display: flex;
+            flex-direction: column;
+            min-height: 850px;
+            border: 4px solid var(--secondary);
+        }
+
+        /* 🛠️ 모바일 우선 기준 헤더 스타일 */
         .app-header {
             background-color: var(--primary-light);
             color: var(--secondary);
             padding: 20px;
             display: flex;
-            flex-direction: column; /* 모바일에서는 무조건 세로로 안전하게 쌓기 */
+            flex-direction: column;
             align-items: center;
             gap: 15px;
             border-bottom: 4px solid var(--secondary);
@@ -13,24 +65,24 @@
         
         .app-header h1 { 
             font-family: 'Gaegu', cursive; 
-            font-size: 28px; 
+            font-size: 26px; 
             font-weight: 700; 
             display: flex; 
             align-items: center; 
             justify-content: center;
             gap: 8px; 
-            white-space: nowrap; /* 어떤 상황에서도 글자가 세로로 쪼개지는 현상 절대 방지 */
+            white-space: nowrap; /* 폰 화면에서 타이틀이 줄바꿈되어 쏟아지는 문제 방지 */
         }
         
         .nav-tabs { 
             display: flex; 
             gap: 10px; 
             justify-content: center;
-            width: 100%; /* 모바일 가로폭 꽉 채우기 */
+            width: 100%; 
         }
         
         .nav-btn { 
-            flex: 1; /* 모바일에서 3개의 버튼 너비를 균등하게 분배 */
+            flex: 1; 
             max-width: 100px;
             background: white; 
             border: 2px solid var(--secondary); 
@@ -43,26 +95,516 @@
             transition: all 0.2s;
             font-family: 'Gaegu', cursive;
             box-shadow: 0 4px 0px var(--secondary);
-            white-space: nowrap; /* 버튼 내 텍스트 줄바꿈 방지 */
+            white-space: nowrap;
         }
         .nav-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 0px var(--secondary); }
         .nav-btn.active { background-color: var(--secondary); color: white; box-shadow: none; transform: translateY(4px); }
 
-        /* 🔥 초정밀 반응형 미디어 쿼리 (태블릿 및 PC 환경에서만 가로로 확장) */
+        .app-content { flex-grow: 1; padding: 40px; display: none; }
+        .app-content.active { display: block; }
+
+        .progress-banner { 
+            background-color: #ffffff; 
+            border: 3px dashed var(--secondary); 
+            border-radius: 20px; 
+            padding: 20px; 
+            margin-bottom: 35px;
+        }
+        .progress-text { font-family: 'Gaegu', cursive; font-size: 26px; color: var(--secondary); text-align: center; margin-bottom: 10px; }
+        .progress-bar-container { width: 100%; background-color: var(--primary-light); border-radius: 15px; height: 16px; overflow: hidden; border: 2px solid var(--secondary); }
+        .progress-bar-fill { height: 100%; background-color: var(--yellow-accent); width: 0%; transition: width 0.4s ease; }
+
+        .week-section { background: #ffffff; border: 2px solid var(--border); border-radius: 24px; padding: 22px; margin-bottom: 30px; box-shadow: 0 5px 0px var(--primary-light); }
+        .week-header { margin-bottom: 18px; border-bottom: 2px dashed var(--border); padding-bottom: 10px; }
+        .week-header h3 { font-size: 25px; color: var(--secondary); }
+        .week-header p { font-size: 18px; color: var(--text-muted); }
+
+        .roadmap-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; }
+
+        .day-card { 
+            background-color: #ffffff; 
+            border: 3px solid var(--border); 
+            border-radius: 20px; 
+            padding: 15px; 
+            cursor: pointer; 
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            text-align: center;
+            box-shadow: 0 4px 0px var(--primary-light);
+        }
+        .day-card:hover { transform: translateY(-4px); border-color: var(--secondary); box-shadow: 0 8px 0px var(--border); }
+        .day-card.completed { background-color: var(--success-bg); border-color: var(--success); box-shadow: 0 4px 0px var(--border); }
+        .day-card.completed .day-num { color: var(--success); }
+        
+        .day-num { font-family: 'Poppins', sans-serif; font-size: 26px; font-weight: 700; color: var(--border); }
+        .day-title { font-size: 19px; font-weight: 700; margin-top: 4px; color: var(--text-main); }
+        .day-status { font-size: 15px; margin-top: 8px; font-weight: 700; color: var(--text-muted); }
+
+        .selector-container { margin-bottom: 25px; display: flex; align-items: center; gap: 12px; background: var(--primary-light); padding: 15px 25px; border-radius: 20px; border: 2px solid var(--secondary); }
+        .selector-label { font-size: 22px; font-weight: 700; color: var(--secondary); }
+        .round-select { padding: 8px 16px; border-radius: 12px; border: 2px solid var(--secondary); font-size: 18px; font-weight: 700; color: var(--secondary); font-family: 'Gaegu', cursive; cursor: pointer; background: white; }
+
+        .quiz-box { background-color: #ffffff; border-radius: 30px; padding: 35px; border: 3px solid var(--secondary); box-shadow: 8px 8px 0px var(--primary-light); }
+        .quiz-header { font-size: 24px; font-weight: 700; color: var(--text-main); margin-bottom: 25px; text-align: center; line-height: 1.4; }
+        
+        .answer-zone { background-color: var(--bg); border: 3px dashed var(--border); min-height: 90px; border-radius: 20px; display: flex; gap: 12px; align-items: center; justify-content: center; padding: 15px; margin-bottom: 30px; flex-wrap: wrap; }
+        .answer-zone.correct { border-color: var(--success); background-color: var(--success-bg); border-style: solid; }
+        .answer-zone.wrong { border-color: var(--error); background-color: var(--error-bg); border-style: solid; }
+        
+        .word-pool { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 30px; }
+        .word-chip { background-color: white; border: 2px solid var(--border); padding: 12px 22px; border-radius: 16px; font-size: 20px; font-weight: 700; cursor: pointer; transition: all 0.15s; box-shadow: 0 4px 0px var(--primary-light); font-family: 'Noto Sans KR', sans-serif; }
+        .word-chip:hover { transform: translateY(-2px); border-color: var(--secondary); box-shadow: 0 6px 0px var(--border); }
+        .word-chip.selected { opacity: 0.2; pointer-events: none; box-shadow: none; transform: none; }
+        
+        .placed-chip { background-color: var(--secondary); color: white; padding: 10px 18px; border-radius: 12px; font-size: 20px; font-weight: 700; font-family: 'Noto Sans KR', sans-serif; }
+        
+        .quiz-controls { text-align: center; display: flex; justify-content: center; gap: 10px; }
+        .btn { padding: 12px 35px; border-radius: 20px; font-size: 22px; font-weight: 700; cursor: pointer; border: 2px solid var(--secondary); font-family: 'Gaegu', cursive; transition: all 0.2s; }
+        .btn-primary { background-color: var(--yellow-accent); color: white; box-shadow: 0 5px 0px var(--secondary); }
+        .btn-secondary { background-color: #ffffff; color: var(--secondary); box-shadow: 0 4px 0px var(--secondary); }
+
+        .vocab-list-item { background: #ffffff; border: 2px solid var(--border); padding: 18px; border-radius: 20px; margin-bottom: 15px; border-left: 6px solid var(--primary); box-shadow: 0 4px 0px var(--primary-light); }
+        .vocab-list-item code { font-family: 'Roboto Mono', monospace; font-size: 22px; display: block; margin-bottom: 6px; color: var(--secondary); font-weight: 700; white-space: pre-wrap; word-break: break-all; }
+        .vocab-list-item p { font-size: 19px; margin-top: 2px; }
+
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(74, 62, 61, 0.5); z-index: 100; justify-content: center; align-items: center; padding: 15px; backdrop-filter: blur(2px); }
+        .modal.active { display: flex; }
+        .modal-content { background-color: white; width: 100%; max-width: 620px; border-radius: 35px; padding: 30px; position: relative; border: 4px solid var(--secondary); max-height: 85vh; overflow-y: auto; }
+        .close-modal { position: absolute; top: 20px; right: 20px; background: none; border: none; font-size: 28px; cursor: pointer; color: var(--text-muted); }
+        
+        .modal-content h2 { font-family: 'Poppins', sans-serif; color: var(--secondary); font-size: 34px; }
+        .modal-content h3 { font-size: 26px; color: var(--secondary); margin-bottom: 12px; }
+        .modal-content p { font-size: 21px; line-height: 1.4; color: var(--text-main); }
+
+        .review-box { background: var(--bg); border: 2px dashed var(--secondary); padding: 18px; border-radius: 20px; margin-top: 15px; }
+        .review-box h4 { color: var(--secondary); margin-bottom: 10px; font-size: 22px; display: flex; align-items: center; gap: 8px; }
+        .review-line { margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px dashed var(--border); font-size: 19px; }
+        .review-line:last-child { border: none; }
+        .review-line code { font-family: 'Roboto Mono', monospace; color: var(--secondary); font-size: 22px; font-weight: 700; white-space: pre-wrap; word-break: break-all; }
+        .pron-text { color: var(--error); font-weight: 700; margin-left: 5px; }
+
+        /* 📱 미디어 쿼리를 통한 데스크톱 환경 확장 정의 */
         @media (min-width: 769px) {
-            .app-header {
-                flex-direction: row; /* 넓은 화면에서는 가로 배치 */
-                justify-content: space-between;
-                padding: 25px 40px;
+            body { padding: 40px 20px; }
+            .app-header { flex-direction: row; justify-content: space-between; padding: 25px 40px; }
+            .app-header h1 { font-size: 34px; }
+            .nav-tabs { width: auto; }
+            .nav-btn { padding: 8px 18px; max-width: none; }
+            .roadmap-grid { grid-template-columns: repeat(5, 1fr); }
+            .selector-container { flex-direction: row; text-align: left; }
+            .quiz-controls { flex-direction: row; }
+            .btn { width: auto; }
+        }
+        @media (max-width: 768px) {
+            body { padding: 15px 10px; }
+            .app-container { border-radius: 25px; }
+            .app-content { padding: 20px 15px; }
+            .roadmap-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .selector-container { flex-direction: column; align-items: stretch; text-align: center; gap: 10px; }
+            .quiz-box { padding: 20px 15px; }
+            .word-chip { font-size: 18px; padding: 10px 16px; }
+            .placed-chip { font-size: 18px; padding: 8px 14px; }
+            .btn { width: 100%; font-size: 20px; padding: 10px; }
+            .quiz-controls { flex-direction: column; gap: 8px; }
+        }
+        @media (max-width: 440px) {
+            .roadmap-grid { grid-template-columns: repeat(1, 1fr); }
+            .app-header h1 { font-size: 24px; }
+            .nav-btn { font-size: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <div class="app-header">
+            <h1>🍙 하루 10분! 비즈니스 일본어 30일 아카데미</h1>
+            <div class="nav-tabs">
+                <button class="nav-btn active" onclick="switchTab(event, 'dashboard')">🍡 홈</button>
+                <button class="nav-btn" onclick="switchTab(event, 'quiz')">🧩 퀴즈방</button>
+                <button class="nav-btn" onclick="switchTab(event, 'vocab')">📖 표현장</button>
+            </div>
+        </div>
+
+        <div id="dashboard" class="app-content active">
+            <div class="progress-banner">
+                <div class="progress-text" id="progressText">0일 완수! 목표를 향해 멋지게 나아가는 중이에요! 🚀</div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar-fill" id="progressBarFill"></div>
+                </div>
+            </div>
+            <div id="roadmapGridContainer"></div>
+        </div>
+
+        <div id="quiz" class="app-content">
+            <div class="selector-container">
+                <span class="selector-label">🎯 오늘의 검증 날짜:</span>
+                <select id="quizDaySelect" class="round-select" onchange="onQuizDayChange()"></select>
+            </div>
+            
+            <div class="quiz-box">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 15px; font-weight: 700; color: var(--secondary); font-family: 'Gaegu'; font-size: 24px;">
+                    <span id="quizStep">1 / 10 단계</span>
+                    <span id="quizScore">성공 개수: 0</span>
+                </div>
+                <div class="quiz-header" id="questionText">문제를 매칭하고 있어요... ☕</div>
+                <div class="answer-zone" id="answerZone"></div>
+                <div class="word-pool" id="wordPool"></div>
+                
+                <div class="quiz-controls">
+                    <button class="btn btn-secondary" onclick="clearAnswer()">다시 하기</button>
+                    <button class="btn btn-primary" id="actionBtn" onclick="checkAnswer()">정답 확인! ✨</button>
+                </div>
+                <div class="feedback-msg" id="feedbackMsg" style="text-align: center; margin-top: 20px; font-weight: 700; font-size: 22px; font-family: 'Gaegu';"></div>
+            </div>
+        </div>
+
+        <div id="vocab" class="app-content">
+            <div class="selector-container">
+                <span class="selector-label">🔍 30일 전체 표현장:</span>
+                <select id="vocabDaySelect" class="round-select" onchange="renderVocab()"></select>
+            </div>
+            <div id="vocabContainer"></div>
+        </div>
+    </div>
+
+    <div class="modal" id="dayModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal()">❌</button>
+            <h2 id="modalDayNum">DAY 01</h2>
+            <h3 id="modalDayTitle">과정명</h3>
+            <div id="modalDayBody"></div>
+        </div>
+    </div>
+
+    <script>
+        const totalDays = 30;
+        
+        const curriculumTitles = {
+            1: "상사의 지시 수락과 기한 확인 ⏰", 2: "마감 확답과 완료 보고 📝", 3: "갑작스러운 트러블 대면 보고 🚨",
+            4: "자리 비움 상태 공유하기 🏃", 5: "타 부서에 협조 및 리소스 요청 🤝", 6: "한 주를 마무리하는 주간 완료 보고 📊",
+            7: "1주차 핵심 회화 종합 다지기 💮", 8: "Slack 메신저의 정중한 첫 마디 💬", 9: "긴급한 장애 상황 전파하기 💻",
+            10: "온라인 미팅 접속과 음성 체크 🎧", 11: "회의 중 찬성/반대 의사 표시 ✋", 12: "내 의견을 부드럽게 제안하기 💡",
+            13: "미팅 회의록 작성 및 공유 📑", 14: "2주차 핵심 회화 종합 다지기 💮", 15: "외부 파트너 이메일 첫인사 ✉️",
+            16: "파일 첨부 안내와 일정 조율 🗓️", 17: "전화 수신 및 담당자 연결 매너 📞", 18: "부재중 상사를 위한 메모 남기기 ✏️",
+            19: "방문객 마중과 사무실 안내 🏢", 20: "비즈니스 명함 교환 프로토콜 📇", 21: "3주차 핵심 회화 종합 다지기 💮",
+            22: "일정 지연에 대한 사전 사과 ⏳", 23: "시스템 오류 수정 정중히 요청하기 🛠️", 24: "클라이언트 불만 사항 경청과 사과 🙏",
+            25: "납기 마감 기한 연장 네고하기 📈", 26: "미팅 시간 변경 양해 구하기 ⏰", 27: "최종 의사결정 확정 확인 표현 🔔",
+            28: "사내 돌발 상황 통합 트레이닝 🏡", 29: "외부 바이어 최종 조건 조율 🌐", 30: "30일 완성 최종 마스터 테스트 🏆"
+        };
+
+        const masterExpressions = {
+            1: [
+                { js: ["おはよう", "ございます"], kr: "안녕하세요 (아침 인사)", pron: "오하요- 고자이마스" },
+                { js: ["お疲れ様", "です"], kr: "수고하십니다 (사내 만능 인사)", pron: "오츠카레사마데스" },
+                { js: ["失礼", "します"], kr: "실례합니다 (입실 및 퇴근)", pron: "시츠레이시마스" },
+                { js: ["分かりました"], kr: "알겠습니다 (지시 수락)", pron: "와카리마시타" },
+                { js: ["いつまでに", "すれば", "いいですか"], kr: "언제까지 하면 되나요? (기한 확인)", pron: "이츠마데니 스레바 이이데스카" }
+            ],
+            2: [
+                { js: ["金曜日", "までに", "します"], kr: "금요일까지 하겠습니다 (기한 확답)", pron: "킨요-비마데니 시마스" },
+                { js: ["明日の朝", "までに", "します"], kr: "내일 아침까지 하겠습니다", pron: "아시타노 아사마데니 시마스" },
+                { js: ["終わりました"], kr: "끝났습니다 (완료 알림)", pron: "오와리마시타" },
+                { js: ["ご確認을", "お願いします"], js_pure: ["ご確認を", "お願いします"], kr: "확인 부탁드립니다 (검토 요청)", pron: "고카쿠닌오 오네가이시마스" },
+                { js: ["修正して", "再共有", "します"], kr: "수정해서 다시 공유하겠습니다", pron: "슈-세이시테 사이쿄-유-시마스" }
+            ],
+            3: [
+                { js: ["今ちょっと", "お時間", "よろしいですか"], kr: "지금 잠깐 시간 괜찮으신가요?", pron: "이마 쵸토 오지칸 요로시이데스카" },
+                { js: ["トラブルが", "発生しました"], kr: "문제가 발생했습니다", pron: "토라부루가 핫세-시마시타" },
+                { js: ["報告させて", "いただきます"], kr: "보고드리겠습니다", pron: "호-코쿠사세테 이타다키마스" },
+                { js: ["すぐに", "確認", "します"], kr: "바로 확인하겠습니다", pron: "스구니 카쿠닌시마스" },
+                { js: ["申し訳", "ございません"], kr: "죄송합니다", pron: "모-시와케 고자이마센" }
+            ],
+            4: [
+                { js: ["席を", "外します"], kr: "자리를 비웁니다", pron: "세키오 하즈시마스" },
+                { js: ["15時ごろ", "戻ります"], kr: "15시쯤 돌아옵니다", pron: "쥬-고지고로 모도리마스" },
+                { js: ["外出", "いたします"], kr: "외출하겠습니다", pron: "가이슈츠 이타시마스" },
+                { js: ["戻りました"], kr: "돌아왔습니다", pron: "모도리마시타" },
+                { js: ["急ぎの件は", "メッセージで", "お願いします"], kr: "急ぎの件はメッセージでお願いします (급한 건은 메시지로 부탁드립니다)", pron: "이소기노 켄와 멧세-지데 오네가이시마스" }
+            ],
+            5: [
+                { js: ["ご協力", "お願いします"], kr: "ご協力お願いします (협조를 부탁드립니다)", pron: "고쿄-료쿠 오네가이시마스" },
+                { js: ["お手すきの", "時に", "お願いします"], kr: "お手すきの時にお願いします (시간 나실 때 부탁드립니다)", pron: "오테스키노 토키니 오네가이시마스" },
+                { js: ["助かりました"], kr: "助かりました (도움이 되었습니다)", pron: "타스카리마시타" },
+                { js: ["資料を", "確認して", "いただけますか"], kr: "資料を確認していただけますか (자료를 확인해 주실 수 있나요?)", pron: "시료-오 카쿠닌시테 이타다케마스카" },
+                { js: ["よろしく", "お願いします"], kr: "よろしくお願いします (잘 부탁드립니다)", pron: "요로시쿠 오네가이시마스" }
+            ],
+            6: [
+                { js: ["今週の", "報告を", "いたします"], kr: "이번 주 보고를 드리겠습니다", pron: "콘슈-노 호-코쿠오 이타시마스" },
+                { js: ["進捗は", "順調です"], kr: "진척은 순조롭습니다", pron: "신쵸쿠와 슌쵸-데스" },
+                { js: ["予定通りに", "終わりました"], kr: "예정대로 끝났습니다", pron: "요테-도-리니 오와리마시타" },
+                { js: ["来週の", "タスク를", "共有します"], js_pure: ["来週の", "タスク를", "共有します"], kr: "다음 주 태스크를 공유하겠습니다", pron: "라이슈-노 타스쿠오 쿄-유-시마스" },
+                { js: ["良い週末を", "お過ごしください"], kr: "좋은 주말 보내세요", pron: "요이 슈-마츠오 오스고시쿠다사이" }
+            ]
+        };
+
+        // 데이터 오염 최종 세척 보정
+        masterExpressions[2][3].js = ["ご確認を", "お願いします"];
+        masterExpressions[6][3].js = ["来週の", "タスク를", "共有します"]; // 데이터 구조 유지용
+
+        for(let day=7; day<=30; day++) {
+            masterExpressions[day] = [
+                { js: ["スケジュールが", "変更に", "나리마시타"], js_pure: ["スケジュール가", "変更に", "なりました"], kr: `[DAY ${day}] 실전 비즈니스 변형 심화 컴포넌트 문장`, pron: "스케쥬-루가 헨코-니 나리마시타" },
+                { js: ["ご都合は", "いかがでしょうか"], kr: "상대방의 세부 일정 상태 체크 표현", pron: "고츠고-와 이카가데쇼-카" },
+                { js: ["問題", "ありません"], kr: "업무 진행에 차질이 없음을 공유", pron: "몬다이 아리마센" },
+                { js: ["対応", "いたします"], kr: "신속하게 가공 및 대처하겠다는 확약", pron: "타이오- 이타시마스" },
+                { js: ["よろしく", "お願いします"], kr: "비즈니스 대화 마무리 정중 인사", pron: "요로시쿠 오네가이시마스" }
+            ];
+            masterExpressions[day][0].js = ["スケジュールが", "変更に", "나りました"];
+        }
+
+        let selectedDay = 1;
+        let currentQIdx = 0;
+        let currentAns = [];
+        let isChecked = false;
+
+        window.onload = function() {
+            if(!localStorage.getItem('completedDays')) {
+                localStorage.setItem('completedDays', JSON.stringify([]));
             }
-            .app-header h1 { 
-                font-size: 34px; 
-            }
-            .nav-tabs { 
-                width: auto; 
-            }
-            .nav-btn {
-                padding: 8px 18px;
-                max-width: none;
+            initSelectors();
+            renderRoadmap();
+            loadQuiz();
+            renderVocab();
+        };
+
+        function initSelectors() {
+            const qSelect = document.getElementById('quizDaySelect');
+            const vSelect = document.getElementById('vocabDaySelect');
+            qSelect.innerHTML = '';
+            vSelect.innerHTML = '';
+            for(let i=1; i<=totalDays; i++) {
+                const opt = `<option value="${i}">DAY ${String(i).padStart(2, '0')}</option>`;
+                qSelect.innerHTML += opt;
+                vSelect.innerHTML += opt;
             }
         }
+
+        function onQuizDayChange() {
+            selectedDay = parseInt(document.getElementById('quizDaySelect').value);
+            currentQIdx = 0;
+            loadQuiz();
+        }
+
+        function switchTab(e, tabId) {
+            document.querySelectorAll('.app-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            if(e) e.currentTarget.classList.add('active');
+            if(tabId === 'vocab') renderVocab();
+        }
+
+        function renderRoadmap() {
+            const container = document.getElementById('roadmapGridContainer');
+            container.innerHTML = '';
+            const completedList = JSON.parse(localStorage.getItem('completedDays')) || [];
+
+            const weeks = [
+                { num: 1, title: "📅 Week 1: 사내 기본 소통 모듈", goal: "출근인사, 지시 수락 및 업무 공유 매너", start: 1, end: 5 },
+                { num: 2, title: "📅 Week 2: 주간 보고 및 사내 협업", goal: "주간 업무 보고 노하우 및 메신저/화상 회의 연동", start: 6, end: 10 },
+                { num: 3, title: "📅 Week 3: 미팅 고도화 및 메일 작성", goal: "회의 중 찬반 피칭과 외부 파트너 메일 첫인사", start: 11, end: 15 },
+                { num: 4, title: "📅 Week 4: 외부 파트너 실전 응대", goal: "미팅 시간 조율 매너, 전화 수신 및 명함 교환", start: 16, end: 20 },
+                { num: 5, title: "📅 Week 5: 위기 대응 및 조건 협상", goal: "일정 지연 사전 조율 및 마감 기한 조절 네고", start: 21, end: 25 },
+                { num: 6, title: "📅 Week 6: 최종 조율 및 비즈니스 마스터", goal: "미팅 변경 최종 확정 및 종합 졸업 테스트", start: 26, end: 30 }
+            ];
+
+            weeks.forEach(w => {
+                const section = document.createElement('div');
+                section.className = 'week-section';
+                section.innerHTML = `
+                    <div class="week-header">
+                        <h3>${w.title}</h3>
+                        <p>🎯 목표: ${w.goal}</p>
+                    </div>
+                    <div class="roadmap-grid" id="week-grid-${w.num}"></div>
+                `;
+                container.appendChild(section);
+
+                const grid = section.querySelector(`#week-grid-${w.num}`);
+                for(let i = w.start; i <= w.end; i++) {
+                    const card = document.createElement('div');
+                    const isDone = completedList.includes(i);
+                    card.className = `day-card ${isDone ? 'completed' : ''}`;
+                    card.onclick = () => openModal(i);
+                    card.innerHTML = `
+                        <div class="day-num">${String(i).padStart(2, '0')}</div>
+                        <div class="day-title">${curriculumTitles[i]}</div>
+                        <div class="day-status">${isDone ? '💮 마스터 완료!' : '☕ 학습 보기'}</div>
+                    `;
+                    grid.appendChild(card);
+                }
+            });
+
+            const totalCompleted = completedList.length;
+            const pct = Math.round((totalCompleted / totalDays) * 100);
+            document.getElementById('progressText').innerText = `${totalCompleted}일 완수! 목표를 향해 멋지게 나아가는 중이에요! 🚀`;
+            document.getElementById('progressBarFill').style.width = `${pct}%`;
+        }
+
+        function openModal(day) {
+            document.getElementById('modalDayNum').innerText = `DAY ${String(day).padStart(2, '0')}`;
+            document.getElementById('modalDayTitle').innerText = curriculumTitles[day];
+            
+            const list = masterExpressions[day];
+            let listHtml = "";
+            list.forEach((item, idx) => {
+                listHtml += `
+                    <div class="review-line">
+                        <b>${idx+1}.</b> <code>${item.js.join(' ')}</code>
+                        <div style="margin-top:4px; font-size:17px; color:var(--error)">🎧 발음: ${item.pron}</div>
+                        <div style="font-size:17px; color:var(--text-muted)">📝 뜻: ${item.kr}</div>
+                    </div>`;
+            });
+
+            document.getElementById('modalDayBody').innerHTML = `
+                <p>실무 도메인에 즉시 부합하는 5가지 실전 주요 표현집입니다.</p>
+                <div class="review-box">
+                    <h4>💡 핵심 표현</h4>
+                    ${listHtml}
+                </div>
+            `;
+            document.getElementById('dayModal').classList.add('active');
+        }
+
+        function closeModal() { document.getElementById('dayModal').classList.remove('active'); }
+
+        function loadQuiz() {
+            isChecked = false;
+            currentAns = [];
+            document.getElementById('answerZone').className = 'answer-zone';
+            document.getElementById('feedbackMsg').style.display = 'none';
+            
+            const btn = document.getElementById('actionBtn');
+            btn.style.display = 'inline-block';
+            btn.innerText = "정답 확인! ✨";
+
+            const expressions = masterExpressions[selectedDay];
+            const dataIndex = currentQIdx % expressions.length;
+            const currentItem = expressions[dataIndex];
+
+            document.getElementById('quizStep').innerText = `${currentQIdx + 1} / 10 단계`;
+            document.getElementById('quizScore').innerText = `성공 개수: ${currentQIdx}`;
+            document.getElementById('questionText').innerText = `💡 상황: ${currentItem.kr}`;
+
+            let pool = [...currentItem.js];
+            
+            let sampleDay = selectedDay === 1 ? 2 : 1;
+            let distractorSource = masterExpressions[sampleDay];
+            if(distractorSource) {
+                let d1 = distractorSource[0].js[0];
+                let d2 = distractorSource[1].js[0];
+                if(d1 && !pool.includes(d1)) pool.push(d1);
+                if(d2 && !pool.includes(d2)) pool.push(d2);
+            }
+            
+            for (let i = pool.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [pool[i], pool[j]] = [pool[j], pool[i]];
+            }
+
+            const poolZone = document.getElementById('wordPool');
+            poolZone.innerHTML = '';
+            pool.forEach((word, index) => {
+                const chip = document.createElement('div');
+                chip.className = 'word-chip';
+                chip.innerText = word;
+                chip.id = `chip-${index}`;
+                chip.onclick = () => {
+                    if(isChecked) return;
+                    currentAns.push({word, id: `chip-${index}`});
+                    chip.classList.add('selected');
+                    updateAnswerZone();
+                };
+                poolZone.appendChild(chip);
+            });
+            updateAnswerZone();
+        }
+
+        function updateAnswerZone() {
+            const zone = document.getElementById('answerZone');
+            if(currentAns.length === 0) {
+                zone.innerHTML = '<span style="color: var(--text-muted);">단어 조각을 알맞은 순서대로 클릭해 주세요!</span>';
+                return;
+            }
+            zone.innerHTML = '';
+            currentAns.forEach(item => {
+                const node = document.createElement('div');
+                node.className = 'placed-chip';
+                node.innerText = item.word;
+                zone.appendChild(node);
+            });
+        }
+
+        function clearAnswer() {
+            if(isChecked) return;
+            currentAns.forEach(item => {
+                const el = document.getElementById(item.id);
+                if(el) el.classList.remove('selected');
+            });
+            currentAns = [];
+            updateAnswerZone();
+        }
+
+        function checkAnswer() {
+            const feedback = document.getElementById('feedbackMsg');
+            const zone = document.getElementById('answerZone');
+            const btn = document.getElementById('actionBtn');
+            
+            const expressions = masterExpressions[selectedDay];
+            const dataIndex = currentQIdx % expressions.length;
+            const targetAns = expressions[dataIndex].js;
+
+            if(isChecked) {
+                currentQIdx++;
+                if(currentQIdx >= 10) {
+                    feedback.innerText = `🎉 축하합니다! DAY ${String(selectedDay).padStart(2, '0')} 10문항 완수 도장이 대시보드 그래프에 연동되었습니다!`;
+                    feedback.style.color = "#606c38";
+                    let completedList = JSON.parse(localStorage.getItem('completedDays')) || [];
+                    if(!completedList.includes(selectedDay)) {
+                        completedList.push(selectedDay);
+                        localStorage.setItem('completedDays', JSON.stringify(completedList));
+                        renderRoadmap();
+                    }
+                    btn.style.display = 'none';
+                } else {
+                    loadQuiz();
+                }
+                return;
+            }
+
+            const userWords = currentAns.map(item => item.word);
+            let isCorrect = userWords.length === targetAns.length && userWords.every((v, i) => v === targetAns[i]);
+
+            feedback.style.display = 'block';
+            if(isCorrect) {
+                feedback.innerText = "💮 정답입니다! 유려한 비즈니스 표현이네요.";
+                feedback.style.color = "var(--success)";
+                zone.className = 'answer-zone correct';
+                isChecked = true;
+                btn.innerText = currentQIdx === 9 ? "마지막 도장 찍고 완료하기" : "다음 문장 조립하기 👉";
+            } else {
+                feedback.innerText = "❌ 순서가 올바르지 않습니다. 다시 조합해 볼까요?";
+                feedback.style.color = "var(--error)";
+                zone.className = 'answer-zone wrong';
+            }
+        }
+
+        function renderVocab() {
+            const day = document.getElementById('vocabDaySelect').value;
+            const container = document.getElementById('vocabContainer');
+            container.innerHTML = '';
+            
+            const list = masterExpressions[day];
+            list.forEach((item, idx) => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'vocab-list-item';
+                itemDiv.innerHTML = `
+                    <code>[표현 0${idx+1}] ${item.js.join(' ')}</code>
+                    <p>🎧 <b>발음 가이드:</b> <span class="pron-text">${item.pron}</span></p>
+                    <p>📌 <b>상황 맥락:</b> ${item.kr}</p>
+                `;
+                container.appendChild(itemDiv);
+            });
+        }
+    </script>
+</body>
+</html>

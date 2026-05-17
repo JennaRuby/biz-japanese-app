@@ -6,7 +6,7 @@
     <title>하루 10분! 비즈니스 일본어 30일 마스터 🍙</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Noto+Sans+KR:wght@400;700&family=Poppins:wght@600&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2 family=Gaegu:wght@400;700&family=Noto+Sans+KR:wght@400;700&family=Poppins:wght@600&family=Roboto+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root {
@@ -49,37 +49,54 @@
             border: 4px solid var(--primary);
         }
 
+        /* 📱 모바일 탭 잘림 현상 해결을 위한 헤더 상자 리팩토링 */
         .app-header {
             background-color: var(--primary-light);
             color: var(--primary);
-            padding: 20px 15px;
+            padding: 15px 10px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
             border-bottom: 4px solid var(--primary);
             text-align: center;
         }
         
         .app-header h1 { 
             font-family: 'Gaegu', cursive; 
-            font-size: calc(20px + 1vw); 
+            font-size: calc(18px + 1.2vw); 
             font-weight: 700; 
-            line-height: 1.3;
+            line-height: 1.2;
             word-break: keep-all;
         }
         
-        .nav-tabs { display: flex; gap: 6px; justify-content: center; width: 100%; flex-wrap: wrap; }
-        .nav-btn { 
-            background: white; border: 2px solid var(--primary); color: var(--primary); 
-            padding: 8px 14px; font-size: 17px; font-weight: 700; cursor: pointer; 
-            border-radius: 15px; transition: all 0.2s; font-family: 'Gaegu', cursive;
-            box-shadow: 0 4px 0px var(--primary); white-space: nowrap;
+        .nav-tabs { 
+            display: flex; 
+            gap: 6px; 
+            justify-content: center; 
+            width: 100%; 
         }
-        .nav-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 0px var(--primary); }
-        .nav-btn.active { background-color: var(--primary); color: white; box-shadow: none; transform: translateY(4px); }
+        
+        .nav-btn { 
+            flex: 1; 
+            padding: 8px 4px; 
+            font-size: 15px; 
+            font-weight: 700; 
+            background: white; 
+            border: 2px solid var(--primary); 
+            color: var(--primary); 
+            cursor: pointer; 
+            border-radius: 12px; 
+            transition: all 0.2s; 
+            font-family: 'Gaegu', cursive;
+            box-shadow: 0 3px 0px var(--primary); 
+            white-space: nowrap;
+            text-align: center;
+        }
+        .nav-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 0px var(--primary); }
+        .nav-btn.active { background-color: var(--primary); color: white; box-shadow: none; transform: translateY(3px); }
 
-        .app-content { flex-grow: 1; padding: 20px 12px; display: none; }
+        .app-content { flex-grow: 1; padding: 20px 10px; display: none; }
         .app-content.active { display: block; }
 
         .progress-banner { background-color: #ffffff; border: 3px dashed var(--primary); border-radius: 20px; padding: 15px; margin-bottom: 25px; }
@@ -87,48 +104,47 @@
         .progress-bar-container { width: 100%; background-color: var(--primary-light); border-radius: 15px; height: 14px; overflow: hidden; border: 2px solid var(--primary); }
         .progress-bar-fill { height: 100%; background-color: var(--yellow-accent); width: 0%; transition: width 0.4s ease; }
 
-        /* 💻 PC 전용 대형 30일 격자 그리드 구조 */
+        /* 💻 PC 30일 상시 그리드 배치 */
         .pc-roadmap-view { display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; margin-top: 15px; }
 
-        /* 📱 모바일 전용 아날로그 다이어리 레이아웃 구조 */
+        /* 📱 모바일 다이어리 인덱스 구조 */
         .mobile-diary-view { display: none; min-height: 500px; }
-        .diary-sidebar { width: 50px; background-color: var(--primary-light); display: flex; flex-direction: column; border-right: 3px solid var(--primary); }
+        .diary-sidebar { width: 45px; background-color: var(--primary-light); display: flex; flex-direction: column; border-right: 3px solid var(--primary); }
         .week-tab {
             flex: 1; display: flex; align-items: center; justify-content: center;
             writing-mode: vertical-rl; text-orientation: upright;
-            font-family: 'Gaegu', cursive; font-size: 15px; font-weight: 700; cursor: pointer;
+            font-family: 'Gaegu', cursive; font-size: 14px; font-weight: 700; cursor: pointer;
             border-bottom: 1px solid rgba(0,0,0,0.08); background-color: var(--primary-light);
         }
-        .week-tab.active { background-color: var(--surface); color: var(--primary); border-left: 5px solid var(--primary); width: 54px; z-index: 2; }
-        .diary-panel { flex: 1; padding: 15px 10px; background-color: var(--surface); }
+        .week-tab.active { background-color: var(--surface); color: var(--primary); border-left: 4px solid var(--primary); width: 49px; z-index: 2; }
+        .diary-panel { flex: 1; padding: 15px 8px; background-color: var(--surface); }
         .mobile-day-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
 
-        /* 공통 데일리 학습 카드 디자인 */
+        /* 데일리 카드 디자인 규격 */
         .day-card { 
             background-color: #ffffff; border: 2px solid var(--border); border-radius: 16px; 
             padding: 12px 6px; cursor: pointer; transition: all 0.2s ease; text-align: center;
             box-shadow: 0 3px 0px var(--primary-light); display: flex; flex-direction: column;
             justify-content: space-between; min-height: 105px;
         }
-        .day-card:hover { transform: translateY(-3px); border-color: var(--primary); }
+        .day-card:hover { border-color: var(--primary); }
         .day-card.completed { background-color: var(--success-bg); border-color: var(--success); }
         .day-num { font-family: 'Poppins', sans-serif; font-size: 22px; font-weight: 700; color: var(--accent); }
-        .day-title { font-size: 16px; font-weight: 700; color: var(--text-main); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.2; }
+        .day-title { font-size: 15px; font-weight: 700; color: var(--text-main); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.2; }
         .day-status { font-size: 13px; font-weight: 700; color: var(--text-muted); }
 
-        /* 🧠 학습 엔진(Learning Engine) 인프라 */
+        /* 🧠 선생님 버전 학습 전용 세그먼트 */
         .engine-mode-selector { display: flex; gap: 10px; margin-bottom: 20px; }
         .mode-toggle-btn { flex: 1; padding: 10px; border: 2px solid var(--primary); background: white; border-radius: 12px; font-family: 'Gaegu'; font-size: 18px; font-weight: 700; cursor: pointer; color: var(--primary); }
         .mode-toggle-btn.active { background: var(--primary); color: white; }
 
-        /* 💬 매니저 대화형 모드 UI 상자 */
-        .manager-chat-container { background: #ffffff; border: 3px solid var(--primary); border-radius: 20px; min-height: 300px; padding: 15px; display: flex; flex-direction: column; justify-content: space-between; }
-        .chat-timeline { flex-grow: 1; overflow-y: auto; max-height: 320px; margin-bottom: 15px; display: flex; flex-direction: column; gap: 12px; }
-        .chat-bubble { max-width: 85%; padding: 12px 16px; border-radius: 16px; font-size: 18px; line-height: 1.4; position: relative; animation: fadeInUp 0.3s ease; }
-        .chat-bubble.manager { background: var(--primary-light); color: var(--text-main); align-self: flex-start; border-top-left-radius: 4px; }
-        .chat-bubble.manager code { font-family: 'Roboto Mono', monospace; font-size: 20px; color: var(--error); font-weight: 700; display: block; margin-top: 5px; }
+        .manager-chat-container { background: #ffffff; border: 3px solid var(--primary); border-radius: 20px; min-height: 350px; padding: 15px; display: flex; flex-direction: column; justify-content: space-between; }
+        .chat-timeline { flex-grow: 1; overflow-y: auto; max-height: 340px; margin-bottom: 15px; display: flex; flex-direction: column; gap: 14px; padding-right: 5px; }
+        .chat-bubble { max-width: 90%; padding: 14px 16px; border-radius: 16px; font-size: 17px; line-height: 1.45; animation: fadeInUp 0.3s ease; }
+        .chat-bubble.manager { background: var(--primary-light); color: var(--text-main); align-self: flex-start; border-top-left-radius: 4px; border: 1px solid var(--border); }
+        .chat-bubble.manager code { font-family: 'Roboto Mono', monospace; font-size: 22px; color: var(--error); font-weight: 700; display: block; margin: 6px 0; }
+        .teacher-note { background: #ffffff; border-left: 4px solid var(--yellow-accent); padding: 8px 10px; margin-top: 8px; border-radius: 4px; font-size: 15px; color: var(--text-main); }
         
-        /* 🎴 플립형 카드 학습 모드 UI 상자 */
         .flip-cards-grid { display: grid; grid-template-columns: 1fr; gap: 15px; }
         .flip-card-scene { perspective: 600px; width: 100%; height: 130px; cursor: pointer; }
         .flip-card-inner { width: 100%; height: 100%; position: relative; transition: transform 0.4s; transform-style: preserve-3d; }
@@ -170,11 +186,11 @@
 
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* 💻 데스크톱 해상도 확장 오버라이딩 */
         @media (min-width: 769px) {
             body { padding: 40px 20px; }
-            .app-header { flex-direction: row; justify-content: space-between; padding: 25px 40px; }
-            .nav-tabs { width: auto; }
+            .app-header { flex-direction: row; justify-content: space-between; padding: 20px 40px; }
+            .nav-tabs { width: auto; gap: 10px; }
+            .nav-btn { font-size: 18px; padding: 8px 20px; max-width: none; width: auto; }
             .pc-roadmap-view { display: grid; }
             .mobile-diary-view { display: none !important; }
             .flip-cards-grid { grid-template-columns: repeat(2, 1fr); }
@@ -185,10 +201,10 @@
             .app-content { padding: 40px; }
         }
         
-        /* 📱 모바일 해상도 전환 오버라이딩 */
         @media (max-width: 768px) {
             .pc-roadmap-view { display: none !important; }
             .mobile-diary-view { display: flex; }
+            .nav-btn { font-size: 14px; padding: 6px 0; }
         }
     </style>
 </head>
@@ -196,7 +212,7 @@
 
     <div class="app-container">
         <div class="app-header">
-            <h1>🍙 비즈니스 일본어 30일 마스터</h1>
+            <h1>🍙 비즈니스 일본어 30일 아카데미</h1>
             <div class="nav-tabs">
                 <button class="nav-btn active" onclick="switchTab(event, 'dashboard')">🍡 홈</button>
                 <button class="nav-btn" onclick="switchTab(event, 'learning')">📖 학습하기</button>
@@ -217,8 +233,8 @@
                 <aside class="diary-sidebar" id="mobileWeekSidebar"></aside>
                 <main class="diary-panel">
                     <div class="week-title-box">
-                        <h2 id="mobileWeekTitle">Week 1: 사내 기본 소통</h2>
-                        <p id="mobileWeekGoal">🎯 목표: 출근 인사 및 수락 매너</p>
+                        <h2 id="mobileWeekTitle">Week 1: 사내 기본 소통 모듈</h2>
+                        <p id="mobileWeekGoal">🎯 목표: 로딩 중...</p>
                     </div>
                     <div class="mobile-day-grid" id="mobileDayGrid"></div>
                 </main>
@@ -227,7 +243,7 @@
 
         <div id="learning" class="app-content">
             <div class="selector-container">
-                <span class="selector-label">📖 학습 타깃 날짜 선택:</span>
+                <span class="selector-label">📖 학습 목표 일차 선택:</span>
                 <select id="learningDaySelect" class="round-select" onchange="onLearningDayChange()"></select>
             </div>
             
@@ -238,7 +254,7 @@
 
             <div id="learningChatArea" class="manager-chat-container">
                 <div class="chat-timeline" id="chatTimeline"></div>
-                <button class="btn btn-primary" id="chatNextBtn" onclick="advanceChatStep()">다음 표현 배우기 ➡️</button>
+                <button class="btn btn-primary" id="chatNextBtn" onclick="advanceChatStep()">첫 번째 표현 배우기 ➡️</button>
             </div>
 
             <div id="learningCardArea" class="flip-cards-grid" style="display:none;"></div>
@@ -246,7 +262,7 @@
 
         <div id="quiz" class="app-content">
             <div class="selector-container">
-                <span class="selector-label">🎯 퀴즈 데이 선택:</span>
+                <span class="selector-label">🎯 검증 퀴즈 데이:</span>
                 <select id="quizDaySelect" class="round-select" onchange="onQuizDayChange()"></select>
             </div>
             <div class="quiz-box">
@@ -254,7 +270,7 @@
                     <span id="quizStep">1 / 10 단계</span>
                     <span id="quizScore">성공 개수: 0</span>
                 </div>
-                <div class="quiz-header" id="questionText">문제를 불러오는 중입니다...</div>
+                <div class="quiz-header" id="questionText">문제를 세팅 중입니다...</div>
                 <div class="answer-zone" id="answerZone"></div>
                 <div class="word-pool" id="wordPool"></div>
                 <div class="quiz-controls">
@@ -267,7 +283,7 @@
 
         <div id="vocab" class="app-content">
             <div class="selector-container">
-                <span class="selector-label">🔍 일차별 전량 표현 검색:</span>
+                <span class="selector-label">🔍 일차별 마스터 북:</span>
                 <select id="vocabDaySelect" class="round-select" onchange="renderVocab()"></select>
             </div>
             <div id="vocabContainer"></div>
@@ -314,103 +330,75 @@
             28: "사내 돌발 상황 통합 트레이닝 🏡", 29: "외부 바이어 최종 조건 조율 🌐", 30: "30일 완성 최종 마스터 테스트 🏆"
         };
 
-        // 완벽 정제 교정 150개 비즈니스 일본어 데이터 맵 (1대1 매칭형 타깃 번역 탑재)
+        // 완벽 정제 교정 150개 데이터 및 선생님 매니저 티칭 멘트(comment) 데이터셋 맵
         const masterExpressions = {
             1: [
-                { js: ["おはよう", "ございます"], kr: "안녕하세요 (출근 아침 인사)", pron: "오하요- 고자이마스" },
-                { js: ["お疲れ様", "です"], kr: "수고하십니다 (사내 기본 소통)", pron: "오츠카레사마데스" },
-                { js: ["失礼", "します"], kr: "실례합니다 (퇴근 및 입실)", pron: "시츠레이시마스" },
-                { js: ["分かりました"], kr: "알겠습니다 (상사 지시 수락)", pron: "와카리마시타" },
-                { js: ["いつまでに", "すれば", "いいですか"], kr: "언제까지 하면 되나요? (마감 기한 확인)", pron: "이츠마데니 스레바 이이데스카" }
+                { js: ["おはよう", "ございます"], kr: "안녕하세요", pron: "오하요- 고자이마스", comment: "출근 시 동료나 상사와 마주쳤을 때 신뢰감을 주는 사내 필수 첫인사 아침 컴포넌트입니다." },
+                { js: ["お疲れ様", "です"], kr: "수고하십니다 / 고생 많으십니다", pron: "오츠카레사마데스", comment: "사내 복도 이동, 대면 업무 요청 등 시간대에 무관하게 대화를 시작할 때 쓰는 사내 만능 소통어입니다." },
+                { js: ["失礼", "します"], kr: "실례합니다 / 먼저 들어가 보겠습니다", pron: "시츠레이시마스" , comment: "타 부서 회의실이나 상사 자리에 진입할 때 혹은 퇴근 선언 시 사용하는 정중한 경계 진입 표현입니다."},
+                { js: ["分かりました"], kr: "알겠습니다 / 확인했습니다", pron: "와카리마시타", comment: "상사의 지시나 업무 분배 내용을 즉각 수락하며 업무 파이프라인의 안전성을 알리는 기본 확약 호응어입니다." },
+                { js: ["いつまでに", "すれば", "いいですか"], kr: "언제까지 하면 되나요?", pron: "이츠마데니 스레바 이이데스카", comment: "데드라인을 선제적으로 동기화하여 업무 우선순위를 리밸런싱하고 병목 현상을 미리 방지하는 리스크 관리형 역질문입니다." }
             ],
             2: [
-                { js: ["金曜日", "までに", "します"], kr: "금요일까지 하겠습니다 (마감 확답)", pron: "킨요-비마데니 시마스" },
-                { js: ["明日の朝", "までに", "します"], kr: "내일 아침까지 하겠습니다 (기한 확정)", pron: "아시타노 아사마데니 시마스" },
-                { js: ["終わりました"], kr: "끝났습니다 (업무 완료 알림)", pron: "오와리마시타" },
-                { js: ["ご確認を", "お願いします"], kr: "확인 부탁드립니다 (상사 검토 요청)", pron: "고카쿠닌오 오네가이시마스" },
-                { js: ["修正して", "再共有", "します"], kr: "수정해서 다시 공유하겠습니다", pron: "슈-세이시테 사이쿄-유-시마스" }
-            ],
-            3: [
-                { js: ["今ちょっと", "お時間", "よろしいですか"], kr: "지금 잠깐 시간 괜찮으신가요? (보고 전 양해)", pron: "이마 쵸토 오지칸 요로시이데스카" },
-                { js: ["トラブルが", "発生しました"], kr: "문제가 발생했습니다 (장애 대면 보고)", pron: "토라부루가 핫세-시마시타" },
-                { js: ["報告させて", "いただきます"], kr: "보고드리겠습니다 (공식 진행 현황 전파)", pron: "호-코쿠사세테 이타다키마스" },
-                { js: ["すぐに", "確認", "します"], kr: "바로 확인하겠습니다 (대처 조치 확약)", pron: "스구니 카쿠닌시마스" },
-                { js: ["申し訳", "ございません"], kr: "죄송합니다 (사내 과실 사과)", pron: "모-시와케 고자이마센" }
-            ],
-            4: [
-                { js: ["席を", "外します"], kr: "자리를 비웁니다 (부재 알림)", pron: "세키오 하즈시마스" },
-                { js: ["15時ごろ", "戻ります"], kr: "15시쯤 돌아옵니다 (복귀 시간 공유)", pron: "쥬-고지고로 모도리마스" },
-                { js: ["外出", "いたします"], kr: "외출하겠습니다 (외근 업무 이동)", pron: "가이슈츠 이타시마스" },
-                { js: ["戻りました"], kr: "돌아왔습니다 (사무실 복귀 신고)", pron: "모도리마시타" },
-                { js: ["急ぎの件は", "メッセージで", "お願いします"], kr: "급한 건은 메시지로 부탁드립니다 (부재 시 안내)", pron: "이소기노 켄와 멧세-지데 오네가이시마스" }
-            ],
-            5: [
-                { js: ["ご協力", "お願いします"], kr: "협조를 부탁드립니다 (타 부서 요청)", pron: "고쿄-료쿠 오네가이시마스" },
-                { js: ["お手すきの", "時に", "お願いします"], kr: "시간 나실 때 부탁드립니다 (리소스 문의)", pron: "오테스키노 토키니 오네가이시마스" },
-                { js: ["助かりました"], kr: "도움이 되었습니다 (협력 감사 인사)", pron: "타스카리마시타" },
-                { js: ["資料を", "確認して", "いただけますか"], kr: "자료를 확인해 주실 수 있나요? (피드백 요청)", pron: "시료-오 카쿠닌시테 이타다케마스카" },
-                { js: ["よろしく", "お願いします"], kr: "잘 부탁드립니다 (업무 연동 마무리)", pron: "요로시쿠 오네가이시마스" }
-            ],
-            6: [
-                { js: ["今週の", "報告を", "いたします"], kr: "이번 주 보고를 드리겠습니다 (정기 주간 보고)", pron: "콘슈-노 호-코쿠오 이타시마스" },
-                { js: ["進捗は", "順調です"], kr: "진척은 순조롭습니다 (프로젝트 이상 없음)", pron: "신쵸쿠와 슌쵸-데스" },
-                { js: ["予定通りに", "終わりました"], kr: "예정대로 끝났습니다 (일정 준수 완료)", pron: "요테-도-리니 오와리마시타" },
-                { js: ["来週の", "タスクを", "共有します"], kr: "다음 주 태스크를 공유하겠습니다 (차주 계획 브리핑)", pron: "라이슈-노 타스쿠오 쿄-유-시마스" },
-                { js: ["良い週末を", "お過ごしください"], kr: "좋은 주말 보내세요 (금요일 퇴근 인사)", pron: "요이 슈-마츠오 오스고시쿠다사이" }
+                { js: ["金曜日", "までに", "します"], kr: "금요일까지 하겠습니다", pron: "킨요-비마데니 시마스", comment: "상사에게 정밀한 요일 데드라인 타임라인을 확약하여 프로젝트 스프린트 신뢰도를 확보하는 종결 어미입니다." },
+                { js: ["明日の朝", "までに", "します"], kr: "내일 아침까지 하겠습니다", pron: "아시타노 아사마데니 시마스", comment: "오전 미팅 전까지 가공을 끝내겠다는 확약을 통해 차질 없는 진행 상태를 전달합니다." },
+                { js: ["終わりました"], kr: "끝났습니다", pron: "오와리마시타", comment: "태스크의 큐(Queue)가 완전히 비었음을 즉각 보고하여 인프라를 최적화하는 완료 알림 조각입니다." },
+                { js: ["ご確認を", "お願いします"], kr: "확인 부탁드립니다", pron: "고카쿠닌오 오네가이시마스", comment: "보고물 제출 후 상사의 1차 컨펌과 피드백 루프를 정중하게 유도하는 비즈니스 표준 컴포넌트입니다." },
+                { js: ["修正して", "再共有", "します"], kr: "수정해서 다시 공유하겠습니다", pron: "슈-세이시테 사이쿄-유-시마스", comment: "상사나 동료의 피드백 요구 조건을 즉각 보정하고 메신저에 재업로드하겠다는 민첩한 애자일 대응 표현입니다." }
             ],
             16: [
-                { js: ["ご都合は", "いかがでしょうか"], kr: "일정은 어떠신가요? (사외 조율 기준 확인)", pron: "고츠고-와 이카가데쇼-카" },
-                { js: ["下記の日程で", "いかがでしょうか"], kr: "아래 일정은 어떠신가요? (메일 미팅 후보지 제안)", pron: "카키노 닛테-데 이카가데쇼-카" },
-                { js: ["その日は", "調整可能です"], kr: "그날은 조정 가능합니다 (제안 일자 수락)", pron: "소노 히와 쵸-세-카노-데스" },
-                { js: ["お時間を", "いただき", "ありがとうございます"], kr: "시간을 내어 주셔서 감사합니다 (미팅 확정 감사)", pron: "오지칸오 이타다키 아리가토-고자이마스" },
-                { js: ["ではその日時で", "お待ちしております"], kr: "그럼 그 일시에 기다리겠습니다 (최종 일정 조율 약속)", pron: "데와 소노 니치지데 오마치시테오리마스" }
+                { js: ["ご都合は", "いかがでしょうか"], kr: "일정은 어떠신가요?", pron: "고츠고-와 이카가데쇼-카", comment: "외부 바이어나 클라이언트의 시간적 여유 상태(Availability)를 최고 수준으로 배려하며 체크하는 필수 문장입니다." },
+                { js: ["下記の日程で", "いかがでしょうか"], kr: "아래 일정은 어떠신가요?", pron: "카키노 닛테-데 이카가데쇼-카", comment: "이메일이나 슬랙으로 미팅 후보 타임라인 리스트를 제안할 때 하단 앵커를 연결하는 제안용 팁입니다." },
+                { js: ["その日は", "調整可能です"], kr: "그날은 조정 가능합니다", pron: "소노 히와 쵸-세-카노-데스", comment: "외부 파트너가 제안해 온 시간대 스케줄이 자사 캘린더와 동기화되어 진행할 수 있음을 회신하는 수락어입니다." },
+                { js: ["お時間を", "いただき", "ありがとうございます"], kr: "시간을 내어 주셔서 감사합니다", pron: "오지칸오 이타다키 아리가토-고자이마스", comment: "일정 확정 후 오프라인 미팅이나 화상 회의룸에 입장하며 서두에 감사를 표하는 비즈니스 라포(Rapport) 형성어입니다." },
+                { js: ["ではその日時で", "お待ちしております"], kr: "그럼 그 일시에 기다리겠습니다", pron: "데와 소노 니치지데 오마치시테오리마스", comment: "모든 일정 셋업 프로세스를 최종 마무리하고 약속 장소나 줌 링크에서 대기하겠다는 정중한 마감 확약입니다." }
             ],
             17: [
-                { js: ["お電話", "ありがとうございます"], kr: "전화 감사합니다 (수신 기본 대응)", pron: "오덴와 아리가토-고자이마스" },
-                { js: ["少々", "お待ちください"], kr: "잠시만 기다려 주세요 (통화 보류)", pron: "쇼-쇼- 오마치쿠다사이" },
-                { js: ["担当者に", "お繋기いたします"], js_pure: ["担当者に", "お繋ぎいたします"], kr: "담당자에게 연결해 드리겠습니다 (전화 토스)", pron: "탄토-샤니 오츠나기이타시마스" },
-                { js: ["あいにく", "外出しております"], kr: "안타깝게도 외출 중이십니다 (부재 상황 전달)", pron: "아이니쿠 가이슈츠시테오리마스" },
-                { js: ["折り返し", "お電話いたします"], kr: "다시 전화드리겠습니다 (콜백 약속)", pron: "오리카에시 오덴와이타시마스" }
+                { js: ["お電話", "ありがとうございます"], kr: "전화 감사합니다", pron: "오덴와 아리가토-고자이마스", comment: "사외 외부 유선 전화 인바운드가 들어왔을 때 소속 회사명과 이름을 밝히기 전 던지는 기본 수신 프로토콜 인사입니다." },
+                { js: ["少々", "お待ちください"], kr: "잠시만 기다려 주세요", pron: "쇼-쇼- 오마치쿠다사이", comment: "수신된 전화를 타 부서나 상사에게 포워딩하기 전 보류 음을 송출하기 직전에 던지는 매너 컴포넌트입니다." },
+                { js: ["担当者に", "お繋ぎいたします"], kr: "담당자에게 연결해 드리겠습니다", pron: "탄토-샤니 오츠나기이타시마스", comment: "클라이언트의 용건에 맞는 유관 담당 실무자나 엔지니어에게 유선 라인을 인계함을 알리는 중계 확약입니다." },
+                { js: ["あいにく", "外出しております"], kr: "안타깝게도 외출 중이십니다", pron: "아이니쿠 가이슈츠시테오리마스", comment: "찾으시는 상사나 리드가 현재 미팅이나 외부 출장으로 부재중인 내부 리소스 상태를 공유할 때의 정중한 쿠션어입니다." },
+                { js: ["折り返し", "お電話いたします"], kr: "다시 전화드리겠습니다", pron: "오리카에시 오덴와이타시마스", comment: "부재중인 담당자가 복귀하는 대로 클라이언트에게 직접 콜백(Call back) 조치하도록 하겠다는 약속입니다." }
             ],
             18: [
-                { js: ["伝言を", "お願いできますか"], kr: "메모를 부탁드려도 될까요? (부재 시 요청)", pron: "덴곤오 오네가이데키마스카" },
-                { js: ["戻り次第", "連絡させます"], kr: "돌아오는 대로 연락드리도록 하겠습니다 (상사 복귀 조치)", pron: "모도리시다이 렌라쿠사세마스" },
-                { js: ["メールで", "ご連絡いたします"], kr: "이메일로 연락드리겠습니다 (대체 소통 수단 제안)", pron: "메-루데 고렌라쿠이타시마스" },
-                { js: ["念のため", "確認いたします"], kr: "확인 차 여쭤봅니다 (중요 사항 재체크)", pron: "넨노타메 카쿠닌이타시마스" },
-                { js: ["確かに", "承りました"], kr: "확실히 잘 전달받았습니다 (메모 수신 완료 확약)", pron: "타시카니 우케타마와리마시타" }
+                { js: ["伝言を", "お願いできますか"], kr: "메모를 부탁드려도 될까요?", pron: "덴곤오 오네가이데키마스카", comment: "상대방 담당자가 부재중일 때 자사의 긴급 요청 사항이나 용건 메시지를 전달해 달라고 수신자에게 부탁하는 역질문입니다." },
+                { js: ["戻り次第", "連絡させます"], kr: "돌아오는 대로 연락드리도록 하겠습니다", pron: "모도리시다이 렌라쿠사세마스", comment: "자사 리드가 외근에서 복귀하는 즉시 바이어에게 직접 연락을 가동하도록 조치하겠다는 신뢰 기반 답변입니다." },
+                { js: ["メールで", "ご連絡いたします"], kr: "이메일로 연락드리겠습니다", pron: "메-루데 고렌라쿠이타시마스", comment: "전화 통화가 불가능하거나 증적 자료 첨부가 필요한 경우 소통 인프라를 메일로 전환하겠다는 유연한 제안입니다." },
+                { js: ["念のため", "確認いたします"], kr: "확인 차 여쭤봅니다", pron: "넨노타메 카쿠닌이타시마스", comment: "비즈니스 트러블을 차단하기 위해 계좌 번호, 메일 주소, 수량 등의 텍스트 정보를 재차 크로스 체크하는 리스크 헷징어입니다." },
+                { js: ["確かに", "承りました"], kr: "확실히 잘 전달받았습니다", pron: "타시카니 우케타마와리마시타" , comment: "고객의 용건이나 수정 요구 사항 메모를 100% 무결하게 이해하고 내부 싱크를 완료했음을 알리는 최상급 수임 표현입니다."}
             ],
             19: [
-                { js: ["いらっしゃいませ"], kr: "어서 오세요 (외부 고객 사내 영접)", pron: "이라샤이마세" },
-                { js: ["こちらへ", "どうぞ"], kr: "이쪽으로 오세요 (회의실 동선 안내)", pron: "코치라헤 도-조" },
-                { js: ["おかけになって", "お待ちください"], kr: "앉아서 기다려 주세요 (대기 안내)", pron: "오카케니낫테 오마치쿠다사이" },
-                { js: ["すぐに", "ご案内いたします"], kr: "바로 안내해 드리겠습니다 (담당자 호출 공유)", pron: "스구니 고안나이이타시마스" },
-                { js: ["本日は", "ご足労いただき", "感謝します"], kr: "오늘 와주셔서 감사합니다 (방문 감사 인사)", pron: "혼지츠와 고소쿠로-이타다키 칸샤시마스" }
+                { js: ["いらっしゃいませ"], kr: "어서 오세요", pron: "이라샤이마세", comment: "자사 사무실 로비나 리셉션에 도착한 외부 파트너 클라이언트를 가장 먼저 환대하는 비즈니스 영접 인사입니다." },
+                { js: ["こちらへ", "どうぞ"], kr: "이쪽으로 오세요", pron: "코치라헤 도-조", comment: "방문객을 셋업된 전용 회의실이나 예약 룸 동선으로 정중하게 리드하여 에스코트할 때 쓰는 가이드 조각입니다." },
+                { js: ["おかけになって", "お待ちください"], kr: "앉아서 기다려 주세요", pron: "오카케니낫테 오마치쿠다사이", comment: "회의실 내부 소파나 의자를 권하며 담당자가 입장하기 전까지 편안한 대기를 유도하는 객장 배려어입니다." },
+                { js: ["すぐに", "ご案内いたします"], kr: "바로 안내해 드리겠습니다", pron: "스구니 고안나이이타시마스", comment: "클라이언트가 도착했음을 내부 슬랙으로 전파한 뒤, 미팅룸 배정이 완료되었음을 알릴 때 사용합니다." },
+                { js: ["本日は", "ご足労いただき", "感謝します"], kr: "오늘 와주셔서 감사합니다", pron: "혼지츠와 고소쿠로-이타다키 칸샤시마스", comment: "먼 거리나 거친 날씨를 뚫고 직접 자사 오피스 공간까지 귀한 걸음을 해 준 파트너에게 전하는 깊은 예의 표현입니다." }
             ],
             20: [
-                { js: ["名刺を", "頂戴します"], kr: "명함을 받겠습니다 (파트너 명함 수령)", pron: "메이시오 쵸-다이시마스" },
-                { js: ["頂戴いたします"], kr: "감사히 받겠습니다 (정중한 비즈니스 수임)", pron: "쵸-다이이타시마스" },
-                { js: ["申し遅れました"], kr: "인사가 늦었습니다 (명함 제출 리드 문장)", pron: "모-시오쿠레마시타" },
-                { js: ["こちらが", "私の名刺です"], kr: "여기 제 명함입니다 (자사 명함 교환)", pron: "코치라가 와타시노 메이시데스" },
-                { js: ["よろしく", "お願いいたします"], kr: "잘 부탁드립니다 (네트워킹 확약)", pron: "요로시쿠 오네가이시마스" }
+                { js: ["名刺を", "頂戴します"], kr: "명함을 받겠습니다", pron: "메이시오 쵸-다이시마스", comment: "일본 비즈니스 룰의 시작점에서 가슴 높이로 상대방의 회사명 명함을 두 손으로 정중히 수령하는 표준 멘트입니다." },
+                { js: ["頂戴いたします"], kr: "감사히 받겠습니다", pron: "쵸-다이이타시마스", comment: "상대방이 건넨 명함이나 기획 제안서 책자를 최고 수준의 예우를 갖추어 수임함을 선언하는 정중 표현입니다." },
+                { js: ["申し遅れました"], kr: "인사가 늦었습니다", pron: "모-시오쿠레마시타", comment: "명함 교환 시 본인의 소속을 밝히기 전, 먼저 첫인사를 건네지 못한 것에 대한 가벼운 겸양을 표하는 세련된 빌드업어입니다." },
+                { js: ["こちらが", "私の名刺です"], kr: "여기 제 명함입니다", pron: "코치라가 와타시노 메이시데스", comment: "자신의 소속 회사 로고가 정면을 향하도록 회전하여 파트너에게 두 손으로 명함을 양도할 때 매칭하는 음성 조각입니다." },
+                { js: ["よろしく", "お願いいたします"], kr: "잘 부탁드립니다", pron: "요로시쿠 오네가이시마스", comment: "명함 교환 시 하단 허리를 가볍게 숙이며 앞으로 전개될 협력 파트너십의 성공을 기원하는 종결 매너어입니다." }
             ]
         };
 
-        // 데이터 보정 믹서 처리
-        masterExpressions[17][2].js = ["担当者に", "お繋ぎいたします"];
-
-        // 나머지 날짜 자동 패딩 보정 (모든 날짜가 고유한 데이터 규격을 유지하도록 일괄 삽입)
-        for(let d=7; d<=30; d++) {
-            if([16,17,18,19,20].includes(d)) continue;
+        // 데이터 루프 패딩 (Day 3~15 및 21~30 데이터 일괄 무결 보정 처리)
+        for(let d=1; d<=totalDays; d++) {
+            if([1,2,16,17,18,19,20].includes(d)) continue;
             masterExpressions[d] = [
-                { js: ["スケジュールが", "変更に", "なりました"], kr: `[DAY ${d}] 일정이 변경되었습니다 (상황 연동 매너)`, pron: "스케쥬-루가 헨코-니 나리마시타" },
-                { js: ["条件を", "確認させてください"], kr: "조건을 확인하게 해주세요 (네고 협상 전제)", pron: "죠-켄오 카쿠닌사세테쿠다사이" },
-                { js: ["これで", "確定いたします"], kr: "이것으로 확정하겠습니다 (의사결정 완료 전파)", pron: "코레데 캇테-이타시마스" },
-                { js: ["迅速に", "対応いたします"], kr: "신속하게 대응하겠습니다 (장애 즉시 대처)", pron: "진소쿠니 타이오-이타시마스" },
-                { js: ["今後とも", "よろしくお願いします"], kr: "앞으로도 잘 부탁드립니다 (최종 파트너십 인사)", pron: "콘고토모 요로시쿠 오네가이시마스" }
+                { js: ["スケジュールが", "変更に", "なりました"], kr: "일정이 변경되었습니다", pron: "스케쥬-루가 헨코-니 나리마시타", comment: `[DAY ${d}] 갑작스러운 프로젝트 스프린트 일정 조정 요구 상황 발생 시 파트너와 타임라인을 정렬하는 변형 조전 표현입니다.` },
+                { js: ["条件を", "確認させてください"], kr: "조건을 확인하게 해주세요", pron: "죠-켄오 카쿠닌사세테쿠다사이", comment: "최종 계약이나 네고 도장 날인 전, 리스크가 숨어있지 않은지 조항을 꼼꼼히 검토하겠다고 선언하는 방어 컴포넌트입니다." },
+                { js: ["これで", "確定いたします"], kr: "이것으로 확정하겠습니다", pron: "코레데 캇테-이타시마스", comment: "더 이상의 변동 사항 없이 최종 기획서 사양 및 리소스 홀딩을 픽스(Fix) 처리하겠다는 의사결정 선언 문장입니다." },
+                { js: ["迅速に", "対応いたします"], kr: "신속하게 대응하겠습니다", pron: "진소쿠니 타이오-이타시마스", comment: "장애 리포트 수신 즉시 디버깅 및 업데이트 조치를 취하겠다는 신뢰 기반의 속도 전파용 비즈니스 확약어입니다." },
+                { js: ["今後とも", "よろしくお願いします"], kr: "앞으로도 잘 부탁드립니다", pron: "콘고토모 요로시쿠 오네가이시마스", comment: "미팅이나 메일 소통의 맨 하단 풋터(Footer)에 위치하여 장기적인 파트너십과 협력의 영속성을 기대하는 마감 인사입니다." }
             ];
         }
 
         window.onload = function() {
+            if(!localStorage.getItem('completedDays')) {
+                localStorage.setItem('completedDays', JSON.stringify([]));
+            }
             initSelectors();
             renderPCRoadmap();
             renderMobileSidebar();
@@ -431,7 +419,7 @@
             }
         }
 
-        /* 💻 데스크톱 전용 30일 격자 그리드 배치 장치 */
+        /* 💻 PC 30일 격자 대시보드 - 카드 클릭 시 프리뷰 모달창 연결 (학습창 이동 차단) */
         function renderPCRoadmap() {
             const grid = document.getElementById('pcRoadmapGrid');
             grid.innerHTML = '';
@@ -441,7 +429,7 @@
                 const card = document.createElement('div');
                 const isDone = completedList.includes(i);
                 card.className = `day-card ${isDone ? 'completed' : ''}`;
-                card.onclick = () => triggerDayAction(i);
+                card.onclick = () => openModal(i); /* 프리뷰 모달 팝업 가동 */
                 card.innerHTML = `
                     <div class="day-num">${String(i).padStart(2, '0')}</div>
                     <div class="day-title">${curriculumTitles[i]}</div>
@@ -451,7 +439,7 @@
             }
         }
 
-        /* 📱 모바일 전용 세로 플로팅 인덱스 사이드바 제어 */
+        /* 📱 모바일 주차 인덱스 다이어리 사이드바 인터페이스 */
         function renderMobileSidebar() {
             const sidebar = document.getElementById('mobileWeekSidebar');
             sidebar.innerHTML = '';
@@ -477,7 +465,7 @@
                 const card = document.createElement('div');
                 const isDone = completedList.includes(i);
                 card.className = `day-card ${isDone ? 'completed' : ''}`;
-                card.onclick = () => triggerDayAction(i);
+                card.onclick = () => openModal(i); /* 모바일도 홈에서는 프리뷰 모달 팝업 가동 */
                 card.innerHTML = `
                     <div class="day-num">${String(i).padStart(2, '0')}</div>
                     <div class="day-title">${curriculumTitles[i]}</div>
@@ -493,15 +481,6 @@
             const pct = Math.round((completedList.length / totalDays) * 100);
             document.getElementById('progressText').innerText = `${completedList.length}일 완수! 목표를 향해 멋지게 나아가는 중이에요! 🚀`;
             document.getElementById('progressBarFill').style.width = `${pct}%`;
-        }
-
-        function triggerDayAction(day) {
-            selectedDay = day;
-            document.getElementById('learningDaySelect').value = day;
-            document.getElementById('quizDaySelect').value = day;
-            document.getElementById('vocabDaySelect').value = day;
-            switchTab(null, 'learning');
-            initLearningEngine();
         }
 
         function switchTab(e, tabId) {
@@ -520,7 +499,7 @@
             if(tabId === 'vocab') { renderVocab(); }
         }
 
-        /* 🧠 대화형 + 카드 플립 하이브리드 학습 기능 제어 */
+        /* 🧠 선생님 버전 해설 코멘트 탑재 주도형 학습 엔진 컨트롤러 */
         function onLearningDayChange() {
             selectedDay = parseInt(document.getElementById('learningDaySelect').value);
             initLearningEngine();
@@ -551,30 +530,31 @@
             const timeline = document.getElementById('chatTimeline');
             const list = masterExpressions[selectedDay];
             
-            if(learningChatIndex < list.forEach.length || learningChatIndex < 5) {
+            if(learningChatIndex < 5) {
                 const data = list[learningChatIndex];
                 if(!data) return;
                 
                 const bubble = document.createElement('div');
                 bubble.className = 'chat-bubble manager';
                 bubble.innerHTML = `
-                    <b>🗣️ 표현 0${learningChatIndex+1}:</b> ${data.kr}
+                    <b>👩‍🏫 선생님의 실무 매칭 가이드 [표현 0${learningChatIndex+1}]:</b>
                     <code>${data.js.join(' ')}</code>
-                    <div style="font-size:15px; color:var(--error); margin-top:3px;">🎧 [발음]: ${data.pron}</div>
+                    <div style="font-size:15px; color:var(--error); font-weight:700;">🎧 발음: ${data.pron}</div>
+                    <div style="font-size:16px; margin-top:4px; font-weight:700; color:var(--primary);">📝 뜻: ${data.kr}</div>
+                    <div class="teacher-note">⚙️ <b>현업 리스크/뉘앙스 팁:</b> ${data.comment}</div>
                 `;
                 timeline.appendChild(bubble);
                 timeline.scrollTop = timeline.scrollHeight;
                 
                 learningChatIndex++;
-                document.getElementById('chatNextBtn').innerText = learningChatIndex === 5 ? "학습 완료! 도장 찍기 💮" : "다음 표현 보기 ➡️";
+                document.getElementById('chatNextBtn').innerText = learningChatIndex === 5 ? "오늘의 학습 완료 도장 쾅! 찍기 💮" : "다음 표현 배우기 ➡️";
             } else {
-                // 5개 표현 열람 완료 시 스탬프 추가 연동
                 let completedList = JSON.parse(localStorage.getItem('completedDays')) || [];
                 if(!completedList.includes(selectedDay)) {
                     completedList.push(selectedDay);
                     localStorage.setItem('completedDays', JSON.stringify(completedList));
                 }
-                alert(`🎉 DAY ${String(selectedDay).padStart(2, '0')} 대화형 학습이 완료되어 대시보드에 연동되었습니다! 이제 퀴즈방에서 실력을 확인해 보세요!`);
+                alert(`🎉 DAY ${String(selectedDay).padStart(2, '0')} 선생님과 매니저 대화형 학습이 완료되었습니다! 퀴즈방 탭으로 이동해 챌린지를 시작해 보세요!`);
                 switchTab(null, 'dashboard');
             }
         }
@@ -591,13 +571,13 @@
                 scene.innerHTML = `
                     <div class="flip-card-inner">
                         <div class="flip-card-face flip-card-front">
-                            <span style="font-size:13px; color:var(--text-muted);">표현 0${idx+1} (터치하여 오픈)</span>
+                            <span style="font-size:13px; color:var(--text-muted);">표현 0${idx+1} (터치 시 회전)</span>
                             <strong style="font-size:22px; color:var(--primary); margin:5px 0;">${data.js.join(' ')}</strong>
                             <span style="font-size:14px; color:var(--error);">🎧 ${data.pron}</span>
                         </div>
                         <div class="flip-card-face flip-card-back">
-                            <span style="font-weight:700; font-size:18px;">📌 상황 맥락 뜻</span>
-                            <p style="font-size:16px; margin-top:5px; color:var(--text-main);">${data.kr}</p>
+                            <span style="font-weight:700; font-size:17px; color:var(--success)">📌 뜻: ${data.kr}</span>
+                            <p style="font-size:14px; margin-top:5px; color:var(--text-main); line-height:1.3; font-weight:700;">💡 맥락: ${data.comment}</p>
                         </div>
                     </div>
                 `;
@@ -605,7 +585,32 @@
             });
         }
 
-        /* 🧩 조각 퍼즐 자동 선지 생성 퀴즈 엔진 */
+        function openModal(day) {
+            document.getElementById('modalDayNum').innerText = `DAY ${String(day).padStart(2, '0')}`;
+            document.getElementById('modalDayTitle').innerText = curriculumTitles[day];
+            
+            const list = masterExpressions[day];
+            let listHtml = "";
+            list.forEach((item, idx) => {
+                listHtml += `
+                    <div class="review-line">
+                        <b>${idx+1}.</b> <code>${item.js.join(' ')}</code>
+                        <div style="margin-top:4px; font-size:17px; color:var(--error)">🎧 발음: ${item.pron}</div>
+                        <div style="font-size:17px; color:var(--primary)">📝 뜻: ${item.kr}</div>
+                    </div>`;
+            });
+
+            document.getElementById('modalDayBody').innerHTML = `
+                <div class="review-box">
+                    <h4>💡 오늘 대시보드 요약 프리뷰</h4>
+                    ${listHtml}
+                </div>
+            `;
+            document.getElementById('dayModal').classList.add('active');
+        }
+
+        function closeModal() { document.getElementById('dayModal').classList.remove('active'); }
+
         function onQuizDayChange() {
             selectedDay = parseInt(document.getElementById('quizDaySelect').value);
             currentQIdx = 0;
@@ -637,7 +642,6 @@
                 pool.push(masterExpressions[altDay][1].js[0]);
             }
             
-            // 피셔-예이츠 셔플 알고리즘 적용
             for (let i = pool.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [pool[i], pool[j]] = [pool[j], pool[i]];
@@ -696,7 +700,7 @@
             if(btn.innerText.includes("👉") || btn.innerText.includes("종료")) {
                 currentQIdx++;
                 if(currentQIdx >= 10) {
-                    feedback.innerText = "🎉 대단합니다! 10문항 복습 미션을 완전 돌파하셨습니다!";
+                    feedback.innerText = "🎉 축하합니다! 10개 문장의 검증 퍼즐을 완벽하게 수료하셨습니다!";
                     btn.style.display = 'none';
                 } else {
                     loadQuiz();
@@ -709,12 +713,12 @@
 
             feedback.style.display = 'block';
             if(isCorrect) {
-                feedback.innerText = "💮 정답입니다! 아주 정확한 어순 배열입니다.";
+                feedback.innerText = "💮 정답입니다! 유려하고 깔끔한 어순 배열입니다.";
                 feedback.style.color = "var(--success)";
                 zone.className = 'answer-zone correct';
                 btn.innerText = currentQIdx === 9 ? "퀴즈 스테이지 종료하기 🏁" : "다음 문장 검증하기 👉";
             } else {
-                feedback.innerText = "❌ 순서가 올바르지 않습니다. 다시 조립해 볼까요?";
+                feedback.innerText = "❌ 순서가 올바르지 않습니다. 다시 조합해 볼까요?";
                 feedback.style.color = "var(--error)";
                 zone.className = 'answer-zone wrong';
             }
@@ -732,13 +736,12 @@
                 itemDiv.innerHTML = `
                     <code>[표현 0${idx+1}] ${item.js.join(' ')}</code>
                     <p style="color:var(--error); font-weight:700;">🎧 발음: ${item.pron}</p>
-                    <p style="color:var(--text-main); margin-top:3px;">📌 상황 맥락: ${item.kr}</p>
+                    <p style="color:var(--primary); margin-top:3px; font-weight:700;">📌 뜻: ${item.kr}</p>
+                    <div class="teacher-note" style="margin-top:5px; font-size:14px;">💡 해설: ${item.comment}</div>
                 `;
                 container.appendChild(itemDiv);
             });
         }
-
-        function closeModal() { document.getElementById('dayModal').classList.remove('active'); }
     </script>
 </body>
 </html>

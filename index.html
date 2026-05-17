@@ -620,3 +620,7 @@
     </script>
 </body>
 </html>
+} catch(e) {
+    console.error("구글 서버의 실제 리포트:", e); // 이 줄을 추가해 진짜 에러를 추적합니다.
+    logZone.innerHTML += '<div class="zoom-msg user">❌ API 통신 결함 발생. 키를 다시 체킹해 주세요.</div>';
+}

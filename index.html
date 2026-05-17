@@ -32,7 +32,7 @@
             background-color: var(--surface);
             border-radius: 24px;
             overflow: hidden;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
             display: flex;
             flex-direction: column;
             min-height: 800px;
@@ -47,7 +47,7 @@
             justify-content: space-between;
             align-items: center;
         }
-        .app-header h1 { font-family: 'Poppins', sans-serif; font-size: 24px; font-weight: 700; letter-spacing: -0.5px; }
+        .app-header h1 { font-family: 'Poppins', sans-serif; font-size: 24px; font-weight: 700; }
         .nav-tabs { display: flex; gap: 10px; }
         .nav-btn { background: none; border: none; color: rgba(255,255,255,0.7); padding: 10px 20px; font-size: 16px; font-weight: 500; cursor: pointer; border-radius: 8px; transition: all 0.2s; }
         .nav-btn:hover { color: white; background-color: rgba(255,255,255,0.1); }
@@ -56,18 +56,16 @@
         .app-content { flex-grow: 1; padding: 40px; display: none; }
         .app-content.active { display: block; }
 
-        .progress-banner { background-color: var(--primary-light); border: 1px solid #dbeafe; border-radius: 16px; padding: 20px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center; }
+        .progress-banner { background-color: var(--primary-light); border: 1px solid #dbeafe; border-radius: 16px; padding: 20px; margin-bottom: 30px; }
         .progress-text { font-size: 18px; font-weight: 700; color: var(--primary); }
 
         .roadmap-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; }
-        @media (max-width: 992px) { .roadmap-grid { grid-template-columns: repeat(3, 1fr); } }
-        @media (max-width: 576px) { .roadmap-grid { grid-template-columns: repeat(1, 1fr); } }
         
-        .day-card { background-color: #ffffff; border: 1px solid var(--border); border-radius: 16px; padding: 20px; cursor: pointer; transition: all 0.2s; position: relative; }
-        .day-card:hover { transform: translateY(-3px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05); border-color: var(--primary); }
+        .day-card { background-color: #ffffff; border: 1px solid var(--border); border-radius: 16px; padding: 20px; cursor: pointer; transition: all 0.2s; }
+        .day-card:hover { transform: translateY(-3px); border-color: var(--primary); }
         .day-card.completed { background-color: var(--success-bg); border-color: var(--success); }
         .day-card.completed .day-num { color: var(--success); }
-        .day-card.current { border-color: var(--primary); background-color: #fff; box-shadow: 0 0 0 2px var(--primary); }
+        .day-card.current { border-color: var(--primary); box-shadow: 0 0 0 2px var(--primary); }
         .day-card.current .day-num { color: var(--primary); }
         
         .day-num { font-family: 'Poppins', sans-serif; font-size: 28px; font-weight: 700; color: #cbd5e1; }
@@ -75,39 +73,35 @@
         .day-status { font-size: 12px; margin-top: 10px; font-weight: 500; color: var(--text-muted); display: flex; align-items: center; gap: 5px; }
         .day-card.completed .day-status { color: var(--success); }
 
-        .quiz-box { background-color: #ffffff; border-radius: 20px; padding: 40px; border: 1px solid var(--border); margin-top: 20px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); }
-        .quiz-header { font-size: 18px; font-weight: 700; color: var(--text-main); margin-bottom: 25px; display: flex; align-items: center; gap: 10px; }
+        .quiz-box { background-color: #ffffff; border-radius: 20px; padding: 40px; border: 1px solid var(--border); margin-top: 20px; }
+        .quiz-header { font-size: 18px; font-weight: 700; margin-bottom: 25px; }
         
-        .answer-zone { background-color: var(--bg); border: 2px dashed #cbd5e1; min-height: 80px; border-radius: 12px; display: flex; gap: 10px; align-items: center; justify-content: center; padding: 15px; margin-bottom: 30px; transition: all 0.2s; }
+        .answer-zone { background-color: var(--bg); border: 2px dashed #cbd5e1; min-height: 80px; border-radius: 12px; display: flex; gap: 10px; align-items: center; justify-content: center; padding: 15px; margin-bottom: 30px; }
         .answer-zone.correct { border-color: var(--success); background-color: var(--success-bg); }
         .answer-zone.wrong { border-color: var(--error); background-color: var(--error-bg); }
         
         .word-pool { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 30px; }
-        .word-chip { background-color: white; border: 1px solid var(--border); color: var(--text-main); padding: 12px 24px; border-radius: 12px; font-size: 18px; font-weight: 500; cursor: pointer; user-select: none; transition: all 0.15s; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
-        .word-chip:hover { transform: translateY(-2px); border-color: var(--primary); color: var(--primary); background-color: var(--primary-light); }
-        .word-chip.selected { opacity: 0.3; cursor: not-allowed; pointer-events: none; }
+        .word-chip { background-color: white; border: 1px solid var(--border); padding: 12px 24px; border-radius: 12px; font-size: 18px; font-weight: 500; cursor: pointer; user-select: none; }
+        .word-chip:hover { border-color: var(--primary); color: var(--primary); }
+        .word-chip.selected { opacity: 0.3; pointer-events: none; }
         
-        .placed-chip { background-color: var(--primary); color: white; padding: 10px 20px; border-radius: 8px; font-size: 18px; font-weight: 700; animation: pop 0.2s ease-out; }
+        .placed-chip { background-color: var(--primary); color: white; padding: 10px 20px; border-radius: 8px; font-size: 18px; font-weight: 700; }
         
         .quiz-controls { display: flex; gap: 15px; justify-content: center; }
-        .btn { padding: 14px 32px; border-radius: 12px; font-size: 16px; font-weight: 700; cursor: pointer; border: none; transition: all 0.2s; }
+        .btn { padding: 14px 32px; border-radius: 12px; font-size: 16px; font-weight: 700; cursor: pointer; border: none; }
         .btn-primary { background-color: var(--primary); color: white; }
-        .btn-primary:hover { background-color: #1d4ed8; }
         .btn-secondary { background-color: #e2e8f0; color: #475569; }
-        .btn-secondary:hover { background-color: #cbd5e1; }
 
         .feedback-msg { text-align: center; font-size: 18px; font-weight: 700; margin-top: 20px; display: none; }
         .feedback-msg.active { display: block; }
 
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(15, 23, 42, 0.6); z-index: 100; justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(4px); }
         .modal.active { display: flex; }
-        .modal-content { background-color: white; width: 100%; max-width: 600px; border-radius: 24px; padding: 40px; position: relative; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); border: 1px solid var(--border); }
-        .close-modal { position: absolute; top: 25px; right: 25px; background: none; border: none; font-size: 24px; cursor: pointer; color: var(--text-muted); }
+        .modal-content { background-color: white; width: 100%; max-width: 600px; border-radius: 24px; padding: 40px; position: relative; }
+        .close-modal { position: absolute; top: 25px; right: 25px; background: none; border: none; font-size: 24px; cursor: pointer; }
 
         .vocab-list-item { background: #ffffff; border: 1px solid var(--border); padding: 20px; border-radius: 12px; margin-bottom: 15px; border-left: 5px solid var(--primary); }
-        .vocab-list-item code { font-family: 'Roboto Mono', monospace; font-size: 20px; color: var(--text-main); display: block; margin-bottom: 5px; }
-
-        @keyframes pop { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        .vocab-list-item code { font-family: 'Roboto Mono', monospace; font-size: 20px; display: block; margin-bottom: 5px; }
     </style>
 </head>
 <body>
@@ -116,9 +110,9 @@
         <div class="app-header">
             <h1><i class="fa-solid fa-briefcase"></i> BIZ JAPANESE 30일 완성</h1>
             <div class="nav-tabs">
-                <button class="nav-btn active" onclick="switchTab('dashboard')">대시보드</button>
-                <button class="nav-btn" onclick="switchTab('quiz')">실전 퀴즈</button>
-                <button class="nav-btn" onclick="switchTab('vocab')">표현장</button>
+                <button class="nav-btn active" onclick="switchTab(event, 'dashboard')">대시보드</button>
+                <button class="nav-btn" onclick="switchTab(event, 'quiz')">실전 퀴즈</button>
+                <button class="nav-btn" onclick="switchTab(event, 'vocab')">표현장</button>
             </div>
         </div>
 
@@ -143,8 +137,8 @@
                 <div class="word-pool" id="wordPool"></div>
                 
                 <div class="quiz-controls">
-                    <button class="btn btn-secondary" onclick="clearAnswer()"><i class="fa-solid fa-rotate-left"></i> 초기화</button>
-                    <button class="btn btn-primary" onclick="checkAnswer()"><i class="fa-solid fa-check"></i> 정답 확인</button>
+                    <button class="btn btn-secondary" onclick="clearAnswer()">초기화</button>
+                    <button class="btn btn-primary" onclick="checkAnswer()">정답 확인</button>
                 </div>
                 
                 <div class="feedback-msg" id="feedbackMsg"></div>
@@ -155,15 +149,7 @@
             <h2 style="font-size: 24px; margin-bottom: 20px;"><i class="fa-solid fa-vault"></i> 오늘 마스터한 표현 뱅크</h2>
             <div class="vocab-list-item">
                 <code>いつまでにすればいいですか？</code>
-                <p><b>뜻:</b> 언제까지 하면 되나요? | <b>용도:</b> 데드라인(기한) 역제안 확인 프로토콜</p>
-            </div>
-            <div class="vocab-list-item">
-                <code>お疲れ様です</code>
-                <p><b>뜻:</b> 수고하십니다 | <b>용도:</b> 업무 중 복도 마주침 및 Slack 메시지 오프닝</p>
-            </div>
-            <div class="vocab-list-item">
-                <code>分かりました</code>
-                <p><b>뜻:</b> 알겠습니다 | <b>용도:</b> 지시 수락 시 반사적인 응답 신호</p>
+                <p><b>뜻:</b> 언제까지 하면 되나요? | <b>용도:</b> 데드라인 확인 프로토콜</p>
             </div>
         </div>
     </div>
@@ -178,7 +164,6 @@
     </div>
 
     <script>
-        // 30일 마스터 계획 데이터셋 정의
         const totalDays = 30;
         const curriculumTitles = {
             1: "출근 및 기한 확인", 2: "트러블 발생 보고", 3: "리뷰 및 컨펌 요청",
@@ -208,11 +193,11 @@
             renderQuizPool();
         };
 
-        function switchTab(tabId) {
+        function switchTab(e, tabId) {
             document.querySelectorAll('.app-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
-            event.target.classList.add('active');
+            if(e) e.currentTarget.classList.add('active');
         }
 
         function renderRoadmap() {
@@ -253,11 +238,11 @@
             
             let bodyText = `Day ${day}의 상세 비즈니스 커리큘럼 구역입니다.<br><br>`;
             if(day === 1) {
-                bodyText += `<b>핵심 구문:</b> 分かりました。いつまでにすればいいですか？<br>상사의 지시가 내려오는 순간 반사적으로 기한 데이터를 동기화하여 업무 누수를 방지하는 훈련입니다.`;
+                bodyText += `<b>핵심 구문:</b> 分かりました。いつまでにすればいいですか？<br>지시 수락 즉시 기한 데이터를 동기화하여 업무 누수를 방지하는 프로토콜입니다.`;
             } else if(day === 2) {
-                bodyText += `<b>내일 배울 키워드 프리뷰:</b> 今ちょっとお時間よろしいですか？<br>에러나 예기치 못한 이슈가 발생했을 때 상사의 일정을 정중하게 방해하며 보고 창구를 확보하는 기법입니다.`;
+                bodyText += `<b>예습 프리뷰:</b> 今ちょっとお시간요ろしいですか？<br>에러나 예기치 못한 이슈가 발생했을 때 상사의 일정을 정중하게 확인하며 커뮤니케이션 창구를 확보하는 기법입니다.`;
             } else {
-                bodyText += `성공적인 한 달 마스터를 위한 일일 집중 스나이핑 트레이닝과 상호작용 롤플레잉 데이터가 로드됩니다.`;
+                bodyText += `성공적인 한 달 마스터를 위한 일일 세션 데이터와 상호작용 롤플레잉 데이터가 로드됩니다.`;
             }
             
             document.getElementById('modalDayBody').innerHTML = bodyText;
@@ -300,7 +285,10 @@
         }
 
         function clearAnswer() {
-            currentAnswer.forEach(item => document.getElementById(item.id).classList.remove('selected'));
+            currentAnswer.forEach(item => {
+                const el = document.getElementById(item.id);
+                if(el) el.classList.remove('selected');
+            });
             currentAnswer = [];
             updateAnswerZone();
             document.getElementById('feedbackMsg').className = 'feedback-msg';
@@ -326,7 +314,7 @@
 
             if(isCorrect) {
                 feedback.innerText = "🎉 100% 퍼펙트! 1일 차 통과 도장이 대시보드에 찍혔습니다.";
-                feedback.style.color = var(--success);
+                feedback.style.color = "#16a34a";
                 zone.className = 'answer-zone correct';
                 
                 let completedList = JSON.parse(localStorage.getItem('completedDays')) || [];
@@ -337,7 +325,7 @@
                 }
             } else {
                 feedback.innerText = "❌ 순서가 맞지 않습니다. 완벽한 100% 정답을 위해 다시 조립해 보세요!";
-                feedback.style.color = "var(--error)";
+                feedback.style.color = "#dc2626";
                 zone.className = 'answer-zone wrong';
             }
             feedback.className = 'feedback-msg active';

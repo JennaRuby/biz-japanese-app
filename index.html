@@ -113,7 +113,6 @@
         .day-title { font-size: 15px; font-weight: 700; color: var(--text-main); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.2; }
         .day-status { font-size: 13px; font-weight: 700; color: var(--text-muted); }
 
-        /* 🔐 API 동적 대시보드 박스 스타일 정의 */
         .api-config-box { background: #f8f9fa; border: 2px solid var(--primary); border-radius: 15px; padding: 12px; margin-bottom: 15px; }
         .api-active-state { display: flex; justify-content: space-between; align-items: center; font-weight: 700; color: var(--success); font-size: 16px; }
         .api-input-row { display: flex; gap: 10px; margin-top: 5px; }
@@ -126,7 +125,7 @@
         .zoom-feed .avatar { font-size: 44px; margin-bottom: 4px; }
         .zoom-feed .name-tag { position: absolute; bottom: 8px; left: 8px; background: rgba(0,0,0,0.6); padding: 2px 8px; border-radius: 6px; font-size: 13px; font-family: sans-serif; }
         
-        .zoom-chat-log { background: rgba(255,255,255,0.05); border-radius: 12px; height: 240px; overflow-y: auto; padding: 10px; display: flex; flex-direction: column; gap: 8px; font-size: 15px; font-family: sans-serif; }
+        .zoom-chat-log { background: rgba(255,255,255,0.05); border-radius: 12px; height: 260px; overflow-y: auto; padding: 10px; display: flex; flex-direction: column; gap: 8px; font-size: 15px; font-family: sans-serif; }
         .zoom-msg { margin-bottom: 4px; line-height: 1.4; border-bottom: 1px solid rgba(255,255,255,0.03); padding-bottom: 6px; }
         .zoom-msg.manager { color: #8ecae6; }
         .zoom-msg.user { color: #e9c46a; }
@@ -259,8 +258,8 @@
                         <div class="name-tag">佐藤 課長 (사토 팀장)</div>
                     </div>
                     <div class="zoom-feed" id="feedUser">
-                        <div class="avatar">💻</div>
-                        <div class="name-tag">팀원 (나)</div>
+                        <div class="avatar">👩‍💻</div>
+                        <div class="name-tag">Jenna (나)</div>
                     </div>
                 </div>
                 
@@ -347,43 +346,40 @@
         const masterExpressions = {
             1: [
                 { js: ["おはよう", "ございます"], kr: "안녕하세요", pron: "오하요- 고자이마스", comment: "출근 시 동료나 상사와 마주쳤을 때 신뢰감을 주는 사내 필수 첫인사 아침 컴포넌트입니다." },
-                { js: ["お疲れ様", "です"], kr: "수고하십니다", pron: "오츠카레사마데스", comment: "사내 복도 이동, 대면 업무 요청 등 시간대에 무관하게 대화를 시작할 때 쓰는 사내 만능 소통어입니다." },
-                { js: ["失礼", "します"], kr: "실례합니다", pron: "시츠레이시마스" , comment: "타 부서 회의실이나 상사 자리에 진입할 때 혹은 퇴근 선언 시 사용하는 정중한 경계 진입 표현입니다."},
-                { js: ["分かりました"], kr: "알겠습니다 / 확인했습니다", pron: "와카리마시타", comment: "상사의 지시나 업무 분배 내용을 즉각 수락하며 업무 파이프라인의 안전성을 알리는 기본 확약 호응어입니다." },
-                { js: ["いつまでに", "すれば", "いいですか"], kr: "언제까지 하면 되나요?", pron: "이츠마데니 스레바 이이데스카", comment: "데드라인을 선제적으로 동기화하여 업무 우선순위를 리밸런싱하고 병목 현상을 미리 방지하는 리스크 관리형 역질문입니다." }
+                { js: ["お疲れ様", "です"], kr: "수고하십니다", pron: "오츠카레사마데스", comment: "사내 기본 소통어로 동료를 마주하거나 대화를 시작할 때 쓰는 표준 문장입니다." },
+                { js: ["失礼", "します"], kr: "실례합니다", pron: "시츠레이시마스" , comment: "타 부서 진입이나 퇴근 선언 시 사용하는 정중한 경계 진입 표현입니다."},
+                { js: ["分かりました"], kr: "알겠습니다 / 확인했습니다", pron: "와카리마시타", comment: "상사의 지시를 즉각 수락하며 파이프라인 안정을 알리는 기본 호응어입니다." },
+                { js: ["いつまでに", "すれば", "いいですか"], kr: "언제까지 하면 되나요?", pron: "이츠마데니 스레바 이이데스카", comment: "데드라인을 동기화하여 업무 병목 현상을 미리 방지하는 리스크 관리형 표현입니다." }
             ]
         };
 
         for(let d=2; d<=totalDays; d++) {
             masterExpressions[d] = [
-                { js: ["スケジュール가", "変更に", "なりました"], kr: "일정이 변경되었습니다", pron: "스케쥬-루가 헨코-니 나리마시타", comment: "프로젝트 스프린트 스케줄 변동 시 기한을 재동기화하는 문장입니다." },
+                { js: ["スケジュール가", "変更に", "나리마시타"], kr: "일정이 변경되었습니다", pron: "스케쥬-루가 헨코-니 나리마시타", comment: "프로젝트 스프린트 스케줄 변동 시 기한을 재동기화하는 문장입니다." },
                 { js: ["ご確認を", "お願いします"], kr: "확인 부탁드립니다", pron: "고카쿠닌오 오네가이시마스", comment: "보고제출물 가공 완료 후 검토 루프를 여는 정중한 피드백 요청어입니다." }
             ];
         }
 
         window.onload = function() {
             if(!localStorage.getItem('completedDays')) { localStorage.setItem('completedDays', JSON.stringify([])); }
-            renderApiConfigBox(); /* 🔐 로드 시점에 인증 박스 상태 렌더링 가동 */
+            renderApiConfigBox(); 
             initSelectors();
             renderPCRoadmap();
             renderMobileSidebar();
             renderMobileDashboard();
         };
 
-        /* 🔐 API 인증 여부에 따라 UI 레이아웃을 동적으로 컨트롤하는 스위칭 함수 */
         function renderApiConfigBox() {
             const container = document.getElementById('apiConfigContainer');
             const savedKey = localStorage.getItem('gemini_api_key_v3');
             
             if(savedKey) {
-                // 키가 보존되어 있으면 입력 필드를 가리고 깔끔한 배지만 출력
                 container.innerHTML = `
                     <div class="api-active-state">
                         <span>🔐 Gemini AI 라이브 싱크 인증 완료</span>
                         <button class="btn btn-secondary" style="padding:4px 12px; font-size:14px; width:auto; border-radius:8px; box-shadow:none; border-color:#999;" onclick="clearApiKey()">키 변경</button>
                     </div>`;
             } else {
-                // 키가 없거나 변경 요청 시 입력 폼 인터페이스 오픈
                 container.innerHTML = `
                     <label style="font-weight:700; color:var(--primary); font-size:15px;">🔑 Gemini API 인증 설정 (Free Tier 연동):</label>
                     <div class="api-input-row">
@@ -394,10 +390,9 @@
         }
 
         function saveApiKey() {
-            const rawKey = document.getElementById('apiKeyField').value.trim();
-            if(!rawKey) { alert("API 키를 정확하게 입력해 주세요!"); return; }
-            
-            localStorage.setItem('gemini_api_key_v3', rawKey);
+            const val = document.getElementById('apiKeyField').value.trim();
+            if(!val) { alert("API 키를 정확하게 입력해 주세요!"); return; }
+            localStorage.setItem('gemini_api_key_v3', val);
             alert("API Key가 브라우저에 영구 등록되었습니다! 이제 매번 입력할 필요가 없어요. 🔐");
             renderApiConfigBox();
         }
@@ -507,23 +502,33 @@
             document.getElementById('zoomMicBtn').style.display = 'flex';
             
             const logZone = document.getElementById('zoomChatLog');
-            logZone.innerHTML = '<div class="zoom-msg manager"><i>사토 팀장님이 가상 줌 링크에 커넥팅 중입니다... 🎧</i></div>';
+            logZone.innerHTML = '<div class="zoom-msg manager"><i>사토 선생님이 가상 과외 줌 채널에 커넥팅 중입니다... 🎧</i></div>';
 
             const targetContext = curriculumTitles[selectedDay] || "비즈니스 일어 소통";
             
-            // 🧠 바이링구얼 코칭 페르소나 및 다형성 핸들링 프롬프트 설계 완료
-            const systemPrompt = `당신은 일본 IT 기업의 영리한 상사이자, 친절하게 가이드라인을 제시해주는 한국어 능통 '사토 과장' 매니저입니다. 사용자는 당신의 하위 팀원입니다. 
-            현재 대화 테마 및 맥락은 [${targetContext}]입니다.
+            // 🧠 [2단계 렉처-롤플레잉 연계 엔진] 프롬프트 셋업
+            const systemPrompt = `당신은 일본 IT 기업의 스마트하고 다정한 30대 남성 상사이자, 완벽한 과외식 티칭 능력을 갖춘 한국어 능통 '사토 선생님(佐藤先生)'입니다. 사용자의 이름은 'Jenna(ジェナ)'이며 하위 팀원입니다. 
+            현재 학습 테마는 [DAY ${selectedDay}: ${targetContext}]입니다.
             
-            [동작 및 커뮤니케이션 오퍼레이션 시스템 규칙]:
-            1. 사용자가 미팅룸에 들어왔으니 한국어로 오늘의 학습 맥락을 편안하게 브리핑하고, 이번 상황에 매칭되는 첫 실전 비즈니스 일본어 대사를 건네세요.
-            2. 사용자가 한국어로 질문하거나, 한국어 음성을 전송하거나, 어설픈 일어로 대답하면 시스템은 즉시 반응형 인터랙티브 모드로 작동해야 합니다. 사용자의 한국어 의도를 완벽 파악한 뒤 "아, 그런 맥락이군요! 그럴 때는 이렇게 발음하시면 스마트합니다."라고 친절한 한국어 피드백 가이드를 선행 출력하세요.
-            3. 모든 답변의 구조는 반드시 다음 포맷을 엄격하게 유지하여 가독성을 확보하세요:
-               [매니저 가이드 (한국어 설명 및 안내)]
-               佐藤課長: "(실전 비즈니스 일본어 대사 딱 한 줄)"
-               [🎧 발음 및 실무 뉘앙스 팁: ...]`;
+            당신은 Jenna와 라이브 세션을 진행하며 반드시 다음 [2단계 수업 프로토콜]을 엄격하게 준수해야 합니다:
+            
+            [1단계: 한국어 선행 렉처 모드 (중요)]
+            - 절대로 처음부터 다짜고짜 상황극(롤플레잉)을 유도하지 마세요.
+            - Jenna가 들어오면 한국어로 다정하게 인사하고, 오늘 배울 핵심 표현(Day ${selectedDay} 관련)을 한국어로 하나씩 차근차근 가르쳐주세요.
+            - IT 실무 환경(마감 일정 확인, 우선순위 조율, 병목 방지 등)에서 이 표현이 왜 스마트하고 정중한 어조를 갖는지 뉘앙스 팁을 한국어로 짚어주세요.
+            - "Jenna, 이 문장을 먼저 마이크로 소리 내어 연습해 볼까요?"라며 따라 읽기를 유도하고, Jenna가 반응하면 칭찬과 발음 교정을 다정하게 한국어로 수행하세요.
+            
+            [2단계: 초급 맞춤형 미션 롤플레잉 모드]
+            - 핵심 문장 강의와 말하기 연습이 모두 완수되면, 사토 선생님이 "자, 이제 방금 연습한 무기들을 실전에 가볍게 써먹어볼까요?"라며 줌 미팅 상황극으로 자연스럽게 트랜지션합니다.
+            - 난이도의 문턱을 대폭 낮춰야 합니다. Jenna가 방금 배웠던 일본어 문장을 그대로 대입하거나 최소한의 단어만 교체해도 완벽하게 패스할 수 있도록, 아주 쉽고 명확한 유도 질문을 일본어로 던지세요.
+            
+            [답변 출력 포맷 규격]:
+            - 모든 대화는 아래 폼을 정확하게 나누어 출력하세요:
+              [사토 선생님의 티칭 가이드] (한국어로 상세 기술)
+              佐藤先生: "(일본어 대사가 필요한 경우 딱 한 줄만)"
+              [🎧 발음 및 실무 팁: ...] (일어 대사가 출력되었을 때만 포함)`;
 
-            zoomConversationHistory = [{ role: 'user', parts: [{ text: systemPrompt + " 자, 롤플레잉 첫 오프닝 세션을 한국어 안내와 함께 시작해 주세요." }] }];
+            zoomConversationHistory = [{ role: 'user', parts: [{ text: systemPrompt + " 자, 롤플레잉 상황극으로 바로 가지 마시고, 1단계인 한국어 선행 렉처와 인사부터 부드럽고 다정하게 시작해 주세요." }] }];
             callGeminiLive();
         }
 
@@ -533,7 +538,6 @@
             document.getElementById('feedManager').classList.add('active-speaker');
 
             try {
-                // 2026 안정성 검증이 끝난 2.5-flash 파이프라인 엔드포인트 적용
                 const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -549,10 +553,9 @@
                 const data = await response.json();
                 const reply = data.candidates[0].content.parts[0].text;
                 
-                // 일어 텍스트 음성 합성용 전처리를 위해 구조 분해 파싱
                 let jpLine = "";
-                if(reply.includes('佐藤課長:')) {
-                    jpLine = reply.split('佐藤課長:')[1].split('\n')[0].replace(/"/g, '').trim();
+                if(reply.includes('佐藤先生:')) {
+                    jpLine = reply.split('佐藤先生:')[1].split('\n')[0].replace(/"/g, '').trim();
                 } else {
                     jpLine = reply.split('\n')[0];
                 }
@@ -561,13 +564,11 @@
 
                 const msgDiv = document.createElement('div');
                 msgDiv.className = 'zoom-msg manager';
-                //  markdown 개행 문자를 브라우저 <br> 노드로 변환 적용
-                msgDiv.innerHTML = `<b>사토 팀장:</b><br><span style="font-size:16px; line-height:1.5; color:#fff; white-space:pre-wrap;">${reply}</span>`;
+                msgDiv.innerHTML = `<b>사토 선생님:</b><br><span style="font-size:16px; line-height:1.5; color:#fff; white-space:pre-wrap;">${reply}</span>`;
                 
                 logZone.appendChild(msgDiv);
                 logZone.scrollTop = logZone.scrollHeight;
 
-                // AI 가 뱉은 대사 중 순수 일어 컴포넌트만 음성 피드백(TTS) 가동
                 if(jpLine) { executeNativeTTS(jpLine); }
             } catch(e) {
                 console.error("실제 내부 상세 트래킹:", e);
@@ -585,7 +586,6 @@
 
             if(!speechRecognitionEngine) {
                 speechRecognitionEngine = new SpeechRecognition();
-                // 사용자가 한국어로도 자유롭게 질문하고 리드할 수 있도록 기본 입력 로캘을 한국어로 확장 싱크
                 speechRecognitionEngine.lang = 'ko-KR'; 
                 speechRecognitionEngine.interimResults = false;
 
@@ -595,7 +595,7 @@
                     
                     const userDiv = document.createElement('div');
                     userDiv.className = 'zoom-msg user';
-                    userDiv.innerHTML = `<b>나 (팀원):</b> 🎤 <i>${resultText}</i>`;
+                    userDiv.innerHTML = `<b>Jenna:</b> 🎤 <i>${resultText}</i>`;
                     logZone.appendChild(userDiv);
                     logZone.scrollTop = logZone.scrollHeight;
 
@@ -624,6 +624,19 @@
             if('speechSynthesis' in window) {
                 const voiceUtterance = new SpeechSynthesisUtterance(rawText);
                 voiceUtterance.lang = 'ja-JP';
+
+                const availableVoices = window.speechSynthesis.getVoices();
+                
+                // 30대 댄디하고 부드러운 남성 목소리 매칭 보정 엔진 작동
+                const targetMaleVoice = availableVoices.find(v => v.lang.startsWith('ja') && 
+                    (v.name.toLowerCase().includes('otoya') || 
+                     v.name.toLowerCase().includes('ichiro') || 
+                     v.name.toLowerCase().includes('male')));
+
+                if(targetMaleVoice) {
+                    voiceUtterance.voice = targetMaleVoice;
+                }
+                
                 window.speechSynthesis.speak(voiceUtterance);
             }
         }

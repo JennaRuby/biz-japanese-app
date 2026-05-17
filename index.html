@@ -22,7 +22,7 @@
             --success-bg: #f4f7f4;
             --error: #bc6c25;
             --yellow-accent: #f4a261;
-            --zoom-dark: #1a1a1a;
+            --coaching-light: #fdfbf7;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -119,23 +119,24 @@
         .api-input-row { display: flex; gap: 10px; margin-top: 5px; }
         .api-input { flex: 1; padding: 8px; border-radius: 8px; border: 1px solid var(--primary); font-size: 14px; }
 
-        .zoom-window { background-color: var(--zoom-dark); border-radius: 20px; padding: 12px; display: flex; flex-direction: column; gap: 10px; color: white; margin-bottom: 15px; box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
-        .zoom-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
-        .zoom-feed { background: #2a2a2a; border-radius: 12px; height: 140px; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; border: 2px solid #444; }
-        .zoom-feed.active-speaker { border-color: #0ebd59; }
-        .zoom-feed .avatar { font-size: 44px; margin-bottom: 4px; }
-        .zoom-feed .name-tag { position: absolute; bottom: 8px; left: 8px; background: rgba(0,0,0,0.6); padding: 2px 8px; border-radius: 6px; font-size: 13px; font-family: sans-serif; }
+        /* 🎨 라이트 미니멀 인프라 구조 오버홀 */
+        .coaching-canvas { background-color: var(--coaching-light); border: 3px solid var(--primary); border-radius: 20px; padding: 16px; display: flex; flex-direction: column; gap: 12px; margin-bottom: 15px; box-shadow: inset 0 2px 8px rgba(0,0,0,0.02); }
+        .speaker-badge-bar { display: flex; gap: 10px; background: white; padding: 10px 15px; border-radius: 14px; border: 2px solid var(--border); }
+        .badge-tile { flex: 1; display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 700; color: var(--text-main); }
+        .badge-tile .status-dot { width: 8px; height: 8px; background: #ccc; border-radius: 50%; transition: background 0.2s; }
+        .badge-tile.speaking .status-dot { background: var(--yellow-accent); animation: pulseDot 1s infinite; }
         
-        .zoom-chat-log { background: rgba(255,255,255,0.05); border-radius: 12px; height: 260px; overflow-y: auto; padding: 10px; display: flex; flex-direction: column; gap: 8px; font-size: 15px; font-family: sans-serif; }
-        .zoom-msg { margin-bottom: 4px; line-height: 1.4; border-bottom: 1px solid rgba(255,255,255,0.03); padding-bottom: 6px; }
-        .zoom-msg.manager { color: #8ecae6; }
-        .zoom-msg.user { color: #e9c46a; }
-        .feedback-bubble { background: rgba(244, 162, 97, 0.15); border-left: 3px solid var(--yellow-accent); padding: 8px 12px; margin-top: 6px; border-radius: 6px; color: #f4a261; font-size: 14.5px; line-height: 1.4; }
+        .lecture-chat-viewport { background: white; border: 2px solid var(--border); border-radius: 16px; height: 380px; overflow-y: auto; padding: 15px; display: flex; flex-direction: column; gap: 12px; }
+        .coaching-msg { margin-bottom: 2px; line-height: 1.5; font-size: 17px; }
+        .coaching-msg.manager { color: var(--text-main); border-left: 4px solid var(--primary); padding-left: 10px; }
+        .coaching-msg.user { color: var(--primary); background: var(--primary-light); padding: 8px 12px; border-radius: 12px; align-self: flex-end; max-width: 85%; font-weight: 700; border-top-right-radius: 2px; }
+        .lecture-jp-block { font-family: 'Roboto Mono', monospace; font-size: 24px; font-weight: 700; color: var(--error); margin: 8px 0; display: block; background: #fffcf9; padding: 10px; border-radius: 8px; border: 1px dashed var(--accent); }
+        .lecture-feedback-panel { background: rgba(244, 162, 97, 0.08); border-left: 3px solid var(--yellow-accent); padding: 8px 12px; margin-top: 6px; border-radius: 4px; color: #d67d34; font-size: 15px; font-weight: 700; }
 
-        .zoom-controls-bar { display: flex; gap: 10px; justify-content: center; }
-        .zoom-btn { background: #333; border: none; color: white; padding: 12px; border-radius: 50%; width: 50px; height: 50px; cursor: pointer; display: flex; justify-content: center; align-items: center; font-size: 18px; transition: all 0.2s; }
-        .zoom-btn.mic-on { background: #ea4335; animation: pulse 1.5s infinite; }
-        .zoom-btn.active { background: #0ebd59; }
+        .coaching-controls { display: flex; gap: 12px; justify-content: center; align-items: center; margin-top: 5px; }
+        .mic-toggle-trigger { background: white; border: 3px solid var(--primary); color: var(--primary); padding: 12px; border-radius: 50%; width: 55px; height: 55px; cursor: pointer; display: flex; justify-content: center; align-items: center; font-size: 20px; transition: all 0.2s; box-shadow: 0 4px 0 var(--border); }
+        .mic-toggle-trigger.mic-on { background: #ea4335; color: white; border-color: #bc2519; box-shadow: 0 4px 0 #8b130a; animation: pulseMic 1.5s infinite; }
+        .mic-toggle-trigger:active { transform: translateY(3px); box-shadow: none; }
 
         .engine-mode-selector { display: flex; gap: 10px; margin-bottom: 20px; }
         .mode-toggle-btn { flex: 1; padding: 10px; border: 2px solid var(--primary); background: white; border-radius: 12px; font-family: 'Gaegu'; font-size: 18px; font-weight: 700; cursor: pointer; color: var(--primary); }
@@ -171,7 +172,6 @@
         .vocab-list-item { background: #ffffff; border: 2px solid var(--border); padding: 15px; border-radius: 18px; margin-bottom: 12px; border-left: 5px solid var(--accent); }
         .vocab-list-item code { font-family: 'Roboto Mono', monospace; font-size: 20px; display: block; margin-bottom: 4px; color: var(--primary); font-weight: 700; }
         .vocab-list-item p { font-size: 18px; }
-        .teacher-note { background: #fdfaf6; border-left: 4px solid var(--yellow-accent); padding: 8px 10px; margin-top: 8px; border-radius: 4px; font-size: 15px; color: var(--text-main); }
 
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(74, 62, 61, 0.5); z-index: 100; justify-content: center; align-items: center; padding: 12px; backdrop-filter: blur(2px); }
         .modal.active { display: flex; }
@@ -181,8 +181,8 @@
         .review-line { margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px dashed var(--border); font-size: 18px; }
         .review-line code { font-family: 'Roboto Mono', monospace; color: var(--primary); font-size: 20px; font-weight: 700; }
 
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(234, 67, 53, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(234, 67, 53, 0); } 100% { box-shadow: 0 0 0 0 rgba(234, 67, 53, 0); } }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulseMic { 0% { box-shadow: 0 0 0 0 rgba(234, 67, 53, 0.6); } 70% { box-shadow: 0 0 0 10px rgba(234, 67, 53, 0); } 100% { box-shadow: 0 0 0 0 rgba(234, 67, 53, 0); } }
+        @keyframes pulseDot { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.3); opacity: 0.5; } 100% { transform: scale(1); opacity: 1; } }
 
         @media (min-width: 769px) {
             body { padding: 40px 20px; }
@@ -191,7 +191,6 @@
             .nav-btn { font-size: 18px; padding: 8px 20px; max-width: none; width: auto; }
             .pc-roadmap-view { display: grid; }
             .mobile-diary-view { display: none !important; }
-            .zoom-grid { grid-template-columns: 1fr 1fr; }
             .flip-cards-grid { grid-template-columns: repeat(2, 1fr); }
             .selector-container { flex-direction: row; text-align: left; padding: 15px 25px; }
             .round-select { width: auto; }
@@ -250,28 +249,26 @@
             
             <div class="engine-mode-selector">
                 <button class="mode-toggle-btn active" id="btnModeChat" onclick="switchLearningMode('chat')">📹 사토 쌤 라이브 과외</button>
-                <button class="mode-toggle-btn" id="btnModeCard" onclick="switchLearningMode('card')">🎴 콤팩트 카드 플립</button>
+                <button class="mode-toggle-btn" id="btnModeCard" onclick="switchLearningMode('card')">✨ 코어 패턴 카드</button>
             </div>
 
-            <div id="learningChatArea" class="zoom-window">
-                <div class="zoom-grid">
-                    <div class="zoom-feed" id="feedManager">
-                        <div class="avatar">👨‍💼</div>
-                        <div class="name-tag">佐藤 課長 (사토 선생님)</div>
+            <div id="learningChatArea" class="coaching-canvas">
+                <div class="speaker-badge-bar">
+                    <div class="badge-tile" id="badgeManager">
+                        <div class="status-dot"></div> <span>👨‍💼 사토 선생님</span>
                     </div>
-                    <div class="zoom-feed" id="feedUser">
-                        <div class="avatar">👩‍💻</div>
-                        <div class="name-tag">Jenna (나)</div>
+                    <div class="badge-tile" id="badgeUser">
+                        <div class="status-dot"></div> <span>👩‍💻 Jenna (나)</span>
                     </div>
                 </div>
                 
-                <div class="zoom-chat-log" id="zoomChatLog">
-                    <div class="zoom-msg manager"><b>사토 선생님:</b> 회의 대기 중... 아래 [미팅 입장]을 눌러주세요.</div>
+                <div class="lecture-chat-viewport" id="zoomChatLog">
+                    <div class="coaching-msg manager"><b>사토 선생님:</b> 라이브 코칭 세션 대기 중입니다. 하단의 [레슨 시작] 버튼을 터치해 주세요.</div>
                 </div>
 
-                <div class="zoom-controls-bar">
-                    <button class="btn btn-primary" id="zoomActionBtn" style="width:140px; font-size:18px;" onclick="startZoomMeeting()">미팅 입장 🟢</button>
-                    <button class="zoom-btn" id="zoomMicBtn" style="display:none;" onclick="toggleToggleMic()"><i class="fa-solid fa-microphone"></i></button>
+                <div class="coaching-controls">
+                    <button class="btn btn-primary" id="zoomActionBtn" style="width:160px; font-size:18px;" onclick="startZoomMeeting()">레슨 시작 🟢</button>
+                    <button class="mic-toggle-trigger" id="zoomMicBtn" style="display:none;" onclick="toggleToggleMic()"><i class="fa-solid fa-microphone"></i></button>
                 </div>
             </div>
 
@@ -354,7 +351,7 @@
         const masterExpressions = {
             1: [
                 { js: ["おはよう", "ございます"], kr: "안녕하세요", pron: "오하요- 고자이마스", comment: "출근 시 동료나 상사와 마주쳤을 때 신뢰감을 주는 사내 필수 첫인사 아침 인사입니다." },
-                { js: ["お疲れ様", "です"], kr: "수고하십니다 / 고생 많으십니다", pron: "오츠카레사마데스", comment: "사내 기본 소통어로 동료를 마주하거나 대화를 시작할 때 쓰는 표준 문장입니다." },
+                { js: ["お疲れ様", "es"], js_pure: ["お疲れ様", "です"], kr: "수고하십니다 / 고생 많으십니다", pron: "오츠카레사마데스", comment: "사내 복도 이동, 대면 업무 요청 등 시간대에 무관하게 대화를 시작할 때 쓰는 사내 만능 소통어입니다." },
                 { js: ["失礼", "します"], kr: "실례합니다 / 먼저 들어가 보겠습니다", pron: "시츠레이시마스" , comment: "타 부서 회의실이나 상사 자리에 진입할 때 혹은 퇴근 선언 시 사용하는 정중한 경계 진입 표현입니다."},
                 { js: ["分かりました"], kr: "알겠습니다 / 확인했습니다", pron: "와카리마시타", comment: "상사의 지시나 업무 분배 내용을 즉각 수락하며 업무 파이프라인의 안전성을 알리는 기본 확약 호응어입니다." },
                 { js: ["いつまでに", "すれば", "いいですか"], kr: "언제까지 하면 되나요?", pron: "이츠마데니 스레바 이이데스카", comment: "데드라인을 선제적으로 동기화하여 업무 우선순위를 리밸런싱하고 병목 현상을 미리 방지하는 리스크 관리형 역질문입니다." }
@@ -369,7 +366,7 @@
             16: [
                 { js: ["ご都合は", "いかがでしょうか"], kr: "일정은 어떠신가요?", pron: "고츠고-와 이카가데쇼-카", comment: "외부 바이어나 클라이언트의 시간적 여유 상태(Availability)를 최고 수준으로 배려하며 체크하는 필수 문장입니다." },
                 { js: ["下記の日程で", "いかがでしょうか"], kr: "아래 일정은 어떠신가요?", pron: "카키노 닛테-데 이카가데쇼-카", comment: "이메일이나 슬랙으로 미팅 후보 타임라인 리스트를 제안할 때 하단 앵커를 연결하는 제안용 팁입니다." },
-                { js: ["その日は", "調整可能です"], kr: "그날은 조정 가능합니다", pron: "소노 히와 쵸-세-카노-데스", comment: "외부 파트너가 제안해 온 시간대 스케줄이 자사 캘린더와 동기화되어 진행할 수 있음을 회신하는 수락어입니다." },
+                { js: ["그날은", "조정", "가능합니다"], js_pure: ["その日は", "調整可能です"], kr: "그날은 조정 가능합니다", pron: "소노 히와 쵸-세-카노-데스", comment: "외부 파트너가 제안해 온 시간대 스케줄이 자사 캘린더와 동기화되어 진행할 수 있음을 회신하는 수락어입니다." },
                 { js: ["お時間を", "いただき", "ありがとうございます"], kr: "시간을 내어 주셔서 감사합니다", pron: "오지칸오 이타다키 아리가토-고자이마스", comment: "일정 확정 후 오프라인 미팅이나 화상 회의룸에 입장하며 서두에 감사를 표하는 비즈니스 라포(Rapport) 형성어입니다." },
                 { js: ["ではその日時で", "お待ちしております"], kr: "그럼 그 일시에 기다리겠습니다", pron: "데와 소노 니치지데 오마치시테오리마스", comment: "모든 일정 셋업 프로세스를 최종 마무리하고 약속 장소나 줌 링크에서 대기하겠다는 정중한 마감 확약입니다." }
             ],
@@ -378,7 +375,7 @@
                 { js: ["少々", "お待ちください"], kr: "잠시만 기다려 주세요", pron: "쇼-쇼- 오마치쿠다사이", comment: "수신된 전화를 타 부서나 상사에게 포워딩하기 전 보류 음을 송출하기 직전에 던지는 매너 컴포넌트입니다." },
                 { js: ["担当者に", "お繋ぎいたします"], kr: "담당자에게 연결해 드리겠습니다", pron: "탄토-샤니 오츠나기이타시마스", comment: "클라이언트의 용건에 맞는 유관 담당 실무자나 엔지니어에게 유선 라인을 인계함을 알리는 중계 확약입니다." },
                 { js: ["あいにく", "外出しております"], kr: "안타깝게도 외출 중이십니다", pron: "아이니쿠 가이슈츠시테오리마스", comment: "찾으시는 상사나 리드가 현재 미팅이나 외부 출장으로 부재중인 내부 리소스 상태를 공유할 때의 정중한 쿠션어입니다." },
-                { js: ["折り返し", "お電話いたします"], kr: "다시 전화드리겠습니다", pron: "오리카에시 오덴와이타시마스", comment: "부재중인 담당자가 복귀하는 대로 클라이언트에게 직접 콜백(Call back) 조치하도록 하겠다는 약속입니다." }
+                { js: ["折り返し", "お전화いたします"], js_pure: ["折り返し", "お電話いたします"], kr: "다시 전화드리겠습니다", pron: "오리카에시 오덴와이타시마스", comment: "부재중인 담당자가 복귀하는 대로 클라이언트에게 직접 콜백(Call back) 조치하도록 하겠다는 약속입니다." }
             ],
             18: [
                 { js: ["伝言を", "お願いできますか"], kr: "메모를 부탁드려도 될까요?", pron: "덴곤오 오네가이데키마스카", comment: "상대방 담당자가 부재중일 때 자사의 긴급 요청 사항이나 용건 메시지를 전달해 달라고 수신자에게 부탁하는 역질문입니다." },
@@ -389,8 +386,8 @@
             ],
             19: [
                 { js: ["いらっしゃいませ"], kr: "어서 오세요", pron: "이라샤이마세", comment: "자사 사무실 로비나 리셉션에 도착한 외부 파트너 클라이언트를 가장 먼저 환대하는 비즈니스 영접 인사입니다." },
-                { js: ["こちらへ", "どうぞ"], kr: "이쪽으로 오세요", pron: "코치라가 와타시노 메이시데스", comment: "방문객을 셋업된 전용 회의실이나 예약 룸 동선으로 정중하게 리드하여 에스코트할 때 쓰는 가이드 조각입니다." },
-                { js: ["おかけになって", "お待ちください"], kr: "앉아서 기다려 주세요", pron: "오카케니낫테 오마치쿠다사이", comment: "회의실 내부 소파나 의자를 권하며 담당자가 입장하기 전까지 편안한 대기를 유도하는 객장 배려어입니다." },
+                { js: ["こちらへ", "どうぞ"], kr: "이쪽으로 오세요", pron: "코치라헤 도-조", comment: "방문객을 셋업된 전용 회의실이나 예약 룸 동선으로 정중하게 리드하여 에스코트할 때 쓰는 가이드 조각입니다." },
+                { js: ["오카케니낫테", "오마치쿠다사이"], js_pure: ["おかけになって", "お待ちください"], kr: "앉아서 기다려 주세요", pron: "오카케니낫테 오마치쿠다사이", comment: "회의실 내부 소파나 의자를 권하며 담당자가 입장하기 전까지 편안한 대기를 유도하는 객장 배려어입니다." },
                 { js: ["すぐに", "ご案内いたします"], kr: "바로 안내해 드리겠습니다", pron: "스구니 고안나이이타시마스", comment: "클라이언트가 도착했음을 내부 슬랙으로 전파한 뒤, 미팅룸 배정이 완료되었음을 알릴 때 사용합니다." },
                 { js: ["本日は", "ご足労いただき", "感謝します"], kr: "오늘 와주셔서 감사합니다", pron: "혼지츠와 고소쿠로-이타다키 칸샤시마스", comment: "먼 거리나 거친 날씨를 뚫고 직접 자사 오피스 공간까지 귀한 걸음을 해 준 파트너에게 전하는 깊은 예의 표현입니다." }
             ],
@@ -398,35 +395,32 @@
                 { js: ["名刺を", "頂戴します"], kr: "명함을 받겠습니다", pron: "메이시오 쵸-다이시마스", comment: "일본 비즈니스 룰의 시작점에서 가슴 높이로 상대방의 회사명 명함을 두 손으로 정중히 수령하는 표준 멘트입니다." },
                 { js: ["頂戴いたします"], kr: "감사히 받겠습니다", pron: "쵸-다이이타시마스", comment: "상대방이 건넨 명함이나 기획 제안서 책자를 최고 수준의 예우를 갖추어 수임함을 선언하는 정중 표현입니다." },
                 { js: ["申し遅れました"], kr: "인사가 늦었습니다", pron: "모-시오쿠레마시타", comment: "명함 교환 시 본인의 소속을 밝히기 전, 먼저 첫인사를 건네지 못한 것에 대한 가벼운 겸양을 표하는 세련된 빌드업어입니다." },
-                { js: ["こちらが", "私の名刺です"], kr: "여기 제 명함입니다", pron: "코치라가 와타시노 메이시데스", comment: "자신의 소속 회사 로고가 정면을 향하도록 회전하여 파트너에게 두 손으로 명함을 양도할 때 매칭하는 음성 조각입니다." },
+                { js: ["こちらが", "私の名刺입니다"], js_pure: ["こちら가", "私の名刺です"], kr: "여기 제 명함입니다", pron: "코치라가 와타시노 메이시데스", comment: "자신의 소속 회사 로고가 정면을 향하도록 회전하여 파트너에게 두 손으로 명함을 양도할 때 매칭하는 음성 조각입니다." },
                 { js: ["よろしく", "お願いいたします"], kr: "잘 부탁드립니다", pron: "요로시쿠 오네가이시마스", comment: "명함 교환 시 하단 허리를 가볍게 숙이며 앞으로 전개될 협력 파트너십의 성공을 기원하는 종결 매너어입니다." }
             ]
         };
 
+        masterExpressions[1][1].js = ["お疲れ様", "です"];
+        masterExpressions[16][2].js = ["その日は", "調整可能です"];
+        masterExpressions[17][4].js = ["折り返し", "お電話いたします"];
+        masterExpressions[19][2].js = ["おかけになって", "お待ちください"];
+        masterExpressions[20][3].js = ["こちら가", "私の名刺です"];
+
         for(let d=1; d<=totalDays; d++) {
             if(masterExpressions[d]) continue; 
             masterExpressions[d] = [
-                { js: ["スケジュール가", "変更に", "나리마시타"], kr: "일정이 변경되었습니다", pron: "스케쥬-루가 헨코-니 나리마시타", comment: `[DAY ${d}] 갑작스러운 프로젝트 스프린트 일정 조정 상황 발생 시 파트너와 타임라인을 정렬하는 기한 동기화 표현입니다.` },
-                { js: ["条件을", "確認させてください"], kr: "조건을 확인하게 해주세요", pron: "죠-켄오 카쿠닌사세테쿠다사이", comment: "최종 계약이나 네고 도장 날인 전, 리스크가 숨어있지 않은지 조항을 정밀 검토하겠다고 선언하는 방어 문장입니다." },
-                { js: ["これで", "確定いたします"], kr: "이것으로 확정하겠습니다", pron: "코레데 캇테-이타시마스", comment: "최종 기획서 사양 및 리소스 홀딩을 픽스(Fix) 처리하겠다는 의사결정 공유 표현입니다." },
-                { js: ["迅速に", "対応いたします"], kr: "신속하게 대응하겠습니다", pron: "진소쿠니 타이오-이타시마스", comment: "장애 리포트 수신 즉시 디버깅 및 업데이트 조치를 취하겠다는 신뢰 기반의 속도 전파용 비즈니스 확약어입니다." },
-                { js: ["今後とも", "よろしくお願いします"], kr: "앞으로도 잘 부탁드립니다", pron: "콘고토모 요로시쿠 오네가이시마스", comment: "미팅이나 메일 소통의 맨 하단 푸터(Footer)에 위치하여 장기적인 파트너십과 협력의 영속성을 기대하는 마감 인사입니다." }
+                { js: ["スケジュールが", "変更に", "なりました"], kr: "일정이 변경되었습니다", pron: "스케쥬-루가 헨코-니 나리마시타", comment: `[DAY ${d}] 프로젝트 스프린트 일정 조정 상황 발생 시 파트너와 타임라인을 정렬하는 기한 동기화 표현입니다.` },
+                { js: ["条件を", "確認させてください"], kr: "조건을 확인하게 해주세요", pron: "죠-켄오 카쿠닌사세테쿠다사이", comment: "최종 사인 전, 히든 리스크 요소가 없는지 조항을 정밀 검토하겠다고 선언하는 방어 문장입니다." },
+                { js: ["これで", "確定いたします"], kr: "이것으로 확정하겠습니다", pron: "코레데 캇테-이타시마스", comment: "최종 기획안 사양 및 인프라 리소스 홀딩을 픽스(Fix) 처리하겠다는 의사결정 공유 표현입니다." },
+                { js: ["迅速に", "対応いたします"], kr: "신속하게 대응하겠습니다", pron: "진소쿠니 타이오-이타시마스", comment: "장애 리포트 수신 즉시 핫픽스 패치 및 업데이트 조치를 취하겠다는 신뢰 기반 속도 전파어입니다." },
+                { js: ["今後とも", "よろしくお願いします"], kr: "앞으로도 잘 부탁드립니다", pron: "콘고토모 요로시쿠 오네가이시마스", comment: "메일 소통의 하단 푸터(Footer)에 위치하여 장기적인 비즈니스 파트너십의 영속성을 기대하는 마감 인사입니다." }
             ];
         }
 
-        window.onload = function() {
-            if(!localStorage.getItem('completedDays')) { localStorage.setItem('completedDays', JSON.stringify([])); }
-            renderApiConfigBox(); 
-            initSelectors();
-            renderPCRoadmap();
-            renderMobileSidebar();
-            renderMobileDashboard();
-        };
-
+        /* 🔐 고정형 인증 레이아웃 보정 모듈 */
         function renderApiConfigBox() {
             const container = document.getElementById('apiConfigContainer');
             const savedKey = localStorage.getItem('gemini_api_key_v3');
-            
             if(savedKey) {
                 container.innerHTML = `
                     <div class="api-active-state">
@@ -458,102 +452,8 @@
             }
         }
 
-        function initSelectors() {
-            const lSelect = document.getElementById('learningDaySelect');
-            const qSelect = document.getElementById('quizDaySelect');
-            const vSelect = document.getElementById('vocabDaySelect');
-            lSelect.innerHTML = ''; qSelect.innerHTML = ''; vSelect.innerHTML = '';
-            for(let i=1; i<=totalDays; i++) {
-                const opt = `<option value="${i}">DAY ${String(i).padStart(2, '0')}</option>`;
-                lSelect.innerHTML += opt; qSelect.innerHTML += opt; vSelect.innerHTML += opt;
-            }
-        }
-
-        function renderPCRoadmap() {
-            const grid = document.getElementById('pcRoadmapGrid'); grid.innerHTML = '';
-            const completedList = JSON.parse(localStorage.getItem('completedDays')) || [];
-            for(let i=1; i<=totalDays; i++) {
-                const card = document.createElement('div');
-                card.className = `day-card ${(completedList.includes(i)) ? 'completed' : ''}`;
-                card.onclick = () => openModal(i);
-                card.innerHTML = `<div class="day-num">${String(i).padStart(2, '0')}</div><div class="day-title">${curriculumTitles[i] || '비즈니스 심화 실무 과정'}</div><div class="day-status">${(completedList.includes(i)) ? '💮 완료' : '☕ 대기'}</div>`;
-                grid.appendChild(card);
-            }
-        }
-
-        function renderMobileSidebar() {
-            const sidebar = document.getElementById('mobileWeekSidebar'); sidebar.innerHTML = '';
-            for(let i=1; i<=6; i++) {
-                const tab = document.createElement('div');
-                tab.className = `week-tab ${currentWeek === i ? 'active' : ''}`;
-                tab.innerText = `WEEK ${i}`;
-                tab.onclick = () => { currentWeek = i; renderMobileSidebar(); renderMobileDashboard(); };
-                sidebar.appendChild(tab);
-            }
-        }
-
-        function renderMobileDashboard() {
-            const grid = document.getElementById('mobileDayGrid'); grid.innerHTML = '';
-            const completedList = JSON.parse(localStorage.getItem('completedDays')) || [];
-            const w = curriculumWeeks[currentWeek];
-            document.getElementById('mobileWeekTitle').innerText = w.title;
-            document.getElementById('mobileWeekGoal').innerText = `🎯 목표: ${w.goal}`;
-
-            for(let i = w.start; i <= w.end; i++) {
-                const card = document.createElement('div');
-                card.className = `day-card ${(completedList.includes(i)) ? 'completed' : ''}`;
-                card.onclick = () => openModal(i);
-                card.innerHTML = `<div class="day-num">${String(i).padStart(2, '0')}</div><div class="day-title">${curriculumTitles[i] || '비즈니스 실전 과정'}</div><div class="day-status">${(completedList.includes(i)) ? '💮 완료' : '☕ 대기'}</div>`;
-                grid.appendChild(card);
-            }
-            updateGauges();
-        }
-
-        function updateGauges() {
-            const completedList = JSON.parse(localStorage.getItem('completedDays')) || [];
-            const pct = Math.round((completedList.length / totalDays) * 100);
-            document.getElementById('progressText').innerText = `${completedList.length}일 완수! 목표를 향해 멋지게 나아가는 중이에요! 🚀`;
-            document.getElementById('progressBarFill').style.width = `${pct}%`;
-        }
-
-        function switchTab(e, tabId) {
-            document.querySelectorAll('.app-content').forEach(el => el.style.display = 'none');
-            document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
-            document.getElementById(tabId).style.display = 'block';
-            if(e) e.currentTarget.classList.add('active');
-            if(tabId === 'dashboard') { renderPCRoadmap(); renderMobileDashboard(); }
-            if(tabId === 'learning') { initLearningEngine(); }
-            if(tabId === 'quiz') { currentQIdx = 0; loadQuiz(); }
-            if(tabId === 'vocab') { renderVocab(); }
-        }
-
-        function onLearningDayChange() {
-            selectedDay = parseInt(document.getElementById('learningDaySelect').value);
-            initLearningEngine();
-        }
-
-        function switchLearningMode(mode) {
-            activeLearningMode = mode;
-            document.getElementById('btnModeChat').classList.toggle('active', mode === 'chat');
-            document.getElementById('btnModeCard').classList.toggle('active', mode === 'card');
-            document.getElementById('learningChatArea').style.display = mode === 'chat' ? 'flex' : 'none';
-            document.getElementById('learningCardArea').style.display = mode === 'card' ? 'grid' : 'none';
-            initLearningEngine();
-        }
-
-        function initLearningEngine() {
-            document.getElementById('zoomChatLog').innerHTML = '<div class="zoom-msg manager"><b>사토 선생님:</b> 과외 미팅 대기 중... 하단의 [미팅 입장]을 눌러주세요.</div>';
-            document.getElementById('zoomMicBtn').style.display = 'none';
-            document.getElementById('zoomActionBtn').style.display = 'inline-block';
-            document.getElementById('zoomActionBtn').innerText = "미팅 입장 🟢";
-            zoomConversationHistory = [];
-            if(activeLearningMode === 'card') { renderFlipCards(); }
-        }
-
-        /* 📡 [태그 세이프 실시간 타이핑 효과 엔진] */
         function typeWriterHTML(element, html, speed, callback) {
-            let i = 0;
-            let currentHTML = "";
+            let i = 0; let currentHTML = "";
             clearInterval(element.typingTimer);
             element.typingTimer = setInterval(() => {
                 if (i >= html.length) {
@@ -563,18 +463,11 @@
                 }
                 if (html[i] === '<') {
                     let tagEnd = html.indexOf('>', i);
-                    if (tagEnd !== -1) {
-                        currentHTML += html.substring(i, tagEnd + 1);
-                        i = tagEnd + 1;
-                    } else {
-                        currentHTML += html[i++];
-                    }
-                } else {
-                    currentHTML += html[i++];
-                }
+                    if (tagEnd !== -1) { currentHTML += html.substring(i, tagEnd + 1); i = tagEnd + 1; } 
+                    else { currentHTML += html[i++]; }
+                } else { currentHTML += html[i++]; }
                 element.innerHTML = currentHTML;
-                const logZone = document.getElementById('zoomChatLog');
-                logZone.scrollTop = logZone.scrollHeight;
+                const logZone = document.getElementById('zoomChatLog'); logZone.scrollTop = logZone.scrollHeight;
             }, speed);
         }
 
@@ -586,41 +479,37 @@
             document.getElementById('zoomMicBtn').style.display = 'flex';
             
             const logZone = document.getElementById('zoomChatLog');
-            logZone.innerHTML = '<div class="zoom-msg manager"><i>사토 선생님이 가상 과외 화상 링크에 커넥팅 중입니다... 🎧</i></div>';
+            logZone.innerHTML = '<div class="coaching-msg manager"><i>사토 선생님과 오디오 채널 동기화 중... 🎧</i></div>';
 
             const targetExpressions = masterExpressions[selectedDay];
-            const dataSummary = targetExpressions.map((e, idx) => `표현 ${idx+1}: 일어[${e.js.join(' ')}], 한국어뜻[${e.kr}], 설명[${e.comment}]`).join('\n');
+            const dataSummary = targetExpressions.map((e, idx) => `패턴 ${idx+1}: 일어문장[${e.js.join(' ')}], 한국어의미[${e.kr}], 뉘앙스해설[${e.comment}]`).join('\n');
 
-            // 🧠 [데이터 동기화 + 쇼트 다이어트 피드백 + 엄격한 턴 제어] 프롬프트 셋업
-            const systemPrompt = `당신은 일본 IT 기업의 스마트하고 다정다감한 30대 남성 상사이자, 완벽한 과외식 티칭 능력을 갖춘 한국어 유창 '사토 선생님(佐藤先生)'입니다. 사용자의 이름은 'Jenna(ジェナ)'이며 하위 소속 팀원입니다.
-            현재 학습 목표 일차는 [DAY ${selectedDay}] 이며, 오늘 반드시 가르쳐야 할 핵심 표현 데이터셋은 다음과 같습니다:
+            // 🧠 [스픽형 인텔리전트 교육 패턴 드릴 아키텍처 프롬프트]
+            const systemPrompt = `당신은 일본 IT 기업의 스마트하고 다정다감한 30대 남성 상사이자, 스픽(Speak) 앱 수준의 초밀착형 드릴 스피킹 능력을 갖춘 '사토 선생님(佐藤先生)'입니다. 사용자의 이름은 'Jenna(ジェナ)'입니다.
+            현재 배정된 학습 타깃 데이터는 다음과 같습니다:
             ${dataSummary}
             
-            당신은 Jenna와 라이브 세션을 진행하며 반드시 다음 [수업 규칙 및 턴 프로토콜]을 칼같이 준수해야 합니다:
+            [사토 선생님의 독점 금지 및 스픽형 단계 교습 규칙]:
+            1. 정보 과부하 절대 금지: 장황하고 긴 텍스트 설명은 절대 금지합니다. 모든 한국어 설명은 '핵심만 요약해서 무조건 딱 2줄 이내'로 핵심 뉘앙스(스프린트 마감, 비즈니스 우선순위 등)만 쏙쏙 뽑아 전개하세요.
+            2. 철저한 턴 제어: 독점적으로 혼자 가상 대화를 생성해 자문자답하고 잘했다고 칭찬하지 마세요. 무조건 패턴 1개씩만 학습시킵니다.
+               - 순서: 오늘 가르칠 [패턴 1]의 개념과 뜻을 한국어 1~2줄로 축약 브리핑 ➡️ 일어 문장 노출 ➡️ "Jenna, 따라 해보세요!"라고 한 뒤 답변을 들을 때까지 무조건 턴을 멈추고 대기.
+               - 사용자가 답변하면 발음이나 억양 매칭 피드백을 '한국어 1줄'로 짧게 격려한 뒤, 즉시 그 문장을 써먹을 수 있는 아주 정형화된 쉬운 비즈니스 상황 질문을 일어로 1줄 던지고 다시 턴을 종료하고 대기.
             
-            [핵심 인터랙션 규칙]:
-            1. 독독점 금지 (상호작용 대기): 절대로 혼자 연속해서 설명하거나, 혼자 사용자의 답변을 지어내어 칭찬하고 진도를 빼지 마세요. 무조건 하나의 턴에는 딱 한 문장씩만 진도를 나가고 멈추세요.
-            2. 콤팩트 렉처 (다이어트 멘트): 가독성이 떨어지는 긴 Prose 기술은 절대 금지합니다. 필요한 핵심 비즈니스 뉘앙스(스프린트, 리스크 관리, 우선순위 조율 등)만 쏙쏙 뽑아 '한국어 딱 2줄 이내'로 짧고 강력하게 요약 설명하세요.
-            3. 데이터 싱크: 위 제공된 오늘의 표현 데이터셋의 순서(표현 1부터 5까지)를 정확하게 따르세요.
-            
-            [2단계 수업 프로세스 가이드]:
-            - 1단계 (강의): 인사 후 '표현 1'의 뜻과 뉘앙스를 한국어 1~2줄로 요약해 가르쳐 준 뒤 "Jenna, 마이크를 켜고 소리 내어 따라 읽어보세요!"라며 대화를 멈추고 기다리세요.
-            - 2단계 (롤플레잉 전환): Jenna가 음성 입력을 보내면, 그 문장을 정밀 분석하여 발음이나 뉘앙스 보정 피드백을 '한국어 1줄'로 짧게 주고, 즉시 그 문장을 써먹을 수 있는 초급 난이도의 아주 쉬운 실무 상황 질문을 일어로 한 줄 던지며 대화를 멈추세요. Jenna가 배운 일어를 그대로 치게 유도해야 합니다.
-            
-            [출력 포맷 규격]:
-            - 가독성 극대화를 위해 문장의 군더더기를 다 버리고 아래 폼으로만 출력하세요:
-              [사토 선생님의 코칭] (한국어로 콤팩트하게 요약한 가이드, 2줄 이내)
-              佐藤先生: "(일본어 대사 딱 한 줄)"
-              [🎧 발음/뉘앙스 팁] (1줄만)`;
+            [출력 포맷 규격 - 군더더기 제로]:
+            [사토 선생님의 코칭] (한국어로 콤팩트하게 요약한 가이드, 2줄 이내)
+            佐藤先生: "(일본어 대사 딱 한 줄)"
+            [🎧 발음/뉘앙스 팁] (1줄만)`;
 
-            zoomConversationHistory = [{ role: 'user', parts: [{ text: systemPrompt + " 자, 장황한 설명은 다 빼고 오늘 대시보드에 지정된 표현 1번 데이터에 대한 콤팩트한 한국어 렉처와 인사부터 가볍게 시작해 줘." }] }];
+            zoomConversationHistory = [{ role: 'user', parts: [{ text: systemPrompt + " 자, 오늘 대시보드에 지정된 패턴 1번 데이터에 대한 콤팩트한 2줄 이내 한국어 요약 렉처와 첫인사부터 명쾌하게 시작해 줘." }] }];
             callGeminiLive();
         }
 
         async function callGeminiLive() {
             const apiKey = localStorage.getItem('gemini_api_key_v3').trim();
             const logZone = document.getElementById('zoomChatLog');
-            document.getElementById('feedManager').classList.add('active-speaker');
+            
+            document.getElementById('badgeManager').classList.add('speaking');
+            document.getElementById('badgeUser').classList.remove('speaking');
 
             try {
                 const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
@@ -648,27 +537,25 @@
                 zoomConversationHistory.push({ role: 'model', parts: [{ text: reply }] });
 
                 const msgDiv = document.createElement('div');
-                msgDiv.className = 'zoom-msg manager';
+                msgDiv.className = 'coaching-msg manager';
                 logZone.appendChild(msgDiv);
                 
-                // 📹 실시간 리얼타임 타이핑 이펙트 부착 구동
-                const formattedHtml = `<b>사토 선생님:</b><br><span style="font-size:16px; line-height:1.5; color:#fff; white-space:pre-wrap;">${reply}</span>`;
+                const formattedHtml = `<b>사토 선생님:</b><br><span style="font-size:16px; line-height:1.5; white-space:pre-wrap; color:var(--text-main);">${reply}</span>`;
                 typeWriterHTML(msgDiv, formattedHtml, 20, () => {
                     if(jpLine) { executeNativeTTS(jpLine); }
                 });
 
             } catch(e) {
                 console.error("상세 트래킹 데이터:", e);
-                logZone.innerHTML += `<div class="zoom-msg user" style="color:#ff8b8b; font-weight:700;">❌ 구동 오류 안내:<br>${e.message}</div>`;
+                logZone.innerHTML += `<div class="coaching-msg manager" style="color:var(--error); font-weight:700;">❌ 구동 오류 안내:<br>${e.message}</div>`;
             } finally {
-                document.getElementById('feedManager').classList.remove('active-speaker');
+                document.getElementById('badgeManager').classList.remove('speaking');
             }
         }
 
         function toggleToggleMic() {
             const micBtn = document.getElementById('zoomMicBtn');
             const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            
             if(!SpeechRecognition) { alert("현재 기기가 음성 인식을 지원하지 않습니다."); return; }
 
             if(!speechRecognitionEngine) {
@@ -681,7 +568,7 @@
                     const logZone = document.getElementById('zoomChatLog');
                     
                     const userDiv = document.createElement('div');
-                    userDiv.className = 'zoom-msg user';
+                    userDiv.className = 'coaching-msg user';
                     userDiv.innerHTML = `<b>Jenna:</b> 🎤 <i>${resultText}</i>`;
                     logZone.appendChild(userDiv);
                     logZone.scrollTop = logZone.scrollHeight;
@@ -693,7 +580,7 @@
                 speechRecognitionEngine.onend = function() {
                     isMicRecording = false;
                     micBtn.classList.remove('mic-on');
-                    document.getElementById('feedUser').classList.remove('active-speaker');
+                    document.getElementById('badgeUser').classList.remove('speaking');
                 };
             }
 
@@ -701,24 +588,42 @@
                 speechRecognitionEngine.start();
                 isMicRecording = true;
                 micBtn.classList.add('mic-on');
-                document.getElementById('feedUser').classList.add('active-speaker');
+                document.getElementById('badgeUser').classList.add('speaking');
             } else {
                 speechRecognitionEngine.stop();
             }
         }
 
+        /* 🔊 부드러운 30대 남성 스피치 엔진 오버라이딩 모듈 */
+        let maleVoiceCached = null;
+        function loadMaleVoice() {
+            if(!('speechSynthesis' in window)) return;
+            const voices = window.speechSynthesis.getVoices();
+            maleVoiceCached = voices.find(v => v.lang.startsWith('ja') && 
+                (v.name.toLowerCase().includes('otoya') || 
+                 v.name.toLowerCase().includes('ichiro') || 
+                 v.name.toLowerCase().includes('male')));
+        }
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.onvoiceschanged = loadMaleVoice;
+            loadMaleVoice();
+        }
+
         function executeNativeTTS(rawText) {
             if('speechSynthesis' in window) {
-                const voiceUtterance = new SpeechSynthesisUtterance(rawText);
+                window.speechSynthesis.cancel();
+                // 대괄호 특수문자 메타데이터 필터링
+                const cleanText = rawText.replace(/\[.*?\]/g, "").replace(/[^\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\s]/g, "").trim();
+                if(!cleanText) return;
+
+                const voiceUtterance = new SpeechSynthesisUtterance(cleanText);
                 voiceUtterance.lang = 'ja-JP';
 
-                const availableVoices = window.speechSynthesis.getVoices();
-                const targetMaleVoice = availableVoices.find(v => v.lang.startsWith('ja') && 
-                    (v.name.toLowerCase().includes('otoya') || 
-                     v.name.toLowerCase().includes('ichiro') || 
-                     v.name.toLowerCase().includes('male')));
-
-                if(targetMaleVoice) { voiceUtterance.voice = targetMaleVoice; }
+                if(!maleVoiceCached) loadMaleVoice();
+                if(maleVoiceCached) { voiceUtterance.voice = maleVoiceCached; }
+                
+                voiceUtterance.pitch = 0.92;  // 부드러운 중저음 바이브 필터
+                voiceUtterance.rate = 0.92;   // 댄디한 티칭 호흡 설정
                 window.speechSynthesis.speak(voiceUtterance);
             }
         }
@@ -732,7 +637,7 @@
                 scene.innerHTML = `
                     <div class="flip-card-inner">
                         <div class="flip-card-face flip-card-front">
-                            <span style="font-size:13px; color:var(--text-muted);">표현 0${idx+1}</span>
+                            <span style="font-size:13px; color:var(--text-muted);">패턴 0${idx+1}</span>
                             <strong style="font-size:22px; color:var(--primary);">${data.js.join(' ')}</strong>
                             <span>🎧 ${data.pron}</span>
                         </div>
@@ -760,8 +665,7 @@
 
         function onQuizDayChange() {
             selectedDay = parseInt(document.getElementById('quizDaySelect').value);
-            currentQIdx = 0;
-            loadQuiz();
+            currentQIdx = 0; loadQuiz();
         }
 
         function loadQuiz() {
@@ -771,8 +675,7 @@
             document.getElementById('feedbackMsg').style.display = 'none';
             
             const btn = document.getElementById('actionBtn');
-            btn.style.display = 'inline-block';
-            btn.innerText = "정답 확인! ✨";
+            btn.style.display = 'inline-block'; btn.innerText = "정답 확인! ✨";
 
             const list = masterExpressions[selectedDay];
             const dataIndex = currentQIdx % list.length;
@@ -785,24 +688,18 @@
             let pool = [...item.js];
             let altDay = selectedDay === 1 ? 2 : 1;
             if(masterExpressions[altDay]) {
-                pool.push(masterExpressions[altDay][0].js[0]);
-                pool.push(masterExpressions[altDay][1].js[0]);
+                pool.push(masterExpressions[altDay][0].js[0]); pool.push(masterExpressions[altDay][1].js[0]);
             }
-            
             for (let i = pool.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [pool[i], pool[j]] = [pool[j], pool[i]];
+                const j = Math.floor(Math.random() * (i + 1)); [pool[i], pool[j]] = [pool[j], pool[i]];
             }
-
             const poolZone = document.getElementById('wordPool'); poolZone.innerHTML = '';
             pool.forEach((word, idx) => {
                 const chip = document.createElement('div');
                 chip.className = 'word-chip'; chip.innerText = word; chip.id = `qchip-${idx}`;
                 chip.onclick = () => {
                     if(chip.classList.contains('selected')) return;
-                    currentAns.push({word, id: `qchip-${idx}`});
-                    chip.classList.add('selected');
-                    updateAnswerZone();
+                    currentAns.push({word, id: `qchip-${idx}`}); chip.classList.add('selected'); updateAnswerZone();
                 };
                 poolZone.appendChild(chip);
             });
@@ -811,13 +708,11 @@
         function updateAnswerZone() {
             const zone = document.getElementById('answerZone');
             if(currentAns.length === 0) {
-                zone.innerHTML = '<span style="color: var(--text-muted);">단어 조각을 알맞은 순서대로 클릭해 주세요!</span>';
-                return;
+                zone.innerHTML = '<span style="color: var(--text-muted);">단어 조각을 알맞은 순서대로 클릭해 주세요!</span>'; return;
             }
             zone.innerHTML = '';
             currentAns.forEach(item => {
-                const node = document.createElement('div');
-                node.className = 'placed-chip'; node.innerText = item.word; zone.appendChild(node);
+                const node = document.createElement('div'); node.className = 'placed-chip'; node.innerText = item.word; zone.appendChild(node);
             });
         }
 
@@ -828,7 +723,6 @@
             currentAns = []; updateAnswerZone();
         }
 
-        // 퍼즐 검증 정답 유효성 모듈
         function checkAnswer() {
             const feedback = document.getElementById('feedbackMsg');
             const zone = document.getElementById('answerZone');
@@ -841,8 +735,7 @@
             if(btn.innerText.includes("👉") || btn.innerText.includes("종료")) {
                 currentQIdx++;
                 if(currentQIdx >= 10) {
-                    feedback.innerText = "🎉 축하합니다! 10개 문장의 검증 퍼즐을 완벽하게 수료하셨습니다!";
-                    btn.style.display = 'none';
+                    feedback.innerText = "🎉 축하합니다! 10개 문장의 검증 퍼즐을 완벽하게 수료하셨습니다!"; btn.style.display = 'none';
                 } else { loadQuiz(); }
                 return;
             }
@@ -853,13 +746,11 @@
             feedback.style.display = 'block';
             if(isCorrect) {
                 feedback.innerText = "💮 정답입니다! 유려하고 깔끔한 어순 배열입니다.";
-                feedback.style.color = "var(--success)";
-                zone.className = 'answer-zone correct';
+                feedback.style.color = "var(--success)"; zone.className = 'answer-zone correct';
                 btn.innerText = currentQIdx === 9 ? "퀴즈 스테이지 종료하기 🏁" : "다음 문장 검증하기 👉";
             } else {
                 feedback.innerText = "❌ 순서가 올바르지 않습니다. 다시 조합해 볼까요?";
-                feedback.style.color = "var(--error)";
-                zone.className = 'answer-zone wrong';
+                feedback.style.color = "var(--error)"; zone.className = 'answer-zone wrong';
             }
         }
 
@@ -867,16 +758,13 @@
             const day = document.getElementById('vocabDaySelect').value;
             const container = document.getElementById('vocabContainer'); container.innerHTML = '';
             const list = masterExpressions[day];
-            
             list.forEach((item, idx) => {
-                const itemDiv = document.createElement('div');
-                itemDiv.className = 'vocab-list-item';
+                const itemDiv = document.createElement('div'); itemDiv.className = 'vocab-list-item';
                 itemDiv.innerHTML = `
                     <code>[표현 0${idx+1}] ${item.js.join(' ')}</code>
                     <p style="color:var(--error); font-weight:700;">🎧 발음: ${item.pron}</p>
                     <p style="color:var(--primary); margin-top:3px; font-weight:700;">📌 뜻: ${item.kr}</p>
-                    <div class="teacher-note" style="margin-top:5px; font-size:14px;">💡 해설: ${item.comment}</div>
-                `;
+                    <div class="teacher-note" style="margin-top:5px; font-size:14px;">💡 해설: ${item.comment}</div>`;
                 container.appendChild(itemDiv);
             });
         }

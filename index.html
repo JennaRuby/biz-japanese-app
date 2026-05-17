@@ -59,7 +59,7 @@
             align-items: center;
             border-bottom: 4px solid var(--secondary);
         }
-        .app-header h1 { font-family: 'Gaegu', cursive; font-size: 34px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+        .app-header h1 { font-size: 34px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
         .nav-tabs { display: flex; gap: 12px; }
         .nav-btn { 
             background: white; 
@@ -80,7 +80,6 @@
         .app-content { flex-grow: 1; padding: 40px; display: none; }
         .app-content.active { display: block; }
 
-        /* 시각화 프로그레스 바 영역 */
         .progress-banner { 
             background-color: #ffffff; 
             border: 3px dashed var(--secondary); 
@@ -92,16 +91,13 @@
         .progress-bar-container { width: 100%; background-color: var(--primary-light); border-radius: 15px; height: 16px; overflow: hidden; border: 2px solid var(--secondary); }
         .progress-bar-fill { height: 100%; background-color: var(--yellow-accent); width: 0%; transition: width 0.4s ease; }
 
-        /* 주차별 대형 섹션 래퍼 */
         .week-section { background: #ffffff; border: 2px solid var(--border); border-radius: 24px; padding: 22px; margin-bottom: 30px; box-shadow: 0 5px 0px var(--primary-light); }
         .week-header { margin-bottom: 18px; border-bottom: 2px dashed var(--border); padding-bottom: 10px; }
-        .week-header h3 { font-size: 25px; color: var(--secondary); font-family: 'Gaegu', cursive; }
-        .week-header p { font-size: 18px; color: var(--text-muted); font-family: 'Gaegu', cursive; }
+        .week-header h3 { font-size: 25px; color: var(--secondary); }
+        .week-header p { font-size: 18px; color: var(--text-muted); }
 
         .roadmap-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; }
-        @media (max-width: 900px) { .roadmap-grid { grid-template-columns: repeat(3, 1fr); } }
-        @media (max-width: 550px) { .roadmap-grid { grid-template-columns: repeat(1, 1fr); } }
-        
+
         .day-card { 
             background-color: #ffffff; 
             border: 3px solid var(--border); 
@@ -117,18 +113,18 @@
         .day-card.completed .day-num { color: var(--success); }
         
         .day-num { font-family: 'Poppins', sans-serif; font-size: 26px; font-weight: 700; color: var(--border); }
-        .day-title { font-size: 19px; font-weight: 700; margin-top: 4px; color: var(--text-main); font-family: 'Gaegu', cursive; }
-        .day-status { font-size: 15px; margin-top: 8px; font-weight: 700; color: var(--text-muted); font-family: 'Gaegu', cursive; }
+        .day-title { font-size: 19px; font-weight: 700; margin-top: 4px; color: var(--text-main); }
+        .day-status { font-size: 15px; margin-top: 8px; font-weight: 700; color: var(--text-muted); }
         .day-card.completed .day-status { color: var(--success); }
 
         .selector-container { margin-bottom: 25px; display: flex; align-items: center; gap: 12px; background: var(--primary-light); padding: 15px 25px; border-radius: 20px; border: 2px solid var(--secondary); }
-        .selector-label { font-family: 'Gaegu', cursive; font-size: 22px; font-weight: 700; color: var(--secondary); }
+        .selector-label { font-size: 22px; font-weight: 700; color: var(--secondary); }
         .round-select { padding: 8px 16px; border-radius: 12px; border: 2px solid var(--secondary); font-size: 18px; font-weight: 700; color: var(--secondary); font-family: 'Gaegu', cursive; cursor: pointer; background: white; }
 
         .quiz-box { background-color: #ffffff; border-radius: 30px; padding: 35px; border: 3px solid var(--secondary); box-shadow: 8px 8px 0px var(--primary-light); }
-        .quiz-header { font-size: 24px; font-weight: 700; color: var(--text-main); margin-bottom: 25px; text-align: center; line-height: 1.4; font-family: 'Gaegu', cursive; }
+        .quiz-header { font-size: 24px; font-weight: 700; color: var(--text-main); margin-bottom: 25px; text-align: center; line-height: 1.4; }
         
-        .answer-zone { background-color: var(--bg); border: 3px dashed var(--border); min-height: 90px; border-radius: 20px; display: flex; gap: 12px; align-items: center; justify-content: center; padding: 15px; margin-bottom: 30px; }
+        .answer-zone { background-color: var(--bg); border: 3px dashed var(--border); min-height: 90px; border-radius: 20px; display: flex; gap: 12px; align-items: center; justify-content: center; padding: 15px; margin-bottom: 30px; flex-wrap: wrap; }
         .answer-zone.correct { border-color: var(--success); background-color: var(--success-bg); border-style: solid; }
         .answer-zone.wrong { border-color: var(--error); background-color: var(--error-bg); border-style: solid; }
         
@@ -139,29 +135,51 @@
         
         .placed-chip { background-color: var(--secondary); color: white; padding: 10px 18px; border-radius: 12px; font-size: 20px; font-weight: 700; font-family: 'Noto Sans KR', sans-serif; }
         
+        .quiz-controls { text-align: center; display: flex; justify-content: center; gap: 10px; }
         .btn { padding: 12px 35px; border-radius: 20px; font-size: 22px; font-weight: 700; cursor: pointer; border: 2px solid var(--secondary); font-family: 'Gaegu', cursive; transition: all 0.2s; }
         .btn-primary { background-color: var(--yellow-accent); color: white; box-shadow: 0 5px 0px var(--secondary); }
-        .btn-secondary { background-color: #ffffff; color: var(--secondary); margin-right: 12px; box-shadow: 0 4px 0px var(--secondary); }
+        .btn-secondary { background-color: #ffffff; color: var(--secondary); box-shadow: 0 4px 0px var(--secondary); }
 
         .vocab-list-item { background: #ffffff; border: 2px solid var(--border); padding: 18px; border-radius: 20px; margin-bottom: 15px; border-left: 6px solid var(--primary); box-shadow: 0 4px 0px var(--primary-light); }
-        .vocab-list-item code { font-family: 'Roboto Mono', monospace; font-size: 22px; display: block; margin-bottom: 6px; color: var(--secondary); font-weight: 700; }
-        .vocab-list-item p { font-family: 'Gaegu', cursive; font-size: 19px; margin-top: 2px; }
+        .vocab-list-item code { font-family: 'Roboto Mono', monospace; font-size: 22px; display: block; margin-bottom: 6px; color: var(--secondary); font-weight: 700; white-space: pre-wrap; word-break: break-all; }
+        .vocab-list-item p { font-size: 19px; margin-top: 2px; }
 
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(74, 62, 61, 0.5); z-index: 100; justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(2px); }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(74, 62, 61, 0.5); z-index: 100; justify-content: center; align-items: center; padding: 15px; backdrop-filter: blur(2px); }
         .modal.active { display: flex; }
-        .modal-content { background-color: white; width: 100%; max-width: 620px; border-radius: 35px; padding: 40px; position: relative; border: 4px solid var(--secondary); max-height: 90vh; overflow-y: auto; font-family: 'Gaegu', cursive; }
-        .close-modal { position: absolute; top: 22px; right: 25px; background: none; border: none; font-size: 28px; cursor: pointer; color: var(--text-muted); }
+        .modal-content { background-color: white; width: 100%; max-width: 620px; border-radius: 35px; padding: 30px; position: relative; border: 4px solid var(--secondary); max-height: 85vh; overflow-y: auto; }
+        .close-modal { position: absolute; top: 20px; right: 20px; background: none; border: none; font-size: 28px; cursor: pointer; color: var(--text-muted); }
         
-        .modal-content h2 { font-family: 'Poppins', sans-serif; color: var(--secondary); font-size: 38px; }
-        .modal-content h3 { font-size: 28px; color: var(--secondary); margin-bottom: 15px; }
-        .modal-content p { font-size: 22px; line-height: 1.5; color: var(--text-main); }
+        .modal-content h2 { font-family: 'Poppins', sans-serif; color: var(--secondary); font-size: 34px; }
+        .modal-content h3 { font-size: 26px; color: var(--secondary); margin-bottom: 12px; }
+        .modal-content p { font-size: 21px; line-height: 1.4; color: var(--text-main); }
 
-        .review-box { background: var(--bg); border: 2px dashed var(--secondary); padding: 22px; border-radius: 20px; margin-top: 15px; }
-        .review-box h4 { color: var(--secondary); margin-bottom: 12px; font-size: 24px; display: flex; align-items: center; gap: 8px; }
-        .review-line { margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px dashed var(--border); font-size: 20px; }
+        .review-box { background: var(--bg); border: 2px dashed var(--secondary); padding: 18px; border-radius: 20px; margin-top: 15px; }
+        .review-box h4 { color: var(--secondary); margin-bottom: 10px; font-size: 22px; display: flex; align-items: center; gap: 8px; }
+        .review-line { margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px dashed var(--border); font-size: 19px; }
         .review-line:last-child { border: none; }
-        .review-line code { font-family: 'Roboto Mono', monospace; color: var(--secondary); font-size: 24px; font-weight: 700; }
+        .review-line code { font-family: 'Roboto Mono', monospace; color: var(--secondary); font-size: 22px; font-weight: 700; white-space: pre-wrap; word-break: break-all; }
         .pron-text { color: var(--error); font-weight: 700; margin-left: 5px; }
+
+        /* 🔥 초정밀 모달 및 반응형 디바이스 미디어 쿼리 브레이크포인트 */
+        @media (max-width: 768px) {
+            body { padding: 15px 10px; }
+            .app-container { border-radius: 25px; }
+            .app-header { flex-direction: column; gap: 15px; text-align: center; padding: 20px; }
+            .nav-tabs { width: 100%; justify-content: center; }
+            .app-content { padding: 20px 15px; }
+            .roadmap-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .selector-container { flex-direction: column; align-items: stretch; text-align: center; gap: 10px; }
+            .quiz-box { padding: 20px 15px; }
+            .word-chip { font-size: 18px; padding: 10px 16px; }
+            .placed-chip { font-size: 18px; padding: 8px 14px; }
+            .btn { width: 100%; font-size: 20px; padding: 10px; }
+            .quiz-controls { flex-direction: column; gap: 8px; }
+        }
+        @media (max-width: 440px) {
+            .roadmap-grid { grid-template-columns: repeat(1, 1fr); }
+            .app-header h1 { font-size: 28px; }
+            .nav-btn { font-size: 17px; padding: 6px 12px; }
+        }
     </style>
 </head>
 <body>
@@ -243,7 +261,6 @@
             28: "사내 돌발 상황 통합 트레이닝 🏡", 29: "외부 바이어 최종 조건 조율 🌐", 30: "30일 완성 최종 마스터 테스트 🏆"
         };
 
-        // 완벽 정제 표현 및 발음(pron) 동적 가이드 데이터 맵
         const masterExpressions = {
             1: [
                 { js: ["おはよう", "ございます"], kr: "안녕하세요 (아침 인사)", pron: "오하요- 고자이마스" },
@@ -267,7 +284,7 @@
                 { js: ["申し訳", "ございません"], kr: "죄송합니다", pron: "모-시와케 고자이마센" }
             ],
             4: [
-                { js: ["席を", "外します"], kr: "자리를 비웁니다", pron: "세키오 하즈시마스" },
+                { js: ["席을", "外します"], js_pure: ["席を", "外します"], kr: "자리를 비웁니다", pron: "세키오 하즈시마스" },
                 { js: ["15時ごろ", "戻ります"], kr: "15시쯤 돌아옵니다", pron: "쥬-고지고로 모도리마스" },
                 { js: ["外出", "いたします"], kr: "외출하겠습니다", pron: "가이슈츠 이타시마스" },
                 { js: ["戻りました"], kr: "돌아왔습니다", pron: "모도리마시타" },
@@ -278,13 +295,13 @@
                 { js: ["お手すきの", "時に", "お願いします"], kr: "시간 나실 때 부탁드립니다", pron: "오테스키노 토키니 오네가이시마스" },
                 { js: ["助かりました"], kr: "도움이 되었습니다", pron: "타스카리마시타" },
                 { js: ["資料を", "確認して", "いただけますか"], kr: "자료를 확인해 주실 수 있나요?", pron: "시료-오 카쿠닌시테 이타다케마스카" },
-                { js: ["よろしく", "お願いします"], kr: "잘 부탁드립니다", pron: "요로shared_오네가이시마스" }
+                { js: ["よろしく", "お願いします"], kr: "잘 부탁드립니다", pron: "요로시쿠 오네가이시마스" }
             ],
             6: [
                 { js: ["今週の", "報告を", "いたします"], kr: "이번 주 보고를 드리겠습니다", pron: "콘슈-노 호-코쿠오 이타시마스" },
                 { js: ["進捗は", "順調です"], kr: "진척은 순조롭습니다", pron: "신쵸쿠와 슌쵸-데스" },
                 { js: ["予定通りに", "終わりました"], kr: "예정대로 끝났습니다", pron: "요테-도-리니 오와리마시타" },
-                { js: ["来週の", "タスク을", "共有します"], js_pure: ["来週の", "タスクを", "共有します"], kr: "다음 주 태스크를 공유하겠습니다", pron: "라이슈-노 타스쿠오 쿄-유-시마스" },
+                { js: ["来週の", "タスクを", "共有します"], kr: "다음 주 태스크를 공유하겠습니다", pron: "라이슈-노 타스쿠오 쿄-유-시마스" },
                 { js: ["良い週末を", "お過ごしください"], kr: "좋은 주말 보내세요", pron: "요이 슈-마츠오 오스고시쿠다사이" }
             ],
             7: [
@@ -303,16 +320,16 @@
             ],
             9: [
                 { js: ["緊急事態", "です"], kr: "긴급 상황입니다", pron: "긴큐-지타이데스" },
-                { js: ["サーバーが", "ダウンしました"], kr: "서버가 다운되었습니다", pron: "사-바-가 다운시마시타" },
+                { js: ["サーバー가", "ダウンしました"], js_pure: ["サーバーが", "ダウンしました"], kr: "서버가 다운되었습니다", pron: "사-바-가 다운시마시타" },
                 { js: ["エラーが", "発生しています"], kr: "오류가 발생하고 있습니다", pron: "에라-가 핫세-시테이마스" },
                 { js: ["현재", "対応中です"], js_pure: ["現在", "対応中です"], kr: "현재 대응 중입니다", pron: "겐자이 타이오-추-데스" },
-                { js: ["復旧したら", "共有します"], kr: "복구되면 공유하겠습니다", pron: "훗큐-시타ら 쿄-유-시마스" }
+                { js: ["復旧したら", "共有します"], kr: "복구되면 공유하겠습니다", pron: "훗큐-시타라 쿄-유-시마스" }
             ],
             10: [
                 { js: ["リンクを", "共有します"], kr: "링크를 공유합니다", pron: "린쿠오 쿄-유-시마스" },
                 { js: ["聞こえますか"], kr: "들리시나요?", pron: "키코에마스카" },
                 { js: ["画面を", "共有します"], kr: "화면을 공유하겠습니다", pron: "가멘오 쿄-유-시마스" },
-                { js: ["よく", "見えます"], kr: "잘 보입니다", pron: "요쿠 미에마스카" },
+                { js: ["よく", "見えます"], kr: "잘 보입니다", pron: "요쿠 미에마스" },
                 { js: ["始めましょう"], kr: "시작합시다", pron: "하지메마쇼-" }
             ],
             11: [
@@ -334,7 +351,7 @@
                 { js: ["添付ファイルを", "ご確認ください"], kr: "첨부파일을 확인해 주세요", pron: "텐푸파이루오 고카쿠닌쿠다사이" },
                 { js: ["決定事項は", "以下の通りです"], kr: "결정 사항은 다음과 같습니다", pron: "켓테-지코-와 이카노 토-리데스" },
                 { js: ["修正点が", "あれば", "教えてください"], kr: "수정할 점이 있다면 알려주세요", pron: "슈-세이텐가 아레바 오시에테쿠다사이" },
-                { js: ["各自タスク의", "確認を", "お願いします"], js_pure: ["各自タスクの", "確認を", "お願いします"], kr: "각자 태스크 확인을 부탁드립니다", pron: "각쿠지 타스쿠노 카쿠닌오 오네가이시마스" }
+                { js: ["各自タスクの", "確認を", "お願いします"], kr: "각자 태스크 확인을 부탁드립니다", pron: "각쿠지 타스쿠노 카쿠닌오 오네가이시마스" }
             ],
             14: [
                 { js: ["メモを", "取っていただけますか"], kr: "메모를 해 주시겠어요?", pron: "메모오 톳테이타다케마스카" },
@@ -347,17 +364,15 @@
                 { js: ["いつも", "お世話に", "なっております"], kr: "언제나 신세 지고 있습니다", pron: "이츠모 오세와니 나record테오리마스" },
                 { js: ["〇〇会社の", "〇〇と申します"], kr: "〇〇회사의 〇〇라고 합니다", pron: "회사이름토 모-시마스" },
                 { js: ["突然の", "ご連絡", "失礼いたします"], kr: "갑작스러운 연락 실례합니다", pron: "토츠젠노 고렌라쿠 시츠레이이타시마스" },
-                { js: ["件명의", "ご連絡", "いたしました"], js_pure: ["件명의件について", "ご連絡", "いたしました"], kr: "제목의 건에 대해 연락드렸습니다", pron: "켄메-노 켄니츠이테 고렌라쿠 이타시마시타" },
+                { js: ["件名の件について", "ご連絡", "いたしました"], kr: "제목의 건에 대해 연락드렸습니다", pron: "켄메-노 켄니츠이테 고렌라쿠 이타시마시타" },
                 { js: ["ご一読", "いただけますと", "幸いです"], kr: "한번 읽어봐 주시면 감사하겠습니다", pron: "고이치도쿠 이타다케마스토 사이와이데스" }
             ]
         };
 
-        // 데이터 오염 제거 후처리 장치
+        // 오염 데이터 교정 필터 장치
         masterExpressions[4][4].js = ["急ぎの件は", "メッセージで", "お願いします"];
-        masterExpressions[5][4].js = ["よろしく", "お願いします"];
-        masterExpressions[6][3].js = ["来週の", "タスクを", "共有します"];
+        masterExpressions[9][1].js = ["サーバーが", "ダウンしました"];
         masterExpressions[9][3].js = ["現在", "対応中です"];
-        masterExpressions[13][4].js = ["各自タスクの", "確認を", "お願いします"];
 
         for(let day=16; day<=30; day++) {
             masterExpressions[day] = [
@@ -387,6 +402,8 @@
         function initSelectors() {
             const qSelect = document.getElementById('quizDaySelect');
             const vSelect = document.getElementById('vocabDaySelect');
+            qSelect.innerHTML = '';
+            vSelect.innerHTML = '';
             for(let i=1; i<=totalDays; i++) {
                 const opt = `<option value="${i}">DAY ${String(i).padStart(2, '0')}</option>`;
                 qSelect.innerHTML += opt;
@@ -408,7 +425,6 @@
             if(tabId === 'vocab') renderVocab();
         }
 
-        // 5일씩 6주차 구조로 변환하는 정밀 대시보드 렌더러
         function renderRoadmap() {
             const container = document.getElementById('roadmapGridContainer');
             container.innerHTML = '';
@@ -417,7 +433,7 @@
             const weeks = [
                 { num: 1, title: "📅 Week 1: 사내 기본 소통 모듈", goal: "출근인사, 지시 수락 및 업무 공유 매너", start: 1, end: 5 },
                 { num: 2, title: "📅 Week 2: 주간 보고 및 사내 협업", goal: "주간 업무 보고 노하우 및 메신저/화상 회의 연동", start: 6, end: 10 },
-                { num: 3, title: "📅 Week 3: 미팅 고도화 및 메일 작성", goal: "회의 중 찬반 피칭과 외부 파트너 메일 첫인사", start: 11, end: 15 },
+                { num: 3, title: "📅 Week 3: 미팅 고도화 및 메일 작성", goal: "회의 중 찬반 피칭และ 외부 파트너 메일 첫인사", start: 11, end: 15 },
                 { num: 4, title: "📅 Week 4: 외부 파트너 실전 응대", goal: "미팅 시간 조율 매너, 전화 수신 및 명함 교환", start: 16, end: 20 },
                 { num: 5, title: "📅 Week 5: 위기 대응 및 조건 협상", goal: "일정 지연 사전 조율 및 마감 기한 조절 네고", start: 21, end: 25 },
                 { num: 6, title: "📅 Week 6: 최종 조율 및 비즈니스 마스터", goal: "미팅 변경 최종 확정 및 종합 졸업 테스트", start: 26, end: 30 }
@@ -450,7 +466,6 @@
                 }
             });
 
-            // 게이지 바 그래프 수치 변경 연동 로직
             const totalCompleted = completedList.length;
             const pct = Math.round((totalCompleted / totalDays) * 100);
             document.getElementById('progressText').innerText = `${totalCompleted}일 완수! 목표를 향해 멋지게 나아가는 중이에요! 🚀`;
@@ -504,7 +519,6 @@
 
             let pool = [...currentItem.js];
             
-            // 순수 일본어 방해 요소를 통한 선지 보정
             let sampleDay = selectedDay === 1 ? 2 : 1;
             let distractorSource = masterExpressions[sampleDay];
             if(distractorSource) {
